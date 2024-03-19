@@ -8,6 +8,7 @@
 <body>
     <?php
         echo "First commit"
+        echo "teste 2"
     ?>
 </body>
 </html>

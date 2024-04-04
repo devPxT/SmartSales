@@ -52,6 +52,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">Faturamento</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#">Administração</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -60,16 +63,19 @@
     
     <div class="container">
         <div class="row">
-            <div class="col-lg-3 col-xs-4">
+            <div class="col-lg-6 col-sm-12">
                 <div class="button">CADASTRO</div>
             </div>
-            <div class="col-lg-3 col-xs-4">
+            <div class="col-lg-6 col-sm-12">
                 <div class="button">VENDAS</div>
             </div>
-            <div class="col-lg-3 col-xs-4">
+            <div class="col-lg-6 col-sm-12">
+                <div class="button">ESTOQUE</div>
+            </div>
+            <div class="col-lg-6 col-sm-12">
                 <div class="button">FATURAMENTO</div>
             </div>
-            <div class="col-lg-3 col-xs-4">
+            <div class="col-lg-6 col-sm-12">
                 <div class="button">ADMINISTRAÇÃO</div>
             </div>
         </div>

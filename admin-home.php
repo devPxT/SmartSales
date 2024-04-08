@@ -26,7 +26,7 @@
 
     <div class="container-fluid mt-3">
         <div class="row row-cols-1 row-cols-lg-2 g-4 me-md-5 ms-md-5">
-            <div class="col">
+            <a class="col" href="admin-produto.php">
                 <div class="card">
                     <img src="icons/new-box.png" alt="NOVO PRODUTO">
                     <div class="card-body">
@@ -34,7 +34,7 @@
                         <p class="card-text">CADASTRO DE PRODUTO</p>
                     </div>
                 </div>
-            </div>
+            </a>
             <div class="col">
                 <div class="card">
                     <img src="icons/acess.png" alt="ACESSOS">

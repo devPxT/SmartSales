@@ -44,5 +44,7 @@
             </div>
         <div>
     </div>
+
+    <?php require "geral/footer.php" ?>
 </body>
 </html>

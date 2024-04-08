@@ -30,7 +30,6 @@
                 <div class="card">
                     <img src="icons/new-box.png" alt="NOVO PRODUTO">
                     <div class="card-body">
-                        <!-- <i class="bi bi-box" style="font-size: 300px;"></i> -->
                         <p class="card-text">CADASTRO DE PRODUTO</p>
                     </div>
                 </div>
@@ -45,5 +44,7 @@
             </div>
         <div>
     </div>
+
+    <?php require "geral/footer.php" ?>
 </body>
 </html>

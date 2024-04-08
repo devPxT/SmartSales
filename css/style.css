@@ -22,3 +22,12 @@
 .container-fluid .row {
     justify-content: center;
 }
+footer{
+    background-color: rgb(43, 48, 53);
+    width: 100%;
+    padding: 20px 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}

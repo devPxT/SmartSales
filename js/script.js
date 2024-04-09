@@ -1,3 +1,4 @@
-function dev() {
+function dev(event) {
+    event.preventDefault();
     alert("Em desenvolvimento!");
 }

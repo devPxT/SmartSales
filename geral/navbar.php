@@ -19,21 +19,21 @@
                             Cadastros
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#" onclick="dev();">Clientes</a></li>
-                            <li><a class="dropdown-item" href="#" onclick="dev();">Métodos de Pagamento</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="dev(event);">Clientes</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="dev(event);">Métodos de Pagamento</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="vendas" href="#" onclick="dev();">Vendas</a>
+                        <a class="nav-link" id="vendas" href="#" onclick="dev(event);">Vendas</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="estoque" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Estoque
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#" onclick="dev();">Estoque de Produtos</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="dev(event);">Estoque de Produtos</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#" onclick="dev();">Entregas</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="dev(event);">Entregas</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -41,9 +41,9 @@
                             Faturamento
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#" onclick="dev();">Registro de Faturamento</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="dev(event);">Registro de Faturamento</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#" onclick="dev();">Recalcular Faturamento</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="dev(event);">Recalcular Faturamento</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -51,10 +51,10 @@
                             Administração
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Categorias</a></li>
-                            <li><a class="dropdown-item" href="#">Produtos</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="dev(event);">Categorias</a></li>
+                            <li><a class="dropdown-item" href="admin-lst-produto.php">Produtos</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#" onclick="dev();">Acessos</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="dev(event);">Acessos</a></li>
                         </ul>
                     </li>
                 </ul>

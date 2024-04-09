@@ -15,6 +15,11 @@
     font-weight: 900;
     font-size: 30px;
 }
+
+.container-fluid.home {
+    flex: 1;
+    margin-bottom: 1rem;
+}
 .container-fluid.home .row .button-container {
     display: flex;
     justify-content: center;
@@ -23,11 +28,10 @@
     justify-content: center;
 }
 footer {
+    margin-top: auto;
     background-color: rgb(43, 48, 53);
     width: 100% !important;
-    position: fixed;
-    bottom: 0;
-    left: 0;
+
 }
 
 .title-text {
@@ -36,5 +40,8 @@ footer {
 }
 
 body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     background-color: #b6c9cf;
 }

@@ -11,6 +11,14 @@
     <link rel="stylesheet" href="css/customize.css">
 </head>
 <body id="admin">
+    <style>
+        #admin .container-fluid .row .btn {
+            width: 100%
+        }
+        #admin .container-fluid .row {
+            justify-content: normal;
+        }
+    </style>
     
     <?php require "geral/navbar.php" ?>
 
@@ -27,18 +35,23 @@
             
 
             <div class="container-fluid mt-3">
-                <form class="row g-3" style="justify-content: normal">
-                    <div class="col-auto">
-                        <button type="button" class="btn btn-success" onclick="window.location.href='admin-cad-produto.php'">Novo</button>
+                <div class="row">
+                    <div class="col-lg-2 col-sm-2 col-3">
+                        <button type="button" class="btn btn-success mb-3" onclick="window.location.href='admin-cad-produto.php'">Novo</button>
                     </div>
-                    <div class="col-4">
-                        <label for="inputPesquisa" class="visually-hidden">Pesquisar</label>
-                        <input type="text" class="form-control" id="inputPesquisa" placeholder="Busca...">
+                    <div class="col-lg-6 col-sm-7 col-9">
+                        <form action="" method="post">
+                            <label for="inputPesquisa" class="visually-hidden">Pesquisar</label>
+                            <input type="text" name="nomeProduto" class="form-control mb-3" id="inputPesquisa" placeholder="Busca...">
+                        </form>
                     </div>
-                    <div class="col-auto">
+                    <div class="col-lg-2 col-sm-3 col-12">
                         <button type="submit" class="btn btn-success mb-3">Pesquisar</button>
                     </div>
-                </form>
+                    <div class="col-lg-2 col-sm-2 col-12">
+                        <button type="button" class="btn btn-primary mb-3">Voltar</button>
+                    </div>
+                </div>
             </div>
 
             <div class="container-fuid mt-3 ms-lg-3 me-lg-3">

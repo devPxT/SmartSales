@@ -24,7 +24,7 @@
     display: flex;
     justify-content: center;
 }
-.container-fluid.home .row {
+#home .container-fluid.home .row {
     justify-content: center;
 }
 footer {

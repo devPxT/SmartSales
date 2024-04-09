@@ -10,7 +10,7 @@
 <body id="home">
     <?php require "geral/navbar.php" ?>
     
-    <div class="container-fluid mt-3">
+    <div class="container-fluid mt-3 home">
         <div class="row">
             <a class="col-lg-4 col-md-5 col-sm-6 col-xs-12 button-container mb-4" href="#">
                 <div class="card" style="width: 18rem;">

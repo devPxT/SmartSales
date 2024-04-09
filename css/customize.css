@@ -1,0 +1,17 @@
+.w3-theme {
+    color: #ffff !important;
+    background-color: rgb(43, 48, 53) !important;
+}
+
+.w3-code {
+    border-left: 4px solid rgb(43, 48, 53);;
+}
+
+.w3-text-IE {
+    color: rgb(43, 48, 53) !important;
+}
+
+.w3-input-radio{
+    color:#929693 ;
+    padding-left: 10px;
+}

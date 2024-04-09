@@ -11,20 +11,30 @@
     padding: 0px;
 }
 .card-body .card-text {
+    /* font-family: "Bungee Spice", sans-serif; */
     font-weight: 900;
     font-size: 30px;
 }
-.container-fluid .row .button-container {
+.container-fluid.home .row .button-container {
     display: flex;
     justify-content: center;
 }
-.container-fluid .row {
+.container-fluid.home .row {
     justify-content: center;
 }
-footer{
+footer {
     background-color: rgb(43, 48, 53);
-    width: 100%;
+    width: 100% !important;
     position: fixed;
-    /* position: absolute; */
     bottom: 0;
+    left: 0;
+}
+
+.title-text {
+    font-weight: 900;
+    font-size: 40px;
+}
+
+body {
+    background-color: #b6c9cf;
 }

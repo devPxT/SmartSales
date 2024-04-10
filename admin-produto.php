@@ -26,7 +26,7 @@
 
     <div class="container-fluid mt-3 home">
         <div class="row row-cols-1 row-cols-lg-2 g-4 me-md-5 ms-md-5">
-            <a class="col">
+            <a class="col" href="admin-lst-categoria.php">
                 <div class="card">
                     <div class="card-body">
                         <i class="bi bi-grid" style="font-size: 300px;"></i>

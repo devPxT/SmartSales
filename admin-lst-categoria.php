@@ -29,7 +29,7 @@
 
             <div class="container-fluid">
                 <div class="title-text">
-                    PRODUTOS
+                    CATEGORIA
                 </div>
             </div>
             
@@ -37,7 +37,7 @@
             <div class="container-fluid mt-3">
                 <div class="row">
                     <div class="col-lg-2 col-sm-2 col-3">
-                        <button type="button" class="btn btn-success mb-3" onclick="window.location.href='admin-cad-produto.php'">Novo</button>
+                        <button type="button" class="btn btn-success mb-3" onclick="window.location.href='admin-cad-categoria.php'">Novo</button>
                     </div>
                     <div class="col-lg-6 col-sm-7 col-9">
                         <form action="" method="post">
@@ -71,7 +71,7 @@
                             echo "</p> "
                         ?>
                         <div class="w3-container w3-theme">
-                        <h2>Listagem de Produtos</h2>
+                        <h2>Listagem de Categorias</h2>
                         </div>
 
                         <!-- Acesso ao BD-->
@@ -87,50 +87,50 @@
 
 
                             // Faz Select na Base de Dados
-                            $sql = "SELECT t1.id, t1.nome, t1.marca, t1.valor, t1.data, t2.nome AS categoria, t1.genero FROM produto t1 JOIN categoria t2 ON t1.categoria_id = t2.id";
+                            $sql = "SELECT id, nome, data_cad, data_updt FROM categoria;";
                             echo "<div class='w3-responsive w3-card-4'>";
                             if ($result = $conn->query($sql)) {
                                 echo "<table class='w3-table-all'>";
                                 echo "	<tr>";
                                 echo "	  <th>Código</th>";
-                                echo "	  <th>Nome</th>";
-                                echo "	  <th>Marca</th>";
-                                echo "	  <th>Valor</th>";
-                                echo "	  <th>Data Cad.</th>";
                                 echo "	  <th>Categoria</th>";
-                                echo "	  <th>Genêro</th>";
+                                echo "	  <th>Data Cadastrada</th>";
+                                echo "	  <th>Data Atualizada</th>";
                                 echo "	  <th> </th>";
                                 echo "	  <th> </th>";
                                 echo "	</tr>";
                                 if ($result->num_rows > 0) {
                                     // Apresenta cada linha da tabela
                                     while ($row = $result->fetch_assoc() ) {
-                                        $dataN = explode('-', $row["data"]);
-                                        $ano = $dataN[0];
-                                        $mes = $dataN[1];
-                                        $dia = $dataN[2];
+                                        $dataN = explode('-', $row["data_cad"]);
+                                        $ano_cad = $dataN[0];
+                                        $mes_cad = $dataN[1];
+                                        $dia_cad = $dataN[2];
                                         $cod = $row["id"];
-                                        $nova_data = $dia . '/' . $mes . '/' . $ano;
+                                        $nova_data_cad = $dia_cad . '/' . $mes_cad . '/' . $ano_cad;
+
+                                        $nova_data_updt = '';
+                                        if ($row["data_updt"] != null) {
+                                            $dataM = explode('-', $row["data_updt"]);
+                                            $ano_updt = $dataN[0];
+                                            $mes_updt = $dataN[1];
+                                            $dia_updt = $dataN[2];
+                                            $nova_data_updt = $dia_updt . '/' . $mes_updt . '/' . $ano_updt;
+                                        }
                                         echo "<tr>";
                                         echo "<td>";
                                         echo $cod;
                                         echo "</td><td>";
                                         echo $row["nome"];
                                         echo "</td><td>";
-                                        echo $row["marca"];
+                                        echo $nova_data_cad;
                                         echo "</td><td>";
-                                        echo $row["valor"];
-                                        echo "</td><td>";
-                                        echo $nova_data;
-                                        echo "</td><td>";
-                                        echo $row["categoria"];
-                                        echo "</td><td>";
-                                        echo $row["genero"];
+                                        echo $nova_data_updt;
                                         echo "</td><td>";
                         ?>                      
-                                        <a href='admin-updt-produto.php?id=<?php echo $cod; ?>'><img src='icons/Edit.png' title='Editar Produto' width='32'></a>
+                                        <a href='admin-updt-produto.php?id=<?php echo $cod; ?>'><img src='icons/Edit.png' title='Editar Categoria' width='32'></a>
                                         </td><td>
-                                        <a href='admin-updt-produto.php?id=<?php echo $cod; ?>'><img src='icons/Delete.png' title='Excluir Produto' width='32'></a>
+                                        <a href='admin-updt-produto.php?id=<?php echo $cod; ?>'><img src='icons/Delete.png' title='Excluir Categoria' width='32'></a>
                                         </td>
                                         </tr>
                         <?php

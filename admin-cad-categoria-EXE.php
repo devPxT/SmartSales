@@ -33,14 +33,8 @@
 
             <!-- Acesso ao BD-->
             <?php
-                $nome    = $_POST['Nome'];
-                $marca    = $_POST['Marca'];
-                $valor = $_POST['Valor'];
-                $genero = $_POST['Genero'];
-                $dt  = $_POST['Data'];
-                
-                $categoria  = $_POST['Categoria'];
-                
+                $nome = $_POST['Nome'];
+
                 // Cria conexão
                 $conn = new mysqli($servername, $username, $password, $database);
 
@@ -50,12 +44,12 @@
                 }
 
                 // Faz Insert na Base de Dados
-                $sql = "INSERT INTO produto (nome, marca, valor, genero, data, categoria_id) VALUES ('$nome','$marca', $valor, '$genero', '$dt', $categoria)";
+                $sql = "INSERT INTO categoria (nome, data_cad) VALUES ('$nome', now())";
 
                 ?>
                 <div class='w3-responsive w3-card-4'>
                 <div class="w3-container w3-theme">
-                <h2>Inclusão de Novo Produto</h2>
+                    <h2>Inclusão de Nova Categoria</h2>
                 </div>
                 <?php
                 if ($result = $conn->query($sql)) {

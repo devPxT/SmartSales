@@ -66,7 +66,11 @@
                         <form class="w3-container" action="admin-cad-produto-EXE.php" method="post" enctype="multipart/form-data">
                         <table class='w3-table-all'>
                         <tr>
-                            <td style="width:50%;">
+                            <td>
+                            <p>
+                                <label class="w3-text-IE"><b>Código do Produto</b>*</label>
+                                <input class="w3-input w3-border w3-light-grey" name="Codigo" type="number" min="1" step="1"
+                                    title="Código do produto." required></p>
                             <p>
                                 <label class="w3-text-IE"><b>Nome</b>*</label>
                                 <input class="w3-input w3-border w3-light-grey" name="Nome" type="text" pattern="[a-zA-Z\u00C0-\u00FF ]{5,100}$"
@@ -78,9 +82,9 @@
                             <p>
                                 <label class="w3-text-IE"><b>Valor</b>*</label>
                                 <input class="w3-input w3-border w3-light-grey" name="Valor" type="number" min="0" step="0.01"
-                                    title="Valor numérico." required></p>
+                                    title="Valor em reais do produto." required></p>
                             <p>
-                                <label class="w3-text-IE"><b>Data</b></label>
+                                <label class="w3-text-IE"><b>Data de Cadastro</b>*</label>
                                 <input class="w3-input w3-border w3-light-grey" name="Data" type="date"
                                     placeholder="dd/mm/aaaa" title="dd/mm/aaaa" max="<?= date('Y-m-d'); ?>" required></p>
                             <p>

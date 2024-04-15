@@ -40,7 +40,7 @@
                         <button type="button" class="btn btn-success mb-3" onclick="window.location.href='admin-cad-produto.php'">Novo</button>
                     </div>
                     <div class="col-lg-6 col-sm-7 col-9">
-                        <form action="" method="post">
+                        <form action="admin-lst-produto.php" method="post">
                             <label for="inputPesquisa" class="visually-hidden">Pesquisar</label>
                             <input type="text" name="nomeProduto" class="form-control mb-3" id="inputPesquisa" placeholder="Busca...">
                         </form>
@@ -87,6 +87,13 @@
 
 
                             // Faz Select na Base de Dados
+
+                            //PESQUISAR TEST
+                            // $nomeProduto = $_POST['nomeProduto'];
+                            // if isset($nomeProduto) {
+
+                            // }
+
                             $sql = "SELECT t1.id, t1.nome, t1.marca, t1.valor, t1.data, t2.nome AS categoria, t1.genero FROM produto t1 JOIN categoria t2 ON t1.categoria_id = t2.id";
                             echo "<div class='w3-responsive w3-card-4'>";
                             if ($result = $conn->query($sql)) {

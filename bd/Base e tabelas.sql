@@ -3,6 +3,7 @@
 CREATE DATABASE SMARTSALES;
 USE SMARTSALES;
 --add DataCadastrada DATE
+--add DataAtualizada DATE
 --add fk_Marca_Cod_Marca INT -> FK
 CREATE TABLE Produto (
     Marca VARCHAR(50),

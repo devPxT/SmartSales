@@ -51,7 +51,7 @@
                             Administração
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#" onclick="dev(event);">Categorias</a></li>
+                            <li><a class="dropdown-item" href="admin-lst-categoria.php" >Categorias</a></li>
                             <li><a class="dropdown-item" href="admin-lst-produto.php">Produtos</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#" onclick="dev(event);">Acessos</a></li>

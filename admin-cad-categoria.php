@@ -24,7 +24,7 @@
     
     <?php require 'bd/connection.php'; ?>
 
-    <div class="w3-main w3-container" >
+    <div class="w3-main w3-container" style="flex: 1;">
 
         <div class="w3-panel w3-padding-large w3-card-4 w3-light-grey">
             <!-- h1 class="w3-xxlarge">Contratação de Professor</h1 -->

@@ -137,7 +137,7 @@
                         ?>                      
                                         <a href='admin-updt-produto.php?id=<?php echo $cod; ?>'><img src='icons/Edit.png' title='Editar Produto' width='32'></a>
                                         </td><td>
-                                        <a href='admin-updt-produto.php?id=<?php echo $cod; ?>'><img src='icons/Delete.png' title='Excluir Produto' width='32'></a>
+                                        <a href='admin-del-produto.php?id=<?php echo $cod; ?>'><img src='icons/Delete.png' title='Excluir Produto' width='32'></a>
                                         </td>
                                         </tr>
                         <?php

@@ -29,7 +29,7 @@
 
             <div class="container-fluid">
                 <div class="title-text">
-                    CATEGORIA
+                    CATEGORIAS
                 </div>
             </div>
             
@@ -94,8 +94,8 @@
                                 echo "	<tr>";
                                 echo "	  <th>Código</th>";
                                 echo "	  <th>Categoria</th>";
-                                echo "	  <th>Data Cadastrada</th>";
-                                echo "	  <th>Data Atualizada</th>";
+                                echo "	  <th>Data de Cadastro</th>";
+                                echo "	  <th>Data de Atualização</th>";
                                 echo "	  <th> </th>";
                                 echo "	  <th> </th>";
                                 echo "	</tr>";
@@ -128,9 +128,9 @@
                                         echo $nova_data_updt;
                                         echo "</td><td>";
                         ?>                      
-                                        <a href='admin-updt-produto.php?id=<?php echo $cod; ?>'><img src='icons/Edit.png' title='Editar Categoria' width='32'></a>
+                                        <a href='#' onclick="dev()"><img src='icons/Edit.png' title='Editar Categoria' width='32'></a>
                                         </td><td>
-                                        <a href='admin-updt-produto.php?id=<?php echo $cod; ?>'><img src='icons/Delete.png' title='Excluir Categoria' width='32'></a>
+                                        <a href='admin-del-categoria.php?id=<?php echo $cod; ?>'><img src='icons/Delete.png' title='Excluir Categoria' width='32'></a>
                                         </td>
                                         </tr>
                         <?php

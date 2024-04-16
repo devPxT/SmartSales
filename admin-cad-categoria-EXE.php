@@ -15,7 +15,7 @@
     <?php require 'geral/navbar.php';?>
     <?php require 'bd/connection.php'; ?>
 
-    <div class="w3-main w3-container">
+    <div class="w3-main w3-container" style="flex: 1;">
 
         <div class="w3-panel w3-padding-large w3-card-4 w3-light-grey">
         <p class="w3-large">
@@ -54,13 +54,18 @@
                 <?php
                 if ($result = $conn->query($sql)) {
                     echo "<p>&nbsp;Registro cadastrado com sucesso! </p>";
+                    echo "</div>";
                 } else {
                     echo "<p>&nbsp;Erro executando INSERT: " .  $conn->connect_error . "</p>";
+                    echo "</div>";
                 }
                 echo "</div>";
                 $conn->close();  //Encerra conexao com o BD
 
             ?>
+        </div>
+        <div class="col-lg-1 col-sm-2 col-12">
+            <button type="button" class="btn btn-primary mb-3" onclick="window.location.href='admin-lst-categoria.php'" style="width: 100%">Voltar</button>
         </div>
     </div>
 

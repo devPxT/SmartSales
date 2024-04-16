@@ -90,6 +90,11 @@
 
             ?>
         </div>
+
+        <div class="col-lg-1 col-sm-2 col-12">
+            <button type="button" class="btn btn-primary mb-3" onclick="window.location.href='admin-lst-produto.php'" style="width: 100%">Voltar</button>
+        </div>
+        
     </div>
 
     <?php require "geral/footer.php" ?>

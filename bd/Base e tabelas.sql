@@ -2,6 +2,8 @@
 /* Lógico_1: */
 CREATE DATABASE SMARTSALES;
 USE SMARTSALES;
+--add DataCadastrada DATE
+--add fk_Marca_Cod_Marca INT -> FK
 CREATE TABLE Produto (
     Marca VARCHAR(50),
     Modelo VARCHAR(100),
@@ -10,6 +12,7 @@ CREATE TABLE Produto (
     fk_Categoria_Cod_Categoria INT
 );
 
+--add Genero VARCHAR(50)
 CREATE TABLE Estoque (
     Cor VARCHAR(50),
     Tamanho VARCHAR(50),
@@ -17,6 +20,12 @@ CREATE TABLE Estoque (
     CodProdutoEstoque INT PRIMARY KEY,
     fk_Produto_CodProduto INT
 );
+
+--add CREATE TABLE Marca
+--add CodMarca INT PRIMARY KEY AUTO INCREMENT
+--add Nome VARCHAR(50)
+--add DataCadastrada DATE
+--add DataAtualizada DATE
 
 CREATE TABLE Cliente (
     Nome VARCHAR(100),
@@ -42,6 +51,8 @@ CREATE TABLE Funcionario (
     Cargo VARCHAR(50)
 );
 
+--add DataCadastrada DATE
+--add DataAtualizada DATE
 CREATE TABLE Categoria (
     Cod_Categoria INT PRIMARY KEY,
     Categoria VARCHAR(50)

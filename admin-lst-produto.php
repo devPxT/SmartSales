@@ -35,26 +35,25 @@
             
 
             <div class="container-fluid mt-3">
-            <form action="admin-lst-produto.php" method="post">
-                <div class="row">
-                
-                    <div class="col-lg-2 col-sm-2 col-3">
-                        <button type="button" class="btn btn-success mb-3" onclick="window.location.href='admin-cad-produto.php'">Novo</button>
+                <form action="admin-lst-produto.php" method="post">
+                    <div class="row">
+                        <div class="col-lg-2 col-sm-2 col-3">
+                            <button type="button" class="btn btn-success mb-3" onclick="window.location.href='admin-cad-produto.php'">Novo</button>
+                        </div>
+                        <div class="col-lg-6 col-sm-7 col-9">
+                            
+                                <label for="inputPesquisa" class="visually-hidden">Pesquisar</label>
+                                <input type="text" name="nomeProduto" class="form-control mb-3" id="inputPesquisa" placeholder="Busca...">
+                        </div>
+                        <div class="col-lg-2 col-sm-3 col-12">
+                            <button type="submit" class="btn btn-success mb-3"
+                            value="<?php echo isset($_POST['nomeProduto']) ? $_POST['nomeProduto'] : ''; ?>">
+                            Pesquisar</button>
+                        </div>
+                        <div class="col-lg-2 col-sm-2 col-12">
+                            <button type="button" class="btn btn-primary mb-3" onclick="window.location.href='admin-produto.php'">Voltar</button>
+                        </div>
                     </div>
-                    <div class="col-lg-6 col-sm-7 col-9">
-                        
-                            <label for="inputPesquisa" class="visually-hidden">Pesquisar</label>
-                            <input type="text" name="nomeProduto" class="form-control mb-3" id="inputPesquisa" placeholder="Busca...">
-                        
-                    </div>
-                    <div class="col-lg-2 col-sm-3 col-12">
-                        <button type="submit" class="btn btn-success mb-3">Pesquisar</button>
-                    </div>
-                    <div class="col-lg-2 col-sm-2 col-12">
-                        <button type="button" class="btn btn-primary mb-3" onclick="window.location.href='admin-produto.php'">Voltar</button>
-                    </div>
-                    
-                </div>
                 </form>
             </div>
 
@@ -88,8 +87,6 @@
                             if ($conn->connect_error) {
                                 die("<strong> Falha de conexão: </strong>" . $conn->connect_error);
                             }
-                            
-                            //PESQUISAR
                             if (isset($_POST['nomeProduto'])) {
                                 $nomeProduto = $_POST['nomeProduto'];
                             }

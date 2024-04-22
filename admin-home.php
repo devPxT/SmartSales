@@ -34,14 +34,14 @@
                     </div>
                 </div>
             </a>
-            <div class="col">
+            <a class="col" href="admin-lst-funcionario.php">
                 <div class="card">
                     <img src="icons/acess.png" alt="ACESSOS">
                     <div class="card-body">
                         <p class="card-text">ACESSOS</p>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
     </div>
 

@@ -33,15 +33,16 @@
 
             <!-- Acesso ao BD-->
             <?php
-                $codigo = $_POST['Codigo'];
+                $cpf = $_POST['CPF'];
 
                 $nome    = $_POST['Nome'];
-                $marca    = $_POST['Marca'];
-                $valor = $_POST['Valor'];
-                $genero = $_POST['Genero'];
-                $dt  = $_POST['Data'];
-                
-                $categoria  = $_POST['Categoria'];
+                $data    = $_POST['Data'];
+                $cargo = $_POST['Cargo'];
+
+                $login = $_POST['Login'];
+                $senha  = $_POST['Senha'];
+
+                $md5Senha = md5($senha);
                 
                 // Cria conexão
                 $conn = new mysqli($servername, $username, $password, $database);
@@ -54,27 +55,27 @@
 
                 <div class='w3-responsive w3-card-4'>
                 <div class="w3-container w3-theme">
-                <h2>Inclusão de Novo Produto</h2>
+                <h2>Inclusão de Novo Funcionário</h2>
                 </div>
 
                 <?php
-                $sql = "SELECT id FROM produto WHERE id = $codigo";
+                $sql = "SELECT id FROM funcionario WHERE cpf = $cpf";
 
                 //verifica se deu erro ou não no comando do sql
                 if ($result = $conn->query($sql)) {
 
-                    //verifica se o select tem mais alguma linha, se tiver linha significa que produto ja existe
+                    //verifica se o select tem mais alguma linha, se tiver linha significa que funcionario ja existe
                     if ($result -> num_rows > 0) {
-                        echo "<p>&nbsp;Erro cadastrando produto. Código de produto já existente! </p>";
+                        echo "<p>&nbsp;Erro cadastrando funcionario. CPF já existente! </p>";
                         echo "</div>";
                         echo "</div>";
 
                     } else {
-                        $sql2 = "INSERT INTO produto (id, nome, marca, valor, genero, data, categoria_id) VALUES ($codigo, '$nome','$marca', $valor, '$genero', '$dt', $categoria)";
+                        $sql2 = "INSERT INTO funcionario (nome, dt_nasc, cpf, login, senha, cargo_id) VALUES ('$nome','$data', $cpf, '$login', '$md5Senha', $cargo)";
 
-                        //verifica se deu erro no insert de produto
+                        //verifica se deu erro no insert do funcionario
                         if ($result2 = $conn->query($sql2)) {
-                            echo "<p>&nbsp;Registro cadastrado com sucesso! </p>";
+                            echo "<p>&nbsp;Funcionário cadastrado com sucesso! </p>";
                             echo "</div>";
                         } else {
                             echo "<p>&nbsp;Erro executando INSERT: " .  $conn->connect_error . "</p>";
@@ -85,14 +86,14 @@
                     }
 
                 } else{
-                    echo "<p style='text-align:center'>Erro selecionando ID do produto: " . $conn-> error . "</p>";
+                    echo "<p style='text-align:center'>Erro selecionando ID do funcioario: " . $conn-> error . "</p>";
                 }
 
             ?>
         </div>
 
         <div class="col-lg-1 col-sm-2 col-12">
-            <button type="button" class="btn btn-primary mb-3" onclick="window.location.href='admin-lst-produto.php'" style="width: 100%">Voltar</button>
+            <button type="button" class="btn btn-primary mb-3" onclick="window.location.href='admin-lst-funcionario.php'" style="width: 100%">Voltar</button>
         </div>
         
     </div>

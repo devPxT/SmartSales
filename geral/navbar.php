@@ -54,7 +54,7 @@
                             <li><a class="dropdown-item" href="admin-lst-categoria.php" >Categorias</a></li>
                             <li><a class="dropdown-item" href="admin-lst-produto.php">Produtos</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#" onclick="dev(event);">Acessos</a></li>
+                            <li><a class="dropdown-item" href="admin-lst-funcionario.php">Acessos</a></li>
                         </ul>
                     </li>
                 </ul>

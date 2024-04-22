@@ -29,28 +29,28 @@
 
             <div class="container-fluid">
                 <div class="title-text">
-                    PRODUTOS
+                    FUNCIONÁRIOS
                 </div>
             </div>
             
 
             <div class="container-fluid mt-3">
-                <form action="admin-lst-produto.php" method="post">
+                <form action="admin-lst-funcionario.php" method="post">
                     <div class="row">
                         <div class="col-lg-2 col-sm-2 col-3">
-                            <button type="button" class="btn btn-success mb-3" onclick="window.location.href='admin-cad-produto.php'">Novo</button>
+                            <button type="button" class="btn btn-success mb-3" onclick="window.location.href='admin-cad-funcionario.php'">Novo</button>
                         </div>
                         <div class="col-lg-6 col-sm-7 col-9">
                             
                                 <label for="inputPesquisa" class="visually-hidden">Pesquisar</label>
-                                <input type="text" name="nomeProduto" class="form-control mb-3" id="inputPesquisa" placeholder="Nome do Produto..."
-                                value="<?php echo isset($_POST['nomeProduto']) ? $_POST['nomeProduto'] : ''; ?>">
+                                <input type="text" name="nomeFuncionario" class="form-control mb-3" id="inputPesquisa" placeholder="Nome do Funcionario..."
+                                value="<?php echo isset($_POST['nomeFuncionario']) ? $_POST['nomeFuncionario'] : ''; ?>">
                         </div>
                         <div class="col-lg-2 col-sm-3 col-12">
                             <button type="submit" class="btn btn-success mb-3">Pesquisar</button>
                         </div>
                         <div class="col-lg-2 col-sm-2 col-12">
-                            <button type="button" class="btn btn-primary mb-3" onclick="window.location.href='admin-produto.php'">Voltar</button>
+                            <button type="button" class="btn btn-primary mb-3" onclick="window.location.href='admin-home.php'">Voltar</button>
                         </div>
                     </div>
                 </form>
@@ -64,7 +64,6 @@
                     <div class="w3-code cssHigh notranslate">
                         <!-- Acesso em:-->
                         <?php
-
                             date_default_timezone_set("America/Sao_Paulo");
                             $data = date("d/m/Y H:i:s", time());
                             echo "<p class='w3-small' > ";
@@ -73,7 +72,7 @@
                             echo "</p> "
                         ?>
                         <div class="w3-container w3-theme">
-                        <h2>Listagem de Produtos</h2>
+                        <h2>Listagem de Funcionários</h2>
                         </div>
 
                         <!-- Acesso ao BD-->
@@ -86,13 +85,13 @@
                             if ($conn->connect_error) {
                                 die("<strong> Falha de conexão: </strong>" . $conn->connect_error);
                             }
-                            if (isset($_POST['nomeProduto'])) {
-                                $nomeProduto = $_POST['nomeProduto'];
+                            if (isset($_POST['nomeFuncionario'])) {
+                                $nomeFuncionario = $_POST['nomeFuncionario'];
                             }
 
-                            $sql = "SELECT t1.id, t1.nome, t1.marca, t1.valor, t1.data, t2.nome AS categoria, t1.genero FROM produto t1 JOIN categoria t2 ON t1.categoria_id = t2.id";
-                            if (isset($nomeProduto)) {
-                                $sql = $sql . " WHERE t1.nome LIKE '$nomeProduto%'";
+                            $sql = "SELECT t1.id, t1.nome, t1.dt_nasc, t1.cpf, t1.login, t1.senha, t2.nome AS cargo FROM funcionario t1 JOIN cargo t2 ON t1.cargo_id = t2.id WHERE t1.cargo_id <> 1";
+                            if (isset($_POST['nomeFuncionario'])) {
+                                $sql = $sql . " AND t1.nome LIKE '$nomeFuncionario%'";
                             }
 
                             echo "<div class='w3-responsive w3-card-4'>";
@@ -101,43 +100,53 @@
                                 echo "	<tr>";
                                 echo "	  <th>Código</th>";
                                 echo "	  <th>Nome</th>";
-                                echo "	  <th>Marca</th>";
-                                echo "	  <th>Valor</th>";
-                                echo "	  <th>Data Cad.</th>";
-                                echo "	  <th>Categoria</th>";
-                                echo "	  <th>Genêro</th>";
+                                echo "	  <th>Dt Nascimento</th>";
+                                echo "	  <th>Idade</th>"; 
+                                echo "	  <th>CPF</th>";
+                                echo "	  <th>Login</th>";
+                                echo "	  <th>Senha</th>";
+                                echo "	  <th>Cargo</th>";
                                 echo "	  <th> </th>";
                                 echo "	  <th> </th>";
                                 echo "	</tr>";
                                 if ($result->num_rows > 0) {
-                                    // Apresenta cada linha da tabela
                                     while ($row = $result->fetch_assoc() ) {
-                                        $dataN = explode('-', $row["data"]);
-                                        $ano = $dataN[0];
-                                        $mes = $dataN[1];
-                                        $dia = $dataN[2];
-                                        $cod = $row["id"];
+                                        $data = $row['dt_nasc'];
+                                        list($ano, $mes, $dia) = explode('-', $data);
                                         $nova_data = $dia . '/' . $mes . '/' . $ano;
+                                        $hoje = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+                                        $nascimento = mktime(0, 0, 0, $mes, $dia, $ano);
+                                        $idade = floor((((($hoje - $nascimento) / 60) / 60) / 24) / 365.25);
+
+                                        $dataN = explode('-', $row["dt_nasc"]);
+                                        $anoN = $dataN[0];
+                                        $mesN = $dataN[1];
+                                        $diaN = $dataN[2];
+                                        $dt_nasc = $diaN . '/' . $mesN . '/' . $anoN;
+
+                                        $cod = $row["id"];
                                         echo "<tr>";
                                         echo "<td>";
                                         echo $cod;
                                         echo "</td><td>";
                                         echo $row["nome"];
                                         echo "</td><td>";
-                                        echo $row["marca"];
+                                        echo $dt_nasc;
                                         echo "</td><td>";
-                                        echo $row["valor"];
+                                        echo $idade;
                                         echo "</td><td>";
-                                        echo $nova_data;
+                                        echo $row["cpf"];
                                         echo "</td><td>";
-                                        echo $row["categoria"];
+                                        echo $row["login"];
                                         echo "</td><td>";
-                                        echo $row["genero"];
+                                        echo $row["senha"];
+                                        echo "</td><td>";
+                                        echo $row["cargo"];
                                         echo "</td><td>";
                         ?>                      
-                                        <a href='admin-updt-produto.php?id=<?php echo $cod; ?>'><img src='icons/Edit.png' title='Editar Produto' width='32'></a>
+                                        <a href='admin-updt-funcionario.php?id=<?php echo $cod; ?>'><img src='icons/Edit.png' title='Editar Funcionário' width='32'></a>
                                         </td><td>
-                                        <a href='admin-del-produto.php?id=<?php echo $cod; ?>'><img src='icons/Delete.png' title='Excluir Produto' width='32'></a>
+                                        <a href='admin-del-funcionario.php?id=<?php echo $cod; ?>'><img src='icons/Delete.png' title='Excluir Funcionário' width='32'></a>
                                         </td>
                                         </tr>
                         <?php

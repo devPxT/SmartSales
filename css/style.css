@@ -45,3 +45,63 @@ body {
     min-height: 100vh;
     background-color: #b6c9cf;
 }
+
+div#login .card{
+    width: 400px;
+    border:none;
+}
+  
+
+div#login .btl{
+    border-top-left-radius: 5px !important;
+    border-top-right-radius: 5px !important;
+}
+
+div#login .btn-dark {
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+div#login .btn-dark:hover {
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+
+div#login .nav-pills{
+    display:table !important;
+    width:100%;
+}
+
+div#login .nav-pills .nav-link {
+    border-radius: 0px;
+    border-bottom: 1px solid #0d6efd40;
+}
+
+div#login .nav-item{
+    display: table-cell;
+    background: #0d6efd2e;
+}
+
+div#login .form{
+    padding: 10px;
+    height: 300px;
+}
+
+div#login .form input{
+    margin-bottom: 12px;
+    border-radius: 3px;
+}
+
+
+div#login .form input:focus{
+    box-shadow: none;
+}
+
+
+div#login .form button{
+    margin-top: 20px;
+    width: 100;
+}

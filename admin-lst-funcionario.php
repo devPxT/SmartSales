@@ -89,7 +89,7 @@
                                 $nomeFuncionario = $_POST['nomeFuncionario'];
                             }
 
-                            $sql = "SELECT t1.id, t1.nome, t1.dt_nasc, t1.cpf, t1.login, t1.senha, t2.nome AS cargo FROM funcionario t1 JOIN cargo t2 ON t1.cargo_id = t2.id WHERE t1.cargo_id <> 1";
+                            $sql = "SELECT t1.id, t1.nome, t1.dt_nasc, t1.cpf, t1.login, t2.nome AS cargo FROM funcionario t1 JOIN cargo t2 ON t1.cargo_id = t2.id WHERE t1.cargo_id <> 1";
                             if (isset($_POST['nomeFuncionario'])) {
                                 $sql = $sql . " AND t1.nome LIKE '$nomeFuncionario%'";
                             }
@@ -104,7 +104,6 @@
                                 echo "	  <th>Idade</th>"; 
                                 echo "	  <th>CPF</th>";
                                 echo "	  <th>Login</th>";
-                                echo "	  <th>Senha</th>";
                                 echo "	  <th>Cargo</th>";
                                 echo "	  <th> </th>";
                                 echo "	  <th> </th>";
@@ -138,8 +137,6 @@
                                         echo $row["cpf"];
                                         echo "</td><td>";
                                         echo $row["login"];
-                                        echo "</td><td>";
-                                        echo $row["senha"];
                                         echo "</td><td>";
                                         echo $row["cargo"];
                                         echo "</td><td>";

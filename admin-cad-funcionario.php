@@ -81,9 +81,12 @@
                                     
                             <p>
                                 <label class="w3-text-IE"><b>CPF</b>*</label>
-                                <input class="w3-input w3-border w3-light-grey" name="CPF" id="CPF" type="number"
-                                    title="CPF do funcionario." placeholder="12345678910" pattern="[0-9]{11}" required></p>
-                            
+                                <input class="w3-input w3-border w3-light-grey" name="CPF" id="CPF" type="text"
+                                    title="CPF do funcionario (123.456.789-10)." placeholder="123.456.789-10" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" required></p>
+                            <p>
+                                <label class="w3-text-IE"><b>Email</b>*</label>
+                                <input class="w3-input w3-border w3-light-grey" name="Email" id="email" type="email"
+                                    title="Email do funcionário." placeholder="nome.sobrenome@dominio.com" pattern="^\w+\.\w+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required></p>
                             <p>
                                 <label class="w3-text-IE"><b>Cargo</b>*</label>
                                 <select name="Cargo" id="Cargo" class="w3-input w3-border w3-light-grey" required>

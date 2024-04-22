@@ -38,6 +38,7 @@
                 $nome    = $_POST['Nome'];
                 $data    = $_POST['Data'];
                 $cargo = $_POST['Cargo'];
+                $email = $_POST['Email'];
 
                 $login = $_POST['Login'];
                 $senha  = $_POST['Senha'];
@@ -59,7 +60,7 @@
                 </div>
 
                 <?php
-                $sql = "SELECT id FROM funcionario WHERE cpf = $cpf";
+                $sql = "SELECT id FROM funcionario WHERE cpf = '$cpf'";
 
                 //verifica se deu erro ou não no comando do sql
                 if ($result = $conn->query($sql)) {
@@ -71,7 +72,7 @@
                         echo "</div>";
 
                     } else {
-                        $sql2 = "INSERT INTO funcionario (nome, dt_nasc, cpf, login, senha, cargo_id) VALUES ('$nome','$data', $cpf, '$login', '$md5Senha', $cargo)";
+                        $sql2 = "INSERT INTO funcionario (nome, dt_nasc, cpf, login, senha, cargo_id, email) VALUES ('$nome','$data', '$cpf', '$login', '$md5Senha', $cargo, '$email')";
 
                         //verifica se deu erro no insert do funcionario
                         if ($result2 = $conn->query($sql2)) {

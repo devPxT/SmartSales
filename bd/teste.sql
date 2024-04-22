@@ -38,10 +38,11 @@ CREATE TABLE funcionario (
 	id int AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
     dt_nasc DATE NOT NULL,
-    cpf VARCHAR(13) NOT NULL UNIQUE,
+    cpf VARCHAR(14) NOT NULL UNIQUE,
     login VARCHAR(255) NOT NULL,
     senha VARCHAR(255) NOT NULL,
     cargo_id int NOT NULL,
+    email VARCHAR(255) NOT NULL,
     FOREIGN KEY (cargo_id) REFERENCES cargo(id) ON DELETE RESTRICT
 );
 

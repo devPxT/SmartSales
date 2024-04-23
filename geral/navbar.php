@@ -24,7 +24,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="vendas" href="#" onclick="dev(event);">Vendas</a>
+                        <a class="nav-link" id="vendas" href="vendedor-lst-vendas.php">Vendas</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="estoque" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

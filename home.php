@@ -69,7 +69,7 @@
                     </div>
                 </div>
             </a>
-            <a class="col-lg-4 col-md-5 col-sm-6 col-xs-12 button-container mb-4" href="#">
+            <a class="col-lg-4 col-md-5 col-sm-6 col-xs-12 button-container mb-4" href="vendedor-lst-vendas.php">
                 <div class="card" style="width: 18rem;">
                     <i class="bi bi-tags" style="font-size: 150px; margin: auto;"></i>
                     <div class="card-body">

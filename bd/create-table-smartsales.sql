@@ -103,4 +103,4 @@ INSERT INTO cargo (nome, descricao, data_cad) VALUES
 
 -- Inserção da única conta de administrador
 INSERT INTO funcionario (nome, dt_nasc, cpf, login, senha, cargo_id, data_cad) 
-VALUES ('João da Silva', '2005-06-07', '156.780.380-60', 'joao.silva', 'Admin@123', 1, now())
+VALUES ('João da Silva', '2005-06-07', '156.780.380-60', 'joao.silva', md5('Admin@123'), 1, now())

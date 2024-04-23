@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
+      <?php require "login/verifica-login-admin.php" ?>
+
 
 	  <title>Administração</title>
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -70,7 +72,7 @@
                         echo "</div>";
 
                     } else {
-                        $sql2 = "INSERT INTO produto (id, nome, marca, valor, genero, data, categoria_id) VALUES ($codigo, '$nome','$marca', $valor, '$genero', '$dt', $categoria)";
+                        $sql2 = "INSERT INTO produto (id, nome, marca, valor, genero, data_cad, categoria_id) VALUES ($codigo, '$nome','$marca', $valor, '$genero', '$dt', $categoria)";
 
                         //verifica se deu erro no insert de produto
                         if ($result2 = $conn->query($sql2)) {

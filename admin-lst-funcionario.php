@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <?php require "login/verifica-login-admin.php" ?>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administração</title>
@@ -89,7 +91,7 @@
                                 $nomeFuncionario = $_POST['nomeFuncionario'];
                             }
 
-                            $sql = "SELECT t1.id, t1.nome, t1.dt_nasc, t1.cpf, t1.login, t2.nome AS cargo FROM funcionario t1 JOIN cargo t2 ON t1.cargo_id = t2.id WHERE t1.cargo_id <> 1";
+                            $sql = "SELECT t1.id, t1.nome, t1.dt_nasc, t1.cpf, t1.login, t1.data_cad, t1.data_updt, t2.nome AS cargo FROM funcionario t1 JOIN cargo t2 ON t1.cargo_id = t2.id WHERE t1.cargo_id <> 1";
                             if (isset($_POST['nomeFuncionario'])) {
                                 $sql = $sql . " AND t1.nome LIKE '$nomeFuncionario%'";
                             }
@@ -100,9 +102,11 @@
                                 echo "	<tr>";
                                 echo "	  <th>Código</th>";
                                 echo "	  <th>Nome</th>";
-                                echo "	  <th>Dt Nascimento</th>";
+                                echo "	  <th>Data Nascimento</th>";
                                 echo "	  <th>Idade</th>"; 
                                 echo "	  <th>CPF</th>";
+                                echo "	  <th>Data de Cad.</th>";
+                                echo "	  <th>Data de Atual.</th>";
                                 echo "	  <th>Login</th>";
                                 echo "	  <th>Cargo</th>";
                                 echo "	  <th> </th>";
@@ -117,11 +121,28 @@
                                         $nascimento = mktime(0, 0, 0, $mes, $dia, $ano);
                                         $idade = floor((((($hoje - $nascimento) / 60) / 60) / 24) / 365.25);
 
-                                        $dataN = explode('-', $row["dt_nasc"]);
-                                        $anoN = $dataN[0];
-                                        $mesN = $dataN[1];
-                                        $diaN = $dataN[2];
-                                        $dt_nasc = $diaN . '/' . $mesN . '/' . $anoN;
+                                        $dataY = explode('-', $row["dt_nasc"]);
+                                        $anoY = $dataY[0];
+                                        $mesY = $dataY[1];
+                                        $diaY = $dataY[2];
+                                        $dt_nasc = $diaY . '/' . $mesY . '/' . $anoY;
+
+                                        $dataN = explode('-', $row["data_cad"]);
+                                        $ano_cad = $dataN[0];
+                                        $mes_cad = $dataN[1];
+                                        $dia_cad = $dataN[2];
+                                        $cod = $row["id"];
+                                        $nova_data_cad = $dia_cad . '/' . $mes_cad . '/' . $ano_cad;
+
+                                        $nova_data_updt = '';
+                                        if ($row["data_updt"] != null) {
+                                            $dataM = explode('-', $row["data_updt"]);
+                                            $ano_updt = $dataN[0];
+                                            $mes_updt = $dataN[1];
+                                            $dia_updt = $dataN[2];
+                                            $nova_data_updt = $dia_updt . '/' . $mes_updt . '/' . $ano_updt;
+                                        }
+
 
                                         $cod = $row["id"];
                                         echo "<tr>";
@@ -135,6 +156,10 @@
                                         echo $idade;
                                         echo "</td><td>";
                                         echo $row["cpf"];
+                                        echo "</td><td>";
+                                        echo $nova_data_cad;
+                                        echo "</td><td>";
+                                        echo $nova_data_updt;
                                         echo "</td><td>";
                                         echo $row["login"];
                                         echo "</td><td>";

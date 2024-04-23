@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <?php require "login/verifica-login-admin.php" ?>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administração</title>
@@ -45,7 +47,7 @@
 
                     $id = $_GET['id'];
 
-                    $sql = "SELECT t1.nome, t1.marca, t1.valor, t1.data, t2.nome as categoria, t1.genero FROM produto t1 JOIN categoria t2 ON t1.categoria_id = t2.id WHERE t1.id = $id";
+                    $sql = "SELECT t1.nome, t1.marca, t1.valor, t1.data_cad, t1.data_updt, t2.nome as categoria, t1.genero FROM produto t1 JOIN categoria t2 ON t1.categoria_id = t2.id WHERE t1.id = $id";
 
                     if ($result = $conn->query($sql)) {   // Consulta ao BD ok
                         if ($result->num_rows == 1) {          // Retorna 1 registro que será atualizado  
@@ -57,11 +59,21 @@
                             $genero = $row['genero'];
                             $categoria = $row['categoria'];
 
-                            $dataN = explode('-', $row["data"]);
+                            $dataN = explode('-', $row["data_cad"]);
                             $ano = $dataN[0];
                             $mes = $dataN[1];
                             $dia = $dataN[2];
-                            $data = $dia . '/' . $mes . '/' . $ano;
+                            $data_cad = $dia . '/' . $mes . '/' . $ano;
+
+                            if ($row["data_updt"] == null) {
+                                $data_updt = ""; 
+                            } else {
+                                 $dataM = explode('-', $row["data_updt"]);
+                                 $anoM = $dataM[0];
+                                 $mesM = $dataM[1];
+                                 $diaM = $dataM[2];
+                                 $data_updt = $diaM . '/' . $mesM . '/' . $anoM;
+                            }
     
                     ?>
 
@@ -84,8 +96,9 @@
                             <p>
                                 <label class="w3-text-IE"><b>Valor: </b>R$ <?php echo $valor; ?></label></p>
                             <p>
-                                <label class="w3-text-IE"><b>Data de Cadastro: </b><?php echo $data; ?></label></p>
+                                <label class="w3-text-IE"><b>Data de Cadastro: </b><?php echo $data_cad; ?></label></p>
                             <p>
+                                <label class="w3-text-IE"><b>Data de Atualização: </b><?php echo $data_updt; ?></label></p>
                             <p>
                                 <label class="w3-text-IE"><b>Categoria: </b><?php echo $categoria; ?></label>
                             </p>

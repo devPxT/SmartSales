@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <?php require "login/verifica-login-admin.php" ?>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administração</title>
@@ -16,9 +18,9 @@
     
     <?php require 'bd/connection.php'; ?>
 
-    <div class="w3-main w3-container" >
+    <div class="w3-main w3-container" style="flex: 1">
 
-        <div class="w3-panel w3-padding-large w3-card-4 w3-light-grey">
+        <div class="w3-panel w3-padding-large w3-card-4 w3-light-grey" >
             <!-- h1 class="w3-xxlarge">Contratação de Professor</h1 -->
             <p class="w3-large">
                 <div class="w3-code cssHigh notranslate">

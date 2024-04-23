@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md bg-body-tertiary" data-bs-theme="dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="index.php">SmartSales</a>
+        <a class="navbar-brand" href="home.php">SmartSales</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -12,7 +12,7 @@
             <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                     <li class="nav-item">
-                        <a class="nav-link" id="home" aria-current="page" href="index.php">Home</a>
+                        <a class="nav-link" id="home" aria-current="page" href="home.php">Home</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="cadastro" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -55,6 +55,14 @@
                             <li><a class="dropdown-item" href="admin-lst-produto.php">Produtos</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="admin-lst-funcionario.php">Acessos</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" style="color: lightgreen">
+                            <?php echo $_SESSION['cargo_nome'] . ": " . $_SESSION['nome']; ?>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item text-danger" href="login/logout.php">Sair</a></li>
                         </ul>
                     </li>
                 </ul>

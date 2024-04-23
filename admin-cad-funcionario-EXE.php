@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+      <?php require "login/verifica-login-admin.php" ?>
 
 	  <title>Administração</title>
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -38,7 +39,8 @@
                 $nome    = $_POST['Nome'];
                 $data    = $_POST['Data'];
                 $cargo = $_POST['Cargo'];
-                $email = $_POST['Email'];
+                // $email = $_POST['Email'];
+                $data_cad = $_POST['DataCad'];
 
                 $login = $_POST['Login'];
                 $senha  = $_POST['Senha'];
@@ -72,7 +74,8 @@
                         echo "</div>";
 
                     } else {
-                        $sql2 = "INSERT INTO funcionario (nome, dt_nasc, cpf, login, senha, cargo_id, email) VALUES ('$nome','$data', '$cpf', '$login', '$md5Senha', $cargo, '$email')";
+                        // $sql2 = "INSERT INTO funcionario (nome, dt_nasc, cpf, login, senha, cargo_id, email) VALUES ('$nome','$data', '$cpf', '$login', '$md5Senha', $cargo, '$email')";
+                        $sql2 = "INSERT INTO funcionario (nome, dt_nasc, cpf, login, senha, cargo_id, data_cad) VALUES ('$nome','$data', '$cpf', '$login', '$md5Senha', $cargo, '$data_cad')";
 
                         //verifica se deu erro no insert do funcionario
                         if ($result2 = $conn->query($sql2)) {

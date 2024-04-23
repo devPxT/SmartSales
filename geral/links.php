@@ -22,3 +22,6 @@
 
 <!-- my script -->
 <script src="js/script.js"></script>
+
+<!-- favicon -->
+<link rel="icon" type="image/png" href="imgs/favicon.png"/>

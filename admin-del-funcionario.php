@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <?php require "login/verifica-login-admin.php" ?>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administração</title>
@@ -45,7 +47,8 @@
 
                     $id = $_GET['id'];
 
-                    $sql = "SELECT t1.nome, t1.dt_nasc, t1.cpf, t1.login, t1.email, t2.nome AS cargo FROM funcionario t1 JOIN cargo t2 ON t1.cargo_id = t2.id WHERE t1.id = $id";
+                    // $sql = "SELECT t1.nome, t1.dt_nasc, t1.cpf, t1.login, t1.email, t2.nome AS cargo FROM funcionario t1 JOIN cargo t2 ON t1.cargo_id = t2.id WHERE t1.id = $id";
+                    $sql = "SELECT t1.nome, t1.dt_nasc, t1.cpf, t1.login, t1.data_cad, t1.data_updt, t2.nome AS cargo FROM funcionario t1 JOIN cargo t2 ON t1.cargo_id = t2.id WHERE t1.id = $id";
 
                     if ($result = $conn->query($sql)) {   // Consulta ao BD ok
                         if ($result->num_rows == 1) {          // Retorna 1 registro que será atualizado  
@@ -53,16 +56,32 @@
     
                             $nome = $row['nome'];
                             $cpf = $row['cpf'];
-                            $email = $row['email'];
+                            // $email = $row['email'];
 
                             $login = $row['login'];
                             $cargo = $row['cargo'];
 
-                            $dataN = explode('-', $row["dt_nasc"]);
+                            $dataY = explode('-', $row["dt_nasc"]);
+                            $anoY = $dataY[0];
+                            $mesY = $dataY[1];
+                            $diaY = $dataY[2];
+                            $data = $diaY . '/' . $mesY . '/' . $anoY;
+
+                            $dataN = explode('-', $row["data_cad"]);
                             $ano = $dataN[0];
                             $mes = $dataN[1];
                             $dia = $dataN[2];
-                            $data = $dia . '/' . $mes . '/' . $ano;
+                            $data_cad = $dia . '/' . $mes . '/' . $ano;
+
+                            if ($row["data_updt"] == null) {
+                                $data_updt = ""; 
+                            } else {
+                                 $dataM = explode('-', $row["data_updt"]);
+                                 $anoM = $dataM[0];
+                                 $mesM = $dataM[1];
+                                 $diaM = $dataM[2];
+                                 $data_updt = $diaM . '/' . $mesM . '/' . $anoM;
+                            }
     
                     ?>
 
@@ -81,14 +100,18 @@
                                     <label class="w3-text-IE"><b>Nome: </b> <?php echo $nome; ?> </label></p>
                                 <p>
                                     <label class="w3-text-IE"><b>Data de Nascimento: </b><?php echo $data; ?></label></p>
-                                <p>
-                                    <label class="w3-text-IE"><b>Email: </b> <?php echo $email; ?> </label></p>
+                                <!-- <p>
+                                    <label class="w3-text-IE"><b>Email: </b>  </label></p> -->
                                 <p>
                                     <label class="w3-text-IE"><b>CPF: </b><?php echo $cpf; ?></label></p>
                                 <p>
                                     <label class="w3-text-IE"><b>Login: </b><?php echo $login; ?></label></p>
                                 <p>
                                     <label class="w3-text-IE"><b>Cargo: </b><?php echo $cargo; ?></label></p>
+                                <p>
+                                    <label class="w3-text-IE"><b>Data de Cadastro: </b><?php echo $data_cad; ?></label></p>
+                                <p>
+                                    <label class="w3-text-IE"><b>Data de Atualização: </b><?php echo $data_updt; ?></label></p>
 
                                 </td>
                             </tr>

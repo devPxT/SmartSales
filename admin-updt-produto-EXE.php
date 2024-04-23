@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
+      <?php require "login/verifica-login-admin.php" ?>
 
-	  <title>Adminimstração</title>
+	  <title>Administração</title>
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
 
       <?php require "geral/links.php" ?>
@@ -58,7 +59,7 @@
 
                 <?php
 
-                $sql = "UPDATE produto SET nome = '$nome', marca = '$marca', valor = '$valor', categoria_id = '$categoria', genero = '$genero' WHERE id = $id";
+                $sql = "UPDATE produto SET nome = '$nome', marca = '$marca', valor = '$valor', categoria_id = '$categoria', genero = '$genero', data_updt = now() WHERE id = $id";
     
                 echo "<div class='w3-responsive w3-card-4'>";
                 if ($result = $conn->query($sql)) {

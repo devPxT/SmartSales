@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
-    <?php require "login/verifica-login-admin.php" ?>
+      <?php require "login/verifica-login-admin.php" ?>
 
-	  <title>Adminimstração</title>
+	  <title>Administração</title>
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
 
       <?php require "geral/links.php" ?>
@@ -29,13 +29,20 @@
             echo "<p class='w3-small' > ";
             echo "Acesso em: ";
             echo $data;
-            echo "</p> "
+            echo "</p> ";
             ?>
 
             <!-- Acesso ao BD-->
             <?php
-                $nome = $_POST['Nome'];
 
+                $id = $_POST['id'];
+
+                $nome    = $_POST['Nome'];
+                $login    = $_POST['Login'];
+                $data = $_POST['Data'];
+                
+                $cargo  = $_POST['Cargo'];
+                
                 // Cria conexão
                 $conn = new mysqli($servername, $username, $password, $database);
 
@@ -43,30 +50,35 @@
                 if ($conn->connect_error) {
                     die("<strong> Falha de conexão: </strong>" . $conn->connect_error);
                 }
-
-                // Faz Insert na Base de Dados
-                $sql = "INSERT INTO categoria (nome, data_cad) VALUES ('$nome', now())";
-
                 ?>
+
                 <div class='w3-responsive w3-card-4'>
                 <div class="w3-container w3-theme">
-                    <h2>Inclusão de Nova Categoria</h2>
+                <h2>Atualização de Funcionário</h2>
                 </div>
+
                 <?php
+
+                $sql = "UPDATE funcionario SET nome = '$nome', login = '$login', dt_nasc = '$data', cargo_id = '$cargo', data_updt = now() WHERE id = $id";
+    
+                echo "<div class='w3-responsive w3-card-4'>";
                 if ($result = $conn->query($sql)) {
-                    echo "<p>&nbsp;Registro cadastrado com sucesso! </p>";
+                    echo "<p>&nbsp;Registro alterado com sucesso! </p>";
                     echo "</div>";
                 } else {
-                    echo "<p>&nbsp;Erro executando INSERT: " .  $conn->connect_error . "</p>";
+                    echo "<p style='text-align:center'>Erro executando UPDATE: " . $conn-> error . "</p>";
                     echo "</div>";
                 }
                 echo "</div>";
-                $conn->close();  //Encerra conexao com o BD
+                $conn->close(); 
 
             ?>
+            </div>
         </div>
+   
         <div class="col-lg-1 col-sm-2 col-12">
-            <button type="button" class="btn btn-primary mb-3" onclick="window.location.href='admin-lst-categoria.php'" style="width: 100%">Voltar</button>
+            <button type="button" class="btn btn-primary mb-3" onclick="window.location.href='admin-lst-funcionario.php'" style="width: 100%">Voltar</button>
+        </div>
         </div>
     </div>
 

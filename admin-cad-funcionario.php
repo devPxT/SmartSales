@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <?php require "login/verifica-login-admin.php" ?>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administração</title>
@@ -16,7 +18,7 @@
     
     <?php require 'bd/connection.php'; ?>
 
-    <div class="w3-main w3-container" >
+    <div class="w3-main w3-container" style="flex: 1">
 
         <div class="w3-panel w3-padding-large w3-card-4 w3-light-grey">
             <!-- h1 class="w3-xxlarge">Contratação de Professor</h1 -->
@@ -82,11 +84,17 @@
                             <p>
                                 <label class="w3-text-IE"><b>CPF</b>*</label>
                                 <input class="w3-input w3-border w3-light-grey" name="CPF" id="CPF" type="text"
-                                    title="CPF do funcionario (123.456.789-10)." placeholder="123.456.789-10" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" required></p>
+                                    title="CPF do funcionario (123.456.789-10)." placeholder="123.456.789-10" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" required>
+                                <p id="statusCPF" style="color: red; display: none"></p></p>
                             <p>
+                                <label class="w3-text-IE"><b>Data de Cadastro</b>*</label>
+                                <input class="w3-input w3-border w3-light-grey" name="DataCad" type="date"
+                                    placeholder="dd/mm/aaaa" title="dd/mm/aaaa" max="<?= date('Y-m-d'); ?>" required></p>
+                            <!-- <p>
                                 <label class="w3-text-IE"><b>Email</b>*</label>
                                 <input class="w3-input w3-border w3-light-grey" name="Email" id="email" type="email"
-                                    title="Email do funcionário." placeholder="nome.sobrenome@dominio.com" pattern="^\w+\.\w+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required></p>
+                                    title="Email do funcionário." placeholder="nome.sobrenome@dominio.com" pattern="^[a-zA-Z1-9.]+@( [a-zA-Z0-9.]+)*$"
+                                    required></p> -->
                             <p>
                                 <label class="w3-text-IE"><b>Cargo</b>*</label>
                                 <select name="Cargo" id="Cargo" class="w3-input w3-border w3-light-grey" required>

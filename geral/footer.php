@@ -6,7 +6,7 @@
         <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li> -->
         <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary" data-bs-toggle="modal" data-bs-target="#sobreModal">Sobre</a></li>
     </ul>
-    <p class="text-center text-body-secondary"><a href="index.php" class="nav-link">© 2024 SmartSales</a></p>
+    <p class="text-center text-body-secondary"><a href="home.php" class="nav-link">© 2024 SmartSales</a></p>
 </footer>
 
 <!-- Modal -->

@@ -4,41 +4,56 @@ function dev(event) {
 }
 
 function validarCPF() {
-    cpf = $('#CPF').value
-    cpf = cpf.replace(/[^\d]+/g, '');
-    if (cpf.length !== 11) return false;
-  
-    // Validação do primeiro dígito verificador
+    cpf = document.getElementById('CPF').value
+    cpf = cpf.replace(/[^\d]/g, ''); // Remove todos os caracteres não numéricos
+    if (cpf.length !== 11) {
+      // alert('CPF do funcionário inválido!');
+      $('#statusCPF').css('display', 'block');
+      $('#statusCPF').text('CPF do funcionário inválido!');
+      return false; // O CPF deve ter 11 dígitos após a remoção de caracteres especiais 
+    }
+
+    // Verifica se todos os dígitos são iguais, o que torna o CPF inválido
+    if (/^(\d)\1+$/.test(cpf)) {
+      // alert('CPF do funcionário inválido!');
+      $('#statusCPF').css('display', 'block');
+      $('#statusCPF').text('CPF do funcionário inválido!');
+      return false; 
+    }
+
+    // Calcula o primeiro dígito verificador
     let soma = 0;
     for (let i = 0; i < 9; i++) {
-      soma += parseInt(cpf.charAt(i)) * (10 - i);
+        soma += parseInt(cpf.charAt(i)) * (10 - i);
     }
-    let resto = soma % 11;
-    if (resto < 2) {
-      resto = 0;
-    } else {
-      resto = 11 - resto;
+    let resto = 11 - (soma % 11);
+    let digitoVerificador1 = resto === 10 || resto === 11 ? 0 : resto;
+
+    // Verifica se o primeiro dígito verificador está correto
+    if (digitoVerificador1 !== parseInt(cpf.charAt(9))) {
+      // alert('CPF do funcionário inválido!');
+      $('#statusCPF').css('display', 'block');
+      $('#statusCPF').text('CPF do funcionário inválido!');
+      return false; 
     }
-    if (resto !== parseInt(cpf.charAt(9))) {
-      return false;
-    }
-  
-    // Validação do segundo dígito verificador
+
+    // Calcula o segundo dígito verificador
     soma = 0;
     for (let i = 0; i < 10; i++) {
-      soma += parseInt(cpf.charAt(i)) * (11 - i);
+        soma += parseInt(cpf.charAt(i)) * (11 - i);
     }
-    resto = soma % 11;
-    if (resto < 2) {
-      resto = 0;
-    } else {
-      resto = 11 - resto;
-    }
-    if (resto !== parseInt(cpf.charAt(10))) {
+    resto = 11 - (soma % 11);
+    let digitoVerificador2 = resto === 10 || resto === 11 ? 0 : resto;
+
+    // Verifica se o segundo dígito verificador está correto
+    if (digitoVerificador2 !== parseInt(cpf.charAt(10))) {
+      // alert('CPF do funcionário inválido!');
+      $('#statusCPF').css('display', 'block');
+      $('#statusCPF').text('CPF do funcionário inválido!');
       return false;
     }
-  
-    return true;
+
+    return true; // Se todas as verificações passaram, o CPF é válido
 }
 
 function validarSenha() {
@@ -81,4 +96,8 @@ function mostrarOcultarSenha(total) {
       senha2.type = "password";
       chkC.checked = false;
     }
+}
+
+function fecharModal() {
+  document.getElementById('modalErro').style.display = 'none';
 }

@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <?php require "login/verifica-login-admin.php" ?>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administração</title>
@@ -35,23 +37,24 @@
             
 
             <div class="container-fluid mt-3">
-                <div class="row">
-                    <div class="col-lg-2 col-sm-2 col-3">
-                        <button type="button" class="btn btn-success mb-3" onclick="window.location.href='admin-cad-categoria.php'">Novo</button>
+                <form action="admin-lst-categoria.php" method="post">
+                    <div class="row">
+                        <div class="col-lg-2 col-sm-2 col-3">
+                            <button type="button" class="btn btn-success mb-3" onclick="window.location.href='admin-cad-categoria.php'">Novo</button>
+                        </div>
+                        <div class="col-lg-6 col-sm-7 col-9">
+                                <label for="inputPesquisa" class="visually-hidden">Pesquisar</label>
+                                <input type="text" name="nomeCategoria" class="form-control mb-3" id="inputPesquisa" placeholder="Nome da Categoria..."
+                                    value="<?php echo isset($_POST['nomeCategoria']) ? $_POST['nomeCategoria'] : ''; ?>">
+                        </div>
+                        <div class="col-lg-2 col-sm-3 col-12">
+                            <button type="submit" class="btn btn-success mb-3">Pesquisar</button>
+                        </div>
+                        <div class="col-lg-2 col-sm-2 col-12">
+                            <button type="button" class="btn btn-primary mb-3" onclick="window.location.href='admin-produto.php'">Voltar</button>
+                        </div>
                     </div>
-                    <div class="col-lg-6 col-sm-7 col-9">
-                        <form action="" method="post">
-                            <label for="inputPesquisa" class="visually-hidden">Pesquisar</label>
-                            <input type="text" name="nomeProduto" class="form-control mb-3" id="inputPesquisa" placeholder="Busca...">
-                        </form>
-                    </div>
-                    <div class="col-lg-2 col-sm-3 col-12">
-                        <button type="submit" class="btn btn-success mb-3">Pesquisar</button>
-                    </div>
-                    <div class="col-lg-2 col-sm-2 col-12">
-                        <button type="button" class="btn btn-primary mb-3" onclick="window.location.href='admin-produto.php'">Voltar</button>
-                    </div>
-                </div>
+                </form>
             </div>
 
             <div class="container-fuid mt-3 ms-lg-3 me-lg-3">
@@ -85,9 +88,16 @@
                                 die("<strong> Falha de conexão: </strong>" . $conn->connect_error);
                             }
 
-
+                            if (isset($_POST['nomeCategoria'])) {
+                                $nomeCategoria = $_POST['nomeCategoria'];
+                            }
                             // Faz Select na Base de Dados
-                            $sql = "SELECT id, nome, data_cad, data_updt FROM categoria;";
+                            $sql = "SELECT t1.id, t1.nome, t1.data_cad, t1.data_updt FROM categoria t1";
+
+                            if (isset($nomeCategoria)) {
+                                $sql = $sql . " WHERE t1.nome LIKE '$nomeCategoria%'";
+                            }
+
                             echo "<div class='w3-responsive w3-card-4'>";
                             if ($result = $conn->query($sql)) {
                                 echo "<table class='w3-table-all'>";

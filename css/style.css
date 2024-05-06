@@ -1,3 +1,15 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #b6c9cf;
+}
+footer {
+    margin-top: auto;
+    background-color: rgb(43, 48, 53);
+    width: 100% !important;
+}
+
 .row a {
     text-decoration: none;
     cursor: default;
@@ -11,11 +23,11 @@
     padding: 0px;
 }
 .card-body .card-text {
-    /* font-family: "Bungee Spice", sans-serif; */
     font-weight: 900;
     font-size: 30px;
 }
 
+/* HOME */
 .container-fluid.home {
     flex: 1;
     margin-bottom: 1rem;
@@ -27,81 +39,43 @@
 #home .container-fluid.home .row {
     justify-content: center;
 }
-footer {
-    margin-top: auto;
-    background-color: rgb(43, 48, 53);
-    width: 100% !important;
+/* HOME */
 
-}
 
+/* PÁGINAS GERAL */
 .title-text {
     font-weight: 900;
     font-size: 40px;
 }
 
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background-color: #b6c9cf;
+div.table-responsive #myTable .btn {
+    padding: 2px 8px;
+    float: right;
+    margin: 0px 2px;
+}
+div.table-responsive #myTable {
+    margin-bottom: 0px;
+}
+div.table-responsive #myTable a {
+    color: inherit;
+}
+/* PÁGINAS GERAL */
+
+.thead-yellow {
+    --bs-table-color: black;
+    --bs-table-bg: #ffc107;
+    color: var(--bs-table-color);
+}
+.custom-grid-tooltip {
+    --bs-tooltip-bg: var(--bs-yellow);
+    --bs-tooltip-color: var(--bs-black);
+    color: var(--bs-tooltip-color);
+    background-color: var(--bs-table-bg);
 }
 
-div#login .card{
-    width: 400px;
-    border:none;
+div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
+    background-color: #ffc107 !important;
 }
-  
-
-div#login .btl{
-    border-top-left-radius: 5px !important;
-    border-top-right-radius: 5px !important;
-}
-
-div#login .btn-dark {
-    color: #fff;
-    background-color: #0d6efd;
-    border-color: #0d6efd;
-}
-
-div#login .btn-dark:hover {
-    color: #fff;
-    background-color: #0d6efd;
-    border-color: #0d6efd;
-}
-
-
-div#login .nav-pills{
-    display:table !important;
-    width:100%;
-}
-
-div#login .nav-pills .nav-link {
-    border-radius: 0px;
-    border-bottom: 1px solid #0d6efd40;
-}
-
-div#login .nav-item{
-    display: table-cell;
-    background: #0d6efd2e;
-}
-
-div#login .form{
-    padding: 10px;
-    height: 300px;
-}
-
-div#login .form input{
-    margin-bottom: 12px;
-    border-radius: 3px;
-}
-
-
-div#login .form input:focus{
-    box-shadow: none;
-}
-
-
-div#login .form button{
-    margin-top: 20px;
-    width: 100;
+div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm:focus {
+    box-shadow: 0 0 0 3px rgba(255, 193, 7, .5) !important;
 }

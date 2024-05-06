@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md bg-body-tertiary" data-bs-theme="dark">
+<nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="home.php">SmartSales</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
@@ -24,7 +24,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="vendas" href="vendedor-lst-vendas.php">Vendas</a>
+                        <a class="nav-link" id="vendas" href="vendedor-home.php">Vendas</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="estoque" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -58,11 +58,11 @@
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" style="color: lightgreen">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" style="color: #fcba03">
                             <?php echo $_SESSION['cargo_nome'] . ": " . $_SESSION['nome']; ?>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item text-danger" href="login/logout.php">Sair</a></li>
+                            <li><a class="dropdown-item text-danger" href="login/logout.php">Sair<i class="bi bi-x float-end"></i></a></li>
                         </ul>
                     </li>
                 </ul>

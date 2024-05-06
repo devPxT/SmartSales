@@ -9,53 +9,31 @@
     
     <?php require "geral/links.php" ?>
 
-    <style>
-        #modalErro {
-            display: none; 
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1050;
-        }
-
-        #modalErro .modal-dialog {
-            margin-top: 20vh; 
-        }
-    </style>
 </head>
 <body id="home">
-<?php
-    $msg = "";
-    if(isset($_SESSION['mensagem'])){ 
-        $msg = $_SESSION['mensagem'];
-        $style = "display:block"; // div da msg aparece 
-    }else{
-        unset($_SESSION['mensagem']);
-        $style = "display:none"; // div da msg não aparece 
-    }
-?>
-
-    <div id="modalErro" class="modal" style="<?php echo $style;?>">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header" style="justify-content: center">
-                    <h5 class="modal-title" style="color: red">ERRO</h5>
-                </div>
-                <div class="modal-body" style="text-align: center">
-                    <p id="mensagemErro" style="margin-bottom: 0px;"><?php echo $msg; ?></p>
+    <script>
+        <?php
+            $msg = "";
+            if(isset($_SESSION['mensagem'])){ 
+                $msg = $_SESSION['mensagem'];
+                
+        ?>
+                Swal.fire({
+                    icon: "error",
+                    title: "Erro",
+                    text: "<?php echo $msg; ?>"
                     <?php 
                         unset($_SESSION['mensagem']);
                     ?>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="fecharModal()">OK</button>
-                </div>
-            </div>
-        </div>
-  </div>
+                });
+        <?php
+            } else {
+                unset($_SESSION['mensagem']);
+            }
+        ?>
+    </script>
+    
+
 
     <?php require "geral/navbar.php" ?>
     
@@ -69,7 +47,7 @@
                     </div>
                 </div>
             </a>
-            <a class="col-lg-4 col-md-5 col-sm-6 col-xs-12 button-container mb-4" href="vendedor-lst-vendas.php">
+            <a class="col-lg-4 col-md-5 col-sm-6 col-xs-12 button-container mb-4" href="vendedor-home.php">
                 <div class="card" style="width: 18rem;">
                     <i class="bi bi-tags" style="font-size: 150px; margin: auto;"></i>
                     <div class="card-body">

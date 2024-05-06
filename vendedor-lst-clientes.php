@@ -8,27 +8,25 @@
     <title>Administração</title>
 
     <?php require "geral/links.php" ?>
+
+    <link rel="stylesheet" href="css/w3.css">
+    <link rel="stylesheet" href="css/customize.css">
 </head>
-<body id="admin">
+<body id="vendas">
     <style>
-        #admin .container-fluid .row .btn {
-            width: 100%
-        }
-        #admin .container-fluid .row {
-            justify-content: normal;
-        }
+
     </style>
     
     <?php require "geral/navbar.php" ?>
 
+    <!-- conecta ao BD -->
     <?php require 'bd/connection.php'; ?>
-
 
     <div class="container-fluid mt-3 home">
 
         <div class="container-fluid">
             <div class="title-text">
-                CATEGORIAS
+                CLIENTES
             </div>
         </div>
         
@@ -36,19 +34,19 @@
         <div class="container-fluid mt-3">
             <form action="admin-lst-categoria.php" method="post">
                 <div class="row">
-                    <div class="col-lg-2 col-sm-2 col-3">
-                        <button type="button" class="btn btn-primary mb-3" onclick="window.location.href='admin-cad-categoria.php'">Novo</button>
+                    <div class="col-lg-2 col-sm-2 col-12">
+                        <button type="button" class="btn btn-primary mb-3 w-100" onclick="window.location.href='admin-cad-categoria.php'">Novo</button>
                     </div>
-                    <div class="col-lg-6 col-sm-7 col-9">
+                    <div class="col-lg-6 col-sm-7 col-12">
                             <label for="inputPesquisa" class="visually-hidden">Pesquisar</label>
-                            <input type="text" name="nomeCategoria" class="form-control mb-3" id="inputPesquisa" placeholder="Nome da Categoria..."
-                                value="<?php echo isset($_POST['nomeCategoria']) ? $_POST['nomeCategoria'] : ''; ?>">
+                            <input type="text" name="nomeCliente" class="form-control mb-3" id="inputPesquisa" placeholder="Nome do Cliente..."
+                                value="<?php echo isset($_POST['nomeCliente']) ? $_POST['nomeCliente'] : ''; ?>">
                     </div>
                     <div class="col-lg-2 col-sm-3 col-12">
-                        <button type="submit" class="btn btn-success mb-3">Pesquisar</button>
+                        <button type="submit" class="btn btn-success mb-3 w-100">Pesquisar</button>
                     </div>
                     <div class="col-lg-2 col-sm-2 col-12">
-                        <button type="button" class="btn btn-secondary mb-3" onclick="window.location.href='admin-produto.php'">Voltar</button>
+                        <button type="button" class="btn btn-secondary mb-3 w-100" onclick="window.location.href='admin-produto.php'">Voltar</button>
                     </div>
                 </div>
             </form>
@@ -56,7 +54,6 @@
 
         <!-- COR TABLE #ffc107 -->
         <div class="container-fuid mt-3 ms-lg-2 me-lg-2 shadow-lg rounded-3">
-            <!-- Acesso ao BD-->
             <?php
                 // Cria conexão
                 $conn = new mysqli($servername, $username, $password, $database);
@@ -64,27 +61,30 @@
                 if ($conn->connect_error) {
                     die("<strong> Falha de conexão: </strong>" . $conn->connect_error);
                 }
-                if (isset($_POST['nomeCategoria'])) {
-                    $nomeCategoria = $_POST['nomeCategoria'];
+                if (isset($_POST['nomeCliente'])) {
+                    $nomeCliente = $_POST['nomeCliente'];
                 }
                 // Faz Select na Base de Dados
-                $sql = "SELECT t1.id, t1.nome, t1.data_cad, t1.data_updt FROM categoria t1";
-                // If Isset para verificar se recebeu o NomeCategoria para concatenar o WHERE e fazer a pesquisa
-                if (isset($nomeCategoria)) {
-                    $sql = $sql . " WHERE t1.nome LIKE '$nomeCategoria%'";
+                // $sql = "SELECT ";
+                // If Isset para verificar se recebeu o nomeCliente para concatenar o WHERE e fazer a pesquisa
+                if (isset($nomeCliente)) {
+                    $sql = $sql . " WHERE t1.nome LIKE '$nomeCliente%'";
                 }
+            ?>
 
-                echo "<div class='table-responsive table-wrapper'>";
-                echo "  <table class='table table-striped table-hover rounded-3 overflow-hidden' id='myTable'>";
-                echo "	  <thead class='thead-yellow'>";
-                echo "      <tr>";
-                echo "	      <th scope='col'>Código</th>";
-                echo "	      <th scope='col'>Categoria</th>";
-                echo "	      <th scope='col'>Data de Cadastro</th>";
-                echo "	      <th scope='col'>Data de Atualização</th>";
-                echo "	      <th scope='col'> </th>";
-                echo "      </tr>";
-                echo "	  </thead>";
+                <div class='table-responsive table-wrapper'>
+                    <table class='table table-striped table-hover rounded-3 overflow-hidden' id='myTable'>
+                        <thead class='thead-yellow'>
+                            <tr>
+                                <th scope='col'>Código</th>
+                                <th scope='col'>Categoria</th>
+                                <th scope='col'>Data de Cadastro</th>
+                                <th scope='col'>Data de Atualização</th>
+                                <th scope='col'> </th>
+                            </tr>
+                        </thead>
+
+            <?php
                 if ($result = $conn->query($sql)) {
                     
                     if ($result->num_rows > 0) {

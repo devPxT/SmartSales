@@ -1,12 +1,12 @@
 <footer class="my-0" data-bs-theme="dark" style="width: 100% !important">
-    <ul class="nav justify-content-center">
+    <!-- <ul class="nav justify-content-center"> -->
         <!-- <li class="nav-item"><a href="index.php" class="nav-link px-2 text-body-secondary">Home</a></li> -->
         <!-- <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
         <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
         <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li> -->
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary" data-bs-toggle="modal" data-bs-target="#sobreModal">Sobre</a></li>
-    </ul>
-    <p class="text-center text-body-secondary"><a href="home.php" class="nav-link">© 2024 SmartSales</a></p>
+        <!-- <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary" >Sobre</a></li> -->
+    <!-- </ul> -->
+    <p class="text-center text-body-secondary" style="margin-bottom: 0px;"><a href="#" class="nav-link p-1" data-bs-toggle="modal" data-bs-target="#sobreModal">© 2024 SmartSales</a></p>
 </footer>
 
 <!-- Modal -->

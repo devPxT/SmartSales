@@ -14,90 +14,71 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+    <!-- sweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css" rel="stylesheet">
+
     <script src="js/script.js"></script>
 
     <link rel="icon" type="image/png" href="imgs/favicon.png"/>
 
-    <style>
-        #modalErro {
-            display: none; 
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1050;
-        }
-
-        #modalErro .modal-dialog {
-            margin-top: 20vh; 
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-<?php
-    session_start();
-    if (isset($_SESSION['cargo_nome'])) {                                
-        if ($_SESSION['cargo_nome'] == 'Administrador'){
-            $url = 'location: /smartsales/admin-home.php';	             
-            header($url);                                         	 
-            exit();
-        }else if ($_SESSION['cargo_nome'] != 'Administrador'){
-            $url = 'location: /smartsales/home.php';	 
-            header($url);                                         	  
-            exit();
-        }
-    }
-
-    $msg        = "";
-    if(isset($_SESSION['nao_autenticado'])){ 
-        // Houve falha(login incorreto ou cadastro incorreto)
-        $msg        = $_SESSION['mensagem'];
-        $style      = "display:block"; // div da msg aparece 
-    }else{
-        // Usuário já autenticado
-        unset($_SESSION['nao_autenticado']);
-        $style      = "display:none"; // div da msg não aparece 
-    }
-?>
-
-
-    <div id="modalErro" class="modal" style="<?php echo $style;?>">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header" stye="justify-content: center">
-                    <h5 class="modal-title" style="color: red">ERRO</h5>
-                </div>
-                <div class="modal-body" style="text-align: center">
-                    <p id="mensagemErro" style="margin-bottom: 0px;"><?php echo $msg; ?></p>
-                    <?php 
+<body style="background-color: white;">
+    <script>
+        <?php
+            session_start();
+            $msg = "";
+            if(isset($_SESSION['nao_autenticado'])){
+                $msg = $_SESSION['mensagem'];
+                
+        ?>
+                Swal.fire({
+                    icon: "error",
+                    title: "Erro",
+                    text: "<?php echo $msg; ?>"
+                    <?php
                         session_destroy();
                     ?>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="fecharModal()">OK</button>
-                </div>
-            </div>
-        </div>
-  </div>
+                });
+        <?php
+            } else {
+                unset($_SESSION['nao_autenticado']);
+                unset($_SESSION['mensagem']);
+
+                if (isset($_SESSION['cargo_nome'])) {                                
+                    if ($_SESSION['cargo_nome'] == 'Administrador'){
+                        $url = 'location: /smartsales/admin-home.php';	             
+                        header($url);                                         	 
+                        exit();
+                    } else if ($_SESSION['cargo_nome'] != 'Administrador'){
+                        $url = 'location: /smartsales/home.php';	 
+                        header($url);                                         	  
+                        exit();
+                    }
+                }
+            }
+        ?>
+    </script>
 
     <section class="ftco-section">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-6 text-center mb-5">
-                    <h2 class="heading-section">SmartSales</h2>
-                </div>
-            </div>
+
             <div class="row justify-content-center">
                 <div class="col-md-12 col-lg-10">
                     <div class="wrap d-md-flex">
                         <div class="img" style="background-image: url(imgs/image.png);">
                         </div>
                         <div class="login-wrap p-4 p-md-5">
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <h3 class="heading-section">SmartSales</h3>
+                                </div>
+                            </div>
+
                             <div class="d-flex">
                                 <div class="w-100">
-                                    <h3 class="mb-4">Entrar</h3>
+                                    <h3 class="mb-3">Entrar</h3>
                                 </div>
                                 <div class="w-100">
                                     <p class="social-media d-flex justify-content-end">
@@ -118,35 +99,25 @@
                                 <div class="form-group">
                                     <button type="submit" class="form-control btn btn-primary rounded submit px-3">Entrar</button>
                                 </div>
-                                <div class="form-group d-md-flex">
+                                <div class="form-group d-flex">
                                     <div class="w-50 text-left">
-                                        <!-- <input type="checkbox" style="cursor: pointer;" > <span>Lembre-se de mim</span> -->
-                                        <label class="checkbox-wrap checkbox-primary mb-0">Lembre-se de mim
+                                        <label class="checkbox-wrap checkbox-primary mb-0">
+                                            Lembre-se de mim
                                             <input type="checkbox" checked>
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
-                                    <div class="w-50 text-md-right">
-                                        <a href="#">Esqueceu sua Senha?</a>
+                                    <div class="w-50 text-right">
+                                        <a href="#">Esqueceu sua senha?</a>
                                     </div>
                                 </div>
                             </form>
-                            <!-- <p class="text-center">Not a member? <a data-toggle="tab" href="#signup">Sign Up</a></p> -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    
-    <script>
-        // Verifica se a sessão 'mensagem' está definida e mostra o modal se estiver
-        // $(document).ready(function() {
-        //     <?php if (isset($_SESSION['mensagem'])) : ?>
-        //         $('#errorModal').modal('show');
-        //     <?php endif; ?>
-        // });
-    </script>
 
 </body>
 </html>

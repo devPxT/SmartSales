@@ -8170,10 +8170,10 @@
     padding-bottom: 0; }
   
   .heading-section {
-    font-size: 45px;
     font-weight: 900;
     color: #000; 
-    font-family: Arial, sans-serif; }
+    font-family: Arial, sans-serif;
+    margin-bottom: 0px !important; }
   
   .img {
     background-size: cover;
@@ -8253,7 +8253,8 @@
       border: 1px solid rgba(0, 0, 0, 0.05);
       font-size: 16px;
       margin-right: 5px;
-      border-radius: 50%; }
+      border-radius: 50%; 
+      cursor: pointer; }
       .social-media .social-icon span {
         color: #999999; }
       .social-media .social-icon:hover, .social-media .social-icon:focus {

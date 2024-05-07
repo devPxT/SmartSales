@@ -24,7 +24,7 @@
 
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body style="background-color: white;">
+<body style="background-color: white; justify-content: center">
     <script>
         <?php
             session_start();

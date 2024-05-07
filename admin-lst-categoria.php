@@ -74,17 +74,19 @@
                     $sql = $sql . " WHERE t1.nome LIKE '$nomeCategoria%'";
                 }
 
-                echo "<div class='table-responsive table-wrapper'>";
-                echo "  <table class='table table-striped table-hover rounded-3 overflow-hidden' id='myTable'>";
-                echo "	  <thead class='thead-yellow'>";
-                echo "      <tr>";
-                echo "	      <th scope='col'>Código</th>";
-                echo "	      <th scope='col'>Categoria</th>";
-                echo "	      <th scope='col'>Data de Cadastro</th>";
-                echo "	      <th scope='col'>Data de Atualização</th>";
-                echo "	      <th scope='col'> </th>";
-                echo "      </tr>";
-                echo "	  </thead>";
+                ?>
+                <div class='table-responsive table-wrapper'>
+                    <table class='table table-striped table-hover rounded-3 overflow-hidden' id='myTable'>
+                	    <thead class='thead-yellow'>
+                            <tr>
+                                <th scope='col'>Código</th>
+                                <th scope='col'>Categoria</th>
+                                <th scope='col'>Data de Cadastro</th>
+                                <th scope='col'>Data de Atualização</th>
+                                <th scope='col'> </th>
+                            </tr>
+                	    </thead>
+                <?php
                 if ($result = $conn->query($sql)) {
                     
                     if ($result->num_rows > 0) {
@@ -148,7 +150,7 @@
 
 
     <script>
-        Swal.fire("SweetAlert2 is working!");
+        // Swal.fire("SweetAlert2 is working!");
 
     </script>
 </body>

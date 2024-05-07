@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php require "login/verifica-login-admin.php" ?>
+    <?php require "login/verifica-login-vendedor.php" ?>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,7 +32,7 @@
         
 
         <div class="container-fluid mt-3">
-            <form action="admin-lst-categoria.php" method="post">
+            <form action="vendedor-lst-clientes.php" method="post">
                 <div class="row">
                     <div class="col-lg-2 col-sm-2 col-12">
                         <button type="button" class="btn btn-primary mb-3 w-100" onclick="window.location.href='admin-cad-categoria.php'">Novo</button>
@@ -46,7 +46,7 @@
                         <button type="submit" class="btn btn-success mb-3 w-100">Pesquisar</button>
                     </div>
                     <div class="col-lg-2 col-sm-2 col-12">
-                        <button type="button" class="btn btn-secondary mb-3 w-100" onclick="window.location.href='admin-produto.php'">Voltar</button>
+                        <button type="button" class="btn btn-secondary mb-3 w-100" onclick="window.location.href='vendedor-home.php'">Voltar</button>
                     </div>
                 </div>
             </form>
@@ -65,7 +65,7 @@
                     $nomeCliente = $_POST['nomeCliente'];
                 }
                 // Faz Select na Base de Dados
-                // $sql = "SELECT ";
+                $sql = "SELECT * FROM cliente";
                 // If Isset para verificar se recebeu o nomeCliente para concatenar o WHERE e fazer a pesquisa
                 if (isset($nomeCliente)) {
                     $sql = $sql . " WHERE t1.nome LIKE '$nomeCliente%'";
@@ -148,7 +148,7 @@
 
 
     <script>
-        Swal.fire("SweetAlert2 is working!");
+        // Swal.fire("SweetAlert2 is working!");
 
     </script>
 </body>

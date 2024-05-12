@@ -23,8 +23,15 @@
                             <li><a class="dropdown-item" href="#" onclick="dev(event);">Métodos de Pagamento</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="vendas" href="vendedor-home.php">Vendas</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="vendas" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Vendas
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="vendedor-lst-clientes.php" >Clientes</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" onclick="dev(event)">Vendas</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="estoque" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

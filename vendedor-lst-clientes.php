@@ -9,13 +9,70 @@
 
     <?php require "geral/links.php" ?>
 
-    <link rel="stylesheet" href="css/w3.css">
-    <link rel="stylesheet" href="css/customize.css">
 </head>
 <body id="vendas">
-    <style>
-
-    </style>
+    <!-- Modal Cadastro -->
+    <div class="modal fade" id="modalCadastro" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalCadastro" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <form method="post" id="formCadastro" class="needs-validation" novalidate>
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalCadastro">Cadastro de Cliente</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row g-2">
+                            <div class="col-md-6 col-12">
+                                <label for="nome" class="form-label">Nome</label>
+                                <input type="text" class="form-control" id="nome" pattern="[a-zA-Z\u00C0-\u00FF ]{3,100}$" required placeholder="Ana"
+                                data-bs-toggle="tooltip" data-bs-title="Nome com 3 a 100 letras" data-bs-custom-class="custom-tooltip">
+                                <div class="invalid-feedback">
+                                    Por favor preencha o nome de 3 a 100 letras.
+                                </div>
+                            </div>
+                            <?php $maxDate = date('Y-m-d', strtotime('-1 years')); ?>
+                            <div class="col-md-6 col-12">
+                                <label for="dtNasc" class="form-label">Data de Nascimento</label>
+                                <input type="date" class="form-control" max="<?= $maxDate; ?>" id="dtNasc" required
+                                data-bs-toggle="tooltip" data-bs-title="Data de nascimento do cliente" data-bs-custom-class="custom-tooltip">
+                                <div class="invalid-feedback">
+                                    Por favor preencha a data.
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <label for="cpf" class="form-label">CPF</label>
+                                <input type="text" class="form-control" id="cpf" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" required
+                                data-bs-toggle="tooltip" data-bs-title="CPF do cliente com pontuação" data-bs-custom-class="custom-tooltip">
+                                <div class="invalid-feedback">
+                                    Por favor preencha o CPF.
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <label for="celular" class="form-label">Celular</label>
+                                <input type="text" class="form-control" id="celular" pattern="" required placeholder="(41)98765-4321"
+                                data-bs-toggle="tooltip" data-bs-title="Celular do cliente com DDD e 9 digitos" data-bs-custom-class="custom-tooltip">
+                                <div class="invalid-feedback">
+                                    Por favor preencha o Celular.
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="text" class="form-control" id="email" pattern="" required placeholder="exemplo@gmail.com"
+                                data-bs-toggle="tooltip" data-bs-title="Email do cliente" data-bs-custom-class="custom-tooltip">
+                                <div class="invalid-feedback">
+                                    Por favor preencha o Celular.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     
     <?php require "geral/navbar.php" ?>
 
@@ -35,7 +92,7 @@
             <form action="vendedor-lst-clientes.php" method="post">
                 <div class="row">
                     <div class="col-lg-2 col-sm-2 col-12">
-                        <button type="button" class="btn btn-primary mb-3 w-100" onclick="window.location.href='admin-cad-categoria.php'">Novo</button>
+                        <button type="button" class="btn btn-primary mb-3 w-100" data-bs-toggle="modal" data-bs-target="#modalCadastro">Novo</button>
                     </div>
                     <div class="col-lg-6 col-sm-7 col-12">
                             <label for="inputPesquisa" class="visually-hidden">Pesquisar</label>
@@ -65,10 +122,10 @@
                     $nomeCliente = $_POST['nomeCliente'];
                 }
                 // Faz Select na Base de Dados
-                $sql = "SELECT * FROM cliente";
+                $sql = "SELECT id, nome, email, celular, CPF, dt_nasc, data_cad, data_updt FROM cliente";
                 // If Isset para verificar se recebeu o nomeCliente para concatenar o WHERE e fazer a pesquisa
                 if (isset($nomeCliente)) {
-                    $sql = $sql . " WHERE t1.nome LIKE '$nomeCliente%'";
+                    $sql = $sql . " WHERE nome LIKE '$nomeCliente%'";
                 }
             ?>
 
@@ -77,9 +134,12 @@
                         <thead class='thead-yellow'>
                             <tr>
                                 <th scope='col'>Código</th>
-                                <th scope='col'>Categoria</th>
-                                <th scope='col'>Data de Cadastro</th>
-                                <th scope='col'>Data de Atualização</th>
+                                <th scope='col'>Nome</th>
+                                <th scope='col'>Dt Nasc</th>
+                                <th scope='col'>Idade</th>
+                                <th scope='col'>CPF</th>
+                                <th scope='col'>Celular</th>
+                                <th scope='col'>Email</th>
                                 <th scope='col'> </th>
                             </tr>
                         </thead>
@@ -91,6 +151,19 @@
                         // Apresenta cada linha da tabela
                         echo "<tbody>";
                         while ($row = $result->fetch_assoc() ) {
+                            $data = $row['dt_nasc'];
+                            list($ano, $mes, $dia) = explode('-', $data);
+                            $nova_data = $dia . '/' . $mes . '/' . $ano;
+                            $hoje = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+                            $nascimento = mktime(0, 0, 0, $mes, $dia, $ano);
+                            $idade = floor((((($hoje - $nascimento) / 60) / 60) / 24) / 365.25);
+
+                            $dataY = explode('-', $row["dt_nasc"]);
+                            $anoY = $dataY[0];
+                            $mesY = $dataY[1];
+                            $diaY = $dataY[2];
+                            $dt_nasc = $diaY . '/' . $mesY . '/' . $anoY;
+
                             $dataN = explode('-', $row["data_cad"]);
                             $ano_cad = $dataN[0];
                             $mes_cad = $dataN[1];
@@ -112,16 +185,22 @@
                             echo "  </th><td>";
                             echo $row["nome"];
                             echo "  </td><td>";
-                            echo $nova_data_cad;
+                            echo $dt_nasc;
                             echo "  </td><td>";
-                            echo $nova_data_updt;
+                            echo $idade;
+                            echo "  </td><td>";
+                            echo $row["CPF"];
+                            echo "  </td><td>";
+                            echo $row["celular"];
+                            echo "  </td><td>";
+                            echo $row["email"];
                             echo "  </td>";
             ?>                      
                                 <td>
                                     <button type="button" class="btn btn-outline-danger" 
                                     data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Excluir categoria" data-bs-custom-class="custom-grid-tooltip"                               
-                                    onclick="window.location.href='admin-del-categoria.php?id=<?php echo $cod; ?>'">
-                                        <a class="bi bi-trash"></a>
+                                    >
+                                        <a class="bi bi-trash" onclick="dev(event)"></a>
                                     </button>
                                     <button type="button" class="btn btn-outline-primary" 
                                     data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Editar categoria" data-bs-custom-class="custom-grid-tooltip"
@@ -146,10 +225,6 @@
 
     <?php require "geral/footer.php" ?>
 
-
-    <script>
-        // Swal.fire("SweetAlert2 is working!");
-
-    </script>
+    <script src="js/validate-forms.js"></script>
 </body>
 </html>

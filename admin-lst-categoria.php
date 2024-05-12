@@ -121,13 +121,13 @@
             ?>                      
                                 <td>
                                     <button type="button" class="btn btn-outline-danger" 
-                                    data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Excluir categoria" data-bs-custom-class="custom-grid-tooltip"                               
+                                    data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Excluir categoria" data-bs-custom-class="custom-tooltip"                               
                                     onclick="window.location.href='admin-del-categoria.php?id=<?php echo $cod; ?>'">
                                         <a class="bi bi-trash"></a>
                                     </button>
                                     <button type="button" class="btn btn-outline-primary" 
-                                    data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Editar categoria" data-bs-custom-class="custom-grid-tooltip"
-                                        >
+                                    data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Editar categoria" data-bs-custom-class="custom-tooltip"
+                                    >
                                         <a class="bi bi-pencil-square" onclick="dev(event)" ></a>
                                     </button>
                                 </td>

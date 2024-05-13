@@ -11,21 +11,55 @@
 
 </head>
 <body id="vendas">
-    <!-- Modal Cadastro -->
+<!-- navbar padrão (já tem o session_start() dentro dela) -->
+<?php require "geral/navbar.php" ?>
+<!-- navbar padrão (já tem o session_start() dentro dela) -->
+
+<!-- conecta ao BD -->
+<?php require 'bd/connection.php'; ?>
+<!-- conecta ao BD -->
+
+    <?php
+        if (isset($_POST['tipoModal'])) {
+            $msg = '';
+            if ($_POST['tipoModal'] == 1) { //RECEBEU DADOS DO MODAL DE CADASTRO
+
+            } else { //RECEBEU DADOS DO MODAL DE UPDATE
+
+            }
+            ?>
+            <script>
+                Swal.fire({
+                    title: "Oops",
+                    text: <?php echo $_POST['tipoModal']?>,
+                    icon: "info"
+                })
+            </script>
+            <?php
+        }
+    ?>
+
+    <!-- Inicio Modal Cadastro (TIPO 1)-->
     <div class="modal fade" id="modalCadastro" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalCadastro" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
-                <form method="post" id="formCadastro" class="needs-validation" novalidate>
+                <!-- FORM COM O ACTION PARA A MESMA PAGINA PARA INSERIR NO BANCO DE DADOS O CADASTRO -->
+                <form id="formCadastro" class="needs-validation" novalidate method="post" action="vendedor-lst-clientes.php">
+                <!-- FORM COM O ACTION PARA A MESMA PAGINA PARA INSERIR NO BANCO DE DADOS O CADASTRO -->
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="modalCadastro">Cadastro de Cliente</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="row g-2">
+                            <!-- input para DIFERENCIAR o modal de CADASTRO do modal de UPDATE pois vai para a mesma página -->
+                            <input name="tipoModal" type="hidden" value="1">
+                            <!-- input para DIFERENCIAR o modal de CADASTRO do modal de UPDATE pois vai para a mesma página -->
                             <div class="col-md-6 col-12">
                                 <label for="nome" class="form-label">Nome</label>
                                 <input type="text" class="form-control" id="nome" pattern="[a-zA-Z\u00C0-\u00FF ]{3,100}$" required placeholder="Ana"
-                                data-bs-toggle="tooltip" data-bs-title="Nome com 3 a 100 letras" data-bs-custom-class="custom-tooltip">
+                                data-bs-toggle="tooltip" data-bs-title="Nome com 3 a 100 letras" data-bs-custom-class="custom-tooltip"
+                                name="nome">
                                 <div class="invalid-feedback">
                                     Por favor preencha o nome de 3 a 100 letras.
                                 </div>
@@ -34,33 +68,37 @@
                             <div class="col-md-6 col-12">
                                 <label for="dtNasc" class="form-label">Data de Nascimento</label>
                                 <input type="date" class="form-control" max="<?= $maxDate; ?>" id="dtNasc" required
-                                data-bs-toggle="tooltip" data-bs-title="Data de nascimento do cliente" data-bs-custom-class="custom-tooltip">
+                                data-bs-toggle="tooltip" data-bs-title="Data de nascimento do cliente" data-bs-custom-class="custom-tooltip"
+                                name="dtNasc">
                                 <div class="invalid-feedback">
                                     Por favor preencha a data.
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <label for="cpf" class="form-label">CPF</label>
-                                <input type="text" class="form-control" id="cpf" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" required
-                                data-bs-toggle="tooltip" data-bs-title="CPF do cliente com pontuação" data-bs-custom-class="custom-tooltip">
+                                <input type="text" class="form-control" id="cpf" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" required placeholder="xxx.xxx.xxx-xx"
+                                data-bs-toggle="tooltip" data-bs-title="CPF do cliente com pontuação" data-bs-custom-class="custom-tooltip"
+                                name="cpf">
                                 <div class="invalid-feedback">
                                     Por favor preencha o CPF.
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <label for="celular" class="form-label">Celular</label>
-                                <input type="text" class="form-control" id="celular" pattern="" required placeholder="(41)98765-4321"
-                                data-bs-toggle="tooltip" data-bs-title="Celular do cliente com DDD e 9 digitos" data-bs-custom-class="custom-tooltip">
+                                <input type="text" class="form-control" id="celular" required placeholder="(41)98765-4321"
+                                data-bs-toggle="tooltip" data-bs-title="Celular do cliente com DDD e 9 digitos" data-bs-custom-class="custom-tooltip"
+                                name="celular">
                                 <div class="invalid-feedback">
                                     Por favor preencha o Celular.
                                 </div>
                             </div>
                             <div class="col-12">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="text" class="form-control" id="email" pattern="" required placeholder="exemplo@gmail.com"
-                                data-bs-toggle="tooltip" data-bs-title="Email do cliente" data-bs-custom-class="custom-tooltip">
+                                <input type="text" class="form-control" id="email" required placeholder="exemplo@gmail.com"
+                                data-bs-toggle="tooltip" data-bs-title="Email do cliente" data-bs-custom-class="custom-tooltip"
+                                name="email">
                                 <div class="invalid-feedback">
-                                    Por favor preencha o Celular.
+                                    Por favor preencha o Email.
                                 </div>
                             </div>
                         </div>
@@ -73,11 +111,8 @@
             </div>
         </div>
     </div>
-    
-    <?php require "geral/navbar.php" ?>
+    <!-- Fim Modal Cadastro -->
 
-    <!-- conecta ao BD -->
-    <?php require 'bd/connection.php'; ?>
 
     <div class="container-fluid mt-3 home">
 
@@ -197,14 +232,10 @@
                             echo "  </td>";
             ?>                      
                                 <td>
-                                    <button type="button" class="btn btn-outline-danger" 
-                                    data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Excluir categoria" data-bs-custom-class="custom-grid-tooltip"                               
-                                    >
+                                    <button type="button" class="btn btn-outline-danger" title="Excluir" >
                                         <a class="bi bi-trash" onclick="dev(event)"></a>
                                     </button>
-                                    <button type="button" class="btn btn-outline-primary" 
-                                    data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Editar categoria" data-bs-custom-class="custom-grid-tooltip"
-                                        >
+                                    <button type="button" class="btn btn-outline-primary" title="Editar" >
                                         <a class="bi bi-pencil-square" onclick="dev(event)" ></a>
                                     </button>
                                 </td>
@@ -226,5 +257,13 @@
     <?php require "geral/footer.php" ?>
 
     <script src="js/validate-forms.js"></script>
+
+    <script>
+        // evita o resend de formulario quando atualiza a pagina
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+        // evita o resend de formulario quando atualiza a pagina
+    </script>
 </body>
 </html>

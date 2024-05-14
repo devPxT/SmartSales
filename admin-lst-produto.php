@@ -116,9 +116,9 @@
                                         $nova_data_updt = '';
                                         if ($row["data_updt"] != null) {
                                             $dataM = explode('-', $row["data_updt"]);
-                                            $ano_updt = $dataN[0];
-                                            $mes_updt = $dataN[1];
-                                            $dia_updt = $dataN[2];
+                                            $ano_updt = $dataM[0];
+                                            $mes_updt = $dataM[1];
+                                            $dia_updt = $dataM[2];
                                             $nova_data_updt = $dia_updt . '/' . $mes_updt . '/' . $ano_updt;
                                         }
 

@@ -35,7 +35,7 @@ CREATE TABLE cargo (
 
 -- Criação da tabela de estoque
 CREATE TABLE estoque (
-    id int PRIMARY KEY,
+    id int AUTO_INCREMENT PRIMARY KEY,
     cor VARCHAR(255) NOT NULL,
     tamanho VARCHAR(255) NOT NULL,
     quantidade int NOT NULL,
@@ -78,8 +78,8 @@ CREATE TABLE compra (
     data DATE NOT NULL,
     cliente_id int NOT NULL,
     funcionario_id int NOT NULL,
-    FOREIGN KEY (cliente_id) REFERENCES cliente(id) ON DELETE SET NULL,
-    FOREIGN KEY (funcionario_id) REFERENCES funcionario(id) ON DELETE SET NULL
+    FOREIGN KEY (cliente_id) REFERENCES cliente(id) ON DELETE CASCADE,
+    FOREIGN KEY (funcionario_id) REFERENCES funcionario(id) ON DELETE CASCADE
 );
 
 -- Criação da tabela carrinho
@@ -115,4 +115,4 @@ VALUES ('Cliente Teste', 'teste@gmail.com', '(41) 98765-4321', '636.597.050-12',
 
 -- Inserção de produto teste
 INSERT INTO produto (id, nome, marca, valor, genero, data_cad, categoria_id)
-VALUES (125, 'Air Jordan One', 'Nike', 1050.00, 'Unisex', now(), 1)
+VALUES (125, 'Air Jordan One', 'Nike', 1050.00, 'Unisex', now(), 1);

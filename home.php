@@ -39,7 +39,7 @@
     
     <div class="container-fluid mt-3 home">
         <div class="row">
-            <a class="col-lg-4 col-md-5 col-sm-6 col-xs-12 button-container mb-4" href="#">
+            <a class="col-lg-4 col-md-5 col-sm-6 col-xs-12 button-container mb-4" href="vendedor-cadastros-home.php">
                 <div class="card" style="width: 18rem;">
                     <i class="bi bi-plus-square" style="font-size: 150px; margin: auto;"></i>
                     <div class="card-body">
@@ -47,7 +47,7 @@
                     </div>
                 </div>
             </a>
-            <a class="col-lg-4 col-md-5 col-sm-6 col-xs-12 button-container mb-4" href="vendedor-home.php">
+            <a class="col-lg-4 col-md-5 col-sm-6 col-xs-12 button-container mb-4" href="vendedor-lst-vendas.php">
                 <div class="card" style="width: 18rem;">
                     <i class="bi bi-tags" style="font-size: 150px; margin: auto;"></i>
                     <div class="card-body">
@@ -55,7 +55,7 @@
                     </div>
                 </div>
             </a>
-            <a class="col-lg-4 col-md-5 col-sm-6 col-xs-12 button-container mb-4" href="#">
+            <a class="col-lg-4 col-md-5 col-sm-6 col-xs-12 button-container mb-4" href="estoquista-lst-estoque.php">
                 <div class="card" style="width: 18rem;">
                     <i class="bi bi-box" style="font-size: 150px; margin: auto;"></i>
                     <div class="card-body">

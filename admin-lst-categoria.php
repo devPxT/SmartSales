@@ -10,14 +10,6 @@
     <?php require "geral/links.php" ?>
 </head>
 <body id="admin">
-    <style>
-        #admin .container-fluid .row .btn {
-            width: 100%
-        }
-        #admin .container-fluid .row {
-            justify-content: normal;
-        }
-    </style>
     
     <?php require "geral/navbar.php" ?>
 
@@ -37,7 +29,7 @@
             <form action="admin-lst-categoria.php" method="post">
                 <div class="row">
                     <div class="col-lg-2 col-sm-2 col-3">
-                        <button type="button" class="btn btn-primary mb-3" onclick="window.location.href='admin-cad-categoria.php'">Novo</button>
+                        <button type="button" class="btn btn-primary mb-3 w-100" onclick="window.location.href='admin-cad-categoria.php'">Novo</button>
                     </div>
                     <div class="col-lg-6 col-sm-7 col-9">
                             <label for="inputPesquisa" class="visually-hidden">Pesquisar</label>
@@ -45,10 +37,10 @@
                                 value="<?php echo isset($_POST['nomeCategoria']) ? $_POST['nomeCategoria'] : ''; ?>">
                     </div>
                     <div class="col-lg-2 col-sm-3 col-12">
-                        <button type="submit" class="btn btn-success mb-3">Pesquisar</button>
+                        <button type="submit" class="btn btn-success mb-3 w-100">Pesquisar</button>
                     </div>
                     <div class="col-lg-2 col-sm-2 col-12">
-                        <button type="button" class="btn btn-secondary mb-3" onclick="window.location.href='admin-produto.php'">Voltar</button>
+                        <button type="button" class="btn btn-secondary mb-3 w-100" onclick="window.location.href='admin-produto.php'">Voltar</button>
                     </div>
                 </div>
             </form>
@@ -103,9 +95,9 @@
                             $nova_data_updt = '';
                             if ($row["data_updt"] != null) {
                                 $dataM = explode('-', $row["data_updt"]);
-                                $ano_updt = $dataN[0];
-                                $mes_updt = $dataN[1];
-                                $dia_updt = $dataN[2];
+                                $ano_updt = $dataM[0];
+                                $mes_updt = $dataM[1];
+                                $dia_updt = $dataM[2];
                                 $nova_data_updt = $dia_updt . '/' . $mes_updt . '/' . $ano_updt;
                             }
                             echo "<tr>";
@@ -127,8 +119,8 @@
                                     </button>
                                     <button type="button" class="btn btn-outline-primary" 
                                     data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Editar categoria" data-bs-custom-class="custom-tooltip"
-                                    >
-                                        <a class="bi bi-pencil-square" onclick="dev(event)" ></a>
+                                    onclick="window.location.href='admin-updt-categoria.php?id=<?php echo $cod; ?>'">
+                                        <a class="bi bi-pencil-square"></a>
                                     </button>
                                 </td>
                             </tr>

@@ -130,8 +130,8 @@
                         <tr>
                             <td colspan="2" style="text-align:center">
                             <p>
-                            <input type="submit" value="Salvar" class="w3-btn w3-theme" >
-                            <input type="button" value="Cancelar" class="w3-btn w3-theme" onclick="window.location.href='admin-lst-funcionario.php'">
+                            <input type="submit" value="Salvar" class="btn btn-success" >
+                            <input type="button" value="Cancelar" class="btn btn-secondary" onclick="window.location.href='admin-lst-funcionario.php'">
                             </p>
                             </td>
                         </tr>

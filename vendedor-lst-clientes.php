@@ -5,7 +5,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administração</title>
+    <title>Vendedor</title>
 
     <?php require "geral/links.php" ?>
 
@@ -138,7 +138,7 @@
                         <button type="submit" class="btn btn-success mb-3 w-100">Pesquisar</button>
                     </div>
                     <div class="col-lg-2 col-sm-2 col-12">
-                        <button type="button" class="btn btn-secondary mb-3 w-100" onclick="window.location.href='vendedor-home.php'">Voltar</button>
+                        <button type="button" class="btn btn-secondary mb-3 w-100" onclick="window.location.href='vendedor-cadastros-home.php'">Voltar</button>
                     </div>
                 </div>
             </form>

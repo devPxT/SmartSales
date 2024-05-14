@@ -70,7 +70,7 @@
             </p>
         </div>
         <div class="col-lg-1 col-sm-2 col-12">
-            <button type="button" class="btn btn-primary mb-3" onclick="window.location.href='admin-lst-funcionario.php'" style="width: 100%">Voltar</button>
+            <button type="button" class="btn btn-secondary mb-3 w-100" onclick="window.location.href='admin-lst-funcionario.php'">Voltar</button>
         </div>
 
 	<!-- FIM PRINCIPAL -->

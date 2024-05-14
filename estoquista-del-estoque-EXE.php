@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php require "login/verifica-login-admin.php" ?>
+    <?php require "login/verifica-login-estoquista.php" ?>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administração</title>
+    <title>Estoque</title>
 
     <?php require "geral/links.php" ?>
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="css/customize.css">
 </head>
-<body id="admin">
+<body id="estoque">
 
     <?php require "geral/navbar.php"; ?>
     
@@ -35,7 +35,7 @@
                         echo "</p> "
                     ?>
                         <div class="w3-container w3-theme">
-                            <h2>Exclusão de Produto</h2>
+                            <h2>Exclusão de Item do Estoque</h2>
                         </div>
 
                         <!-- Acesso ao BD-->
@@ -53,7 +53,7 @@
                         }
 
                         // Faz DELETE na Base de Dados
-                        $sql = "DELETE FROM produto WHERE id = $id";
+                        $sql = "DELETE FROM estoque WHERE id = $id";
 
                         echo "<div class='w3-responsive w3-card-4'>";
                         if ($result = mysqli_query($conn, $sql)) {
@@ -70,7 +70,7 @@
             </p>
         </div>
         <div class="col-lg-1 col-sm-2 col-12">
-            <button type="button" class="btn btn-secondary mb-3 w-100" onclick="window.location.href='admin-lst-produto.php'">Voltar</button>
+            <button type="button" class="btn btn-secondary mb-3 w-100" onclick="window.location.href='estoquista-lst-estoque.php'">Voltar</button>
         </div>
 
 	<!-- FIM PRINCIPAL -->

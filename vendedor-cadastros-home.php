@@ -5,7 +5,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administração</title>
+    <title>Vendedor</title>
     
     <?php require "geral/links.php" ?>
 </head>
@@ -36,11 +36,11 @@
                     </div>
                 </div>
             </a>
-            <a class="col" href="vendedor-lst-vendas.php">
+            <a class="col" href="#" onclick="dev(event)">
                 <div class="card">
                     <i class="bi bi-tags" style="font-size: 300px; margin: auto;"></i>
                     <div class="card-body">
-                        <p class="card-text">REGISTRO DE VENDAS</p>
+                        <p class="card-text">MÉTODOS DE PAGAMENTO</p>
                     </div>
                 </div>
             </a>

@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php require "login/verifica-login-admin.php" ?>
+    <?php require "login/verifica-login-estoquista.php" ?>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administração</title>
+    <title>Estoque</title>
 
     <?php require "geral/links.php" ?>
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="css/customize.css">
 </head>
-<body id="admin">
+<body id="estoque">
 
     <?php require "geral/navbar.php"; ?>
     
@@ -47,32 +47,61 @@
 
                     $id = $_GET['id'];
 
-                    $sql = "SELECT t1.id, t1.nome, t1.data_cad FROM categoria t1 WHERE id = $id";
+                    $sql = "SELECT t1.id, t1.cor, t1.tamanho, t1.quantidade, t1.data_cad, t1.produto_id FROM estoque t1 WHERE id = $id";
 
                     if ($result = $conn->query($sql)) {   // Consulta ao BD ok
                         if ($result->num_rows == 1) {          // Retorna 1 registro que será atualizado  
                             $row = $result->fetch_assoc();
     
-                            $nome = $row['nome'];
-                            $data = $row['data_cad'];
+                            $cor = $row['cor'];
+                            $tamanho = $row['tamanho'];
+                            $quantidade = $row['quantidade'];
+
+                            $produto = $row['produto_id'];
+    
+                            // Obtém as Especialidades Médicas na Base de Dados para um combo box
+                            $sqlG = "SELECT id, nome FROM produto";
+                            $result = $conn->query($sqlG);
+                            $optionsProdutos = array();
+    
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+                                    $selected = "";
+                                    if ($row['id'] == $produto)
+                                        $selected = "selected";
+                                    array_push($optionsProdutos, "\t\t\t<option . $selected . value='" . $row["id"] . "'>" . $row["nome"] . "</option>\n");
+                                }
+                            } else {
+                                echo "Erro executando SELECT: " . $conn->connect_error;
+                            }
+    
                     ?>
 
                     <div class="w3-responsive w3-card-4">
                         <div class="w3-container w3-theme">
-                            <h2>Informe os dados da Categoria a ser Atualizada</h2>
+                            <h2>Informe os dados do Item do Estoque a ser Atualizado</h2>
                         </div>
-                        <form class="w3-container" action="admin-updt-categoria-EXE.php" method="post" enctype="multipart/form-data">
+                        <form class="w3-container" action="estoquista-updt-estoque-EXE.php" method="post" enctype="multipart/form-data">
                         <table class='w3-table-all'>
                         <tr>
                             <td>
+                            <!-- <p> -->
                                 <input class="w3-input w3-border w3-light-grey" name="id" type="hidden" min="1" step="1"
-                                    value="<?php echo $id; ?>" title="Código do produto." required>
+                                    value="<?php echo $id; ?>" required>
+                                <!-- </p> -->
+                            <p>
+                                <label class="w3-text-IE"><b>Tamanho</b>*</label>
+                                <input class="w3-input w3-border w3-light-grey" name="Tamanho" type="text" pattern="([a-zA-Z\u00C0-\u00FF ]{1,3}|[0-9]{1,2})$"
+                                    title="Tamanho entre 1 e 3 letras OU entre 1 e 2 numeros." value="<?php echo $tamanho; ?>" required></p>
 
                             <p>
-                                <label class="w3-text-IE"><b>Nome</b>*</label>
-                                <input class="w3-input w3-border w3-light-grey" name="Nome" type="text" pattern="[a-zA-Z\u00C0-\u00FF ]{5,100}$"
-                                    value="<?php echo $nome; ?>"
-                                    title="Nome entre 5 e 100 letras." required></p>
+                                <label class="w3-text-IE"><b>Cor</b>*</label>
+                                <input class="w3-input w3-border w3-light-grey" name="Cor" type="text" pattern="[a-zA-Z\u00C0-\u00FF ]{3,100}$"
+                                    title="Cor entre 3 e 100 letras." value="<?php echo $cor; ?>" required></p>
+
+                            <p>
+                                <label class="w3-text-IE"><b>Quantidade</b>*</label>
+                                <input class="w3-input w3-border w3-light-grey" name="Quantidade" type="number" min="1" value="<?php echo $quantidade; ?>" required></p>
 
                             <p>
                                 <label class="w3-text-IE"><b>Data de Cadastro</b></label>
@@ -80,13 +109,24 @@
                                     value="<?php echo $data; ?>" disabled style="cursor: no-drop; background-color: lightgray !important;"
                                     placeholder="dd/mm/aaaa" title="dd/mm/aaaa" max="<?= date('Y-m-d'); ?>" required></p>
 
+                            <p>
+                                <label class="w3-text-IE"><b>Produto</b></label>
+                                <select name="Categoria" id="Categoria" class="w3-input w3-border w3-light-grey" 
+                                disabled style="cursor: no-drop; background-color: lightgray !important;" required>
+                                <?php
+                                    foreach($optionsProdutos as $key => $value){
+                                        echo $value;
+                                    }
+                                ?>
+                                </select>
+                            </p>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2" style="text-align:center">
                             <p>
                             <input type="submit" value="Salvar" class="btn btn-success" >
-                            <input type="button" value="Cancelar" class="btn btn-secondary" onclick="window.location.href='admin-lst-categoria.php'">
+                            <input type="button" value="Cancelar" class="btn btn-secondary" onclick="window.location.href='estoquista-lst-estoque.php'">
                             </p>
                             </td>
                         </tr>

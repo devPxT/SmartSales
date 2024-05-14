@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php require "login/verifica-login-admin.php" ?>
+    <?php require "login/verifica-login-estoquista.php" ?>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administração</title>
+    <title>Estoque</title>
 
     <?php require "geral/links.php" ?>
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="css/customize.css">
 </head>
-<body id="admin">
+<body id="estoque">
 
     <?php require "geral/navbar.php"; ?>
     
@@ -47,80 +47,69 @@
 
                     $id = $_GET['id'];
 
-                    $sql = "SELECT t1.nome, t1.marca, t1.valor, t1.data_cad, t1.data_updt, t2.nome as categoria, t1.genero FROM produto t1 JOIN categoria t2 ON t1.categoria_id = t2.id WHERE t1.id = $id";
+                    // $sql = "SELECT t1.id, t2.nome, t1.data_cad, t1.data_updt FROM categoria t1 WHERE t1.id = $id";
+                    $sql = "SELECT t1.id, t1.cor, t1.tamanho, t1.quantidade, t1.data_cad, t1.data_updt, t2.nome 
+                            FROM estoque t1 JOIN produto t2 ON t1.produto_id = t2.id WHERE t1.id = $id";
 
                     if ($result = $conn->query($sql)) {   // Consulta ao BD ok
                         if ($result->num_rows == 1) {          // Retorna 1 registro que será atualizado  
                             $row = $result->fetch_assoc();
     
+                            $cor = $row['cor'];
+                            $tamanho = $row['tamanho'];
+                            $quantidade = $row['quantidade'];
+
                             $nome = $row['nome'];
-                            $marca = $row['marca'];
-                            $valor = $row['valor'];
-                            $genero = $row['genero'];
-                            $categoria = $row['categoria'];
 
                             $dataN = explode('-', $row["data_cad"]);
-                            $ano = $dataN[0];
-                            $mes = $dataN[1];
-                            $dia = $dataN[2];
-                            $data_cad = $dia . '/' . $mes . '/' . $ano;
+                            $anoN = $dataN[0];
+                            $mesN = $dataN[1];
+                            $diaN = $dataN[2];
+                            $data_cad = $diaN . '/' . $mesN . '/' . $anoN;
 
                             if ($row["data_updt"] == null) {
-                                $data_updt = ""; 
+                               $data_updt = ""; 
                             } else {
-                                 $dataM = explode('-', $row["data_updt"]);
-                                 $anoM = $dataM[0];
-                                 $mesM = $dataM[1];
-                                 $diaM = $dataM[2];
-                                 $data_updt = $diaM . '/' . $mesM . '/' . $anoM;
+                                $dataM = explode('-', $row["data_updt"]);
+                                $anoM = $dataM[0];
+                                $mesM = $dataM[1];
+                                $diaM = $dataM[2];
+                                $data_updt = $diaM . '/' . $mesM . '/' . $anoM;
                             }
+                            
     
                     ?>
 
                     <div class="w3-responsive w3-card-4">
                         <div class="w3-container w3-theme">
-                            <h2>Exclusão de Produto Cód. [<?php echo $id ?>]</h2>
+                            <h2>Exclusão de Categoria Cód. [<?php echo $id ?>]</h2>
                         </div>
-                        <form class="w3-container" action="admin-del-produto-EXE.php" method="post" enctype="multipart/form-data">
+                        <form class="w3-container" action="estoquista-del-estoque-EXE.php" method="post" enctype="multipart/form-data">
                         <table class='w3-table-all'>
                         <tr>
                             <td>
                             <!-- <p> -->
                                 <input class="w3-input w3-border w3-light-grey" name="id" type="hidden" min="1" step="1" value="<?php echo $id; ?>">
-                                <input class="w3-input w3-border w3-light-grey" name="marca" type="hidden" value="<?php echo $marca; ?>">
                                 <!-- </p> -->
                             <p>
-                                <label class="w3-text-IE"><b>Nome: </b> <?php echo $nome; ?> </label>
+                                <label class="w3-text-IE"><b>Produto: </b> <?php echo $nome; ?> </label></p>
                             <p>
-                                <label class="w3-text-IE"><b>Marca: </b><?php echo $marca; ?></label></p>
+                                <label class="w3-text-IE"><b>Cor: </b> <?php echo $cor; ?> </label></p>
                             <p>
-                                <label class="w3-text-IE"><b>Valor: </b>R$ <?php echo $valor; ?></label></p>
+                                <label class="w3-text-IE"><b>Tamanho: </b> <?php echo $tamanho; ?> </label></p>
+                            <p>
+                                <label class="w3-text-IE"><b>Quantidade: </b> <?php echo $quantidade; ?> </label></p>
                             <p>
                                 <label class="w3-text-IE"><b>Data de Cadastro: </b><?php echo $data_cad; ?></label></p>
                             <p>
                                 <label class="w3-text-IE"><b>Data de Atualização: </b><?php echo $data_updt; ?></label></p>
-                            <p>
-                                <label class="w3-text-IE"><b>Categoria: </b><?php echo $categoria; ?></label>
-                            </p>
-                            <p>
-                                <label class="w3-text-IE"><b>Gênero</b></label><br>
-                                <input class="w3-radio" type="radio" name="Genero" value="Masculino" <?php if($genero === 'Masculino') echo 'checked'; ?> disabled>
-                                <label class="w3-validate">Masculino</label>
-
-                                <input class="w3-radio" type="radio" name="Genero" value="Feminino" <?php if($genero === 'Feminino') echo 'checked'; ?> disabled>
-                                <label class="w3-validate">Feminino</label>
-
-                                <input class="w3-radio" type="radio" name="Genero" value="Unisex" <?php if($genero === 'Unisex') echo 'checked'; ?> disabled>
-                                <label class="w3-validate">Unisex</label>
-                            </p>
-
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2" style="text-align:center">
                             <p>
                                 <input type="submit" value="Confirma exclusão?" class="btn btn-danger" >
-                                <input type="button" value="Cancelar" class="btn btn-secondary" onclick="window.location.href='admin-lst-produto.php'">
+                                <input type="button" value="Cancelar" class="btn btn-secondary" onclick="window.location.href='estoquista-lst-estoque.php'">
                             </p>
                             </td>
                         </tr>
@@ -131,7 +120,7 @@
                     } else { ?>
                         <div class="w3-container w3-theme">
 							<h2>Produto inexistente</h2>
-						    </div>
+                        </div>
 						<br>
                         <?php
 					}

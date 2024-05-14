@@ -40,6 +40,8 @@ CREATE TABLE estoque (
     tamanho VARCHAR(255) NOT NULL,
     quantidade int NOT NULL,
     produto_id int NOT NULL,
+    data_cad DATE,
+    data_updt DATE,
     FOREIGN KEY (produto_id) REFERENCES produto(id) ON DELETE CASCADE
 );
 
@@ -50,7 +52,9 @@ CREATE TABLE cliente (
     email VARCHAR(255) NOT NULL UNIQUE,
     celular VARCHAR(50),
     CPF VARCHAR(14) NOT NULL UNIQUE,
-    dt_nasc DATE NOT NULL
+    dt_nasc DATE NOT NULL,
+    data_cad DATE,
+    data_updt DATE
 );
 
 -- Criação da tabela de funcionarios
@@ -74,8 +78,8 @@ CREATE TABLE compra (
     data DATE NOT NULL,
     cliente_id int NOT NULL,
     funcionario_id int NOT NULL,
-    FOREIGN KEY (cliente_id) REFERENCES cliente(id) ON DELETE CASCADE,
-    FOREIGN KEY (funcionario_id) REFERENCES funcionario(id) ON DELETE CASCADE
+    FOREIGN KEY (cliente_id) REFERENCES cliente(id) ON DELETE SET NULL,
+    FOREIGN KEY (funcionario_id) REFERENCES funcionario(id) ON DELETE SET NULL
 );
 
 -- Criação da tabela carrinho
@@ -103,4 +107,12 @@ INSERT INTO cargo (nome, descricao, data_cad) VALUES
 
 -- Inserção da única conta de administrador
 INSERT INTO funcionario (nome, dt_nasc, cpf, login, senha, cargo_id, data_cad) 
-VALUES ('João da Silva', '2005-06-07', '156.780.380-60', 'joao.silva', md5('Admin@123'), 1, now())
+VALUES ('João da Silva', '2005-06-07', '156.780.380-60', 'joao.silva', md5('Admin@123'), 1, now());
+
+-- Inserção de cliente teste
+INSERT INTO cliente (nome, email, celular, cpf, dt_nasc, data_cad) 
+VALUES ('Cliente Teste', 'teste@gmail.com', '(41) 98765-4321', '636.597.050-12', '2000-01-01', now());
+
+-- Inserção de produto teste
+INSERT INTO produto (id, nome, marca, valor, genero, data_cad, categoria_id)
+VALUES (125, 'Air Jordan One', 'Nike', 1050.00, 'Unisex', now(), 1)

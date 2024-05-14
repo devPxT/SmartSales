@@ -1,10 +1,15 @@
 .w3-theme {
-    color: #ffff !important;
-    background-color: rgb(43, 48, 53) !important;
+    color: #000 !important;
+    background-color: #ffc107 !important;
+}
+
+.w3-danger {
+    color: #000 !important;
+    background-color: #dc3545 !important;
 }
 
 .w3-code {
-    border-left: 4px solid rgb(43, 48, 53);;
+    border-left: 4px solid #ffc107;
 }
 
 .w3-text-IE {

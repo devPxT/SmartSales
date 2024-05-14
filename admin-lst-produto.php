@@ -13,15 +13,6 @@
     <link rel="stylesheet" href="css/customize.css">
 </head>
 <body id="admin">
-    <style>
-        #admin .container-fluid .row .btn {
-            width: 100%
-        }
-        #admin .container-fluid .row {
-            justify-content: normal;
-        }
-    </style>
-    
     <?php require "geral/navbar.php" ?>
 
     <?php require 'bd/connection.php'; ?>
@@ -40,7 +31,7 @@
                 <form action="admin-lst-produto.php" method="post">
                     <div class="row">
                         <div class="col-lg-2 col-sm-2 col-3">
-                            <button type="button" class="btn btn-success mb-3" onclick="window.location.href='admin-cad-produto.php'">Novo</button>
+                            <button type="button" class="btn btn-primary mb-3 w-100" onclick="window.location.href='admin-cad-produto.php'">Novo</button>
                         </div>
                         <div class="col-lg-6 col-sm-7 col-9">
                             
@@ -49,10 +40,10 @@
                                 value="<?php echo isset($_POST['nomeProduto']) ? $_POST['nomeProduto'] : ''; ?>">
                         </div>
                         <div class="col-lg-2 col-sm-3 col-12">
-                            <button type="submit" class="btn btn-success mb-3">Pesquisar</button>
+                            <button type="submit" class="btn btn-success mb-3 w-100">Pesquisar</button>
                         </div>
                         <div class="col-lg-2 col-sm-2 col-12">
-                            <button type="button" class="btn btn-primary mb-3" onclick="window.location.href='admin-produto.php'">Voltar</button>
+                            <button type="button" class="btn btn-secondary mb-3 w-100" onclick="window.location.href='admin-produto.php'">Voltar</button>
                         </div>
                     </div>
                 </form>

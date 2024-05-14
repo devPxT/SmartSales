@@ -13,15 +13,6 @@
     <link rel="stylesheet" href="css/customize.css">
 </head>
 <body id="vendas">
-    <style>
-        #vendas .container-fluid .row .btn {
-            width: 100%
-        }
-        #vendas .container-fluid .row {
-            justify-content: normal;
-        }
-    </style>
-    
     <?php require "geral/navbar.php" ?>
 
     <?php require 'bd/connection.php'; ?>
@@ -40,18 +31,18 @@
                 <form action="#" method="post">
                     <div class="row">
                         <div class="col-lg-2 col-sm-2 col-3">
-                            <button type="button" class="btn btn-success mb-3" onclick="dev(event)">Novo</button>
+                            <button type="button" class="btn btn-primary mb-3 w-100" onclick="dev(event)">Novo</button>
                         </div>
                         <div class="col-lg-6 col-sm-7 col-9">
-                                <label for="inputPesquisa" class="visually-hidden">Pesquisar</label>
-                                <input type="text" name="nomeCategoria" class="form-control mb-3" id="inputPesquisa" placeholder="Busca..."
-                                    value="<?php echo isset($_POST['nomeCategoria']) ? $_POST['nomeCategoria'] : ''; ?>">
+                            <label for="inputPesquisa" class="visually-hidden">Pesquisar</label>
+                            <input type="text" name="nomeCategoria" class="form-control mb-3" id="inputPesquisa" placeholder="Busca..."
+                                value="<?php echo isset($_POST['nomeCategoria']) ? $_POST['nomeCategoria'] : ''; ?>">
                         </div>
                         <div class="col-lg-2 col-sm-3 col-12">
-                            <button type="submit" class="btn btn-success mb-3">Pesquisar</button>
+                            <button type="submit" class="btn btn-success mb-3 w-100">Pesquisar</button>
                         </div>
                         <div class="col-lg-2 col-sm-2 col-12">
-                            <button type="button" class="btn btn-primary mb-3" onclick="window.location.href='home.php'">Voltar</button>
+                            <button type="button" class="btn btn-secondary mb-3 w-100" onclick="window.location.href='home.php'">Voltar</button>
                         </div>
                     </div>
                 </form>

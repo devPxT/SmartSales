@@ -96,8 +96,8 @@
                         <tr>
                             <td colspan="2" style="text-align:center">
                             <p>
-                                <input type="submit" value="Confirma exclusão?" class="w3-btn w3-theme" >
-                                <input type="button" value="Cancelar" class="w3-btn w3-theme" onclick="window.location.href='admin-lst-categoria.php'">
+                                <input type="submit" value="Confirma exclusão?" class="btn btn-danger" >
+                                <input type="button" value="Cancelar" class="btn btn-secondary" onclick="window.location.href='admin-lst-categoria.php'">
                             </p>
                             </td>
                         </tr>

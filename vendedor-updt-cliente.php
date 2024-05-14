@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php require "login/verifica-login-admin.php" ?>
+    <?php require "login/verifica-login-vendedor.php" ?>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administração</title>
+    <title>Vendedor</title>
 
     <?php require "geral/links.php" ?>
 
@@ -47,30 +47,35 @@
 
                     $id = $_GET['id'];
 
-                    $sql = "SELECT t1.nome, t1.marca, t1.valor, t1.data_cad, t1.categoria_id, t1.genero FROM produto t1 WHERE id = $id";
+                    //MUDAR DADOS////MUDAR DADOS////MUDAR DADOS////MUDAR DADOS////MUDAR DADOS//
+                    //MUDAR DADOS////MUDAR DADOS////MUDAR DADOS////MUDAR DADOS////MUDAR DADOS//
+                    //MUDAR DADOS////MUDAR DADOS////MUDAR DADOS////MUDAR DADOS////MUDAR DADOS//
+
+                    $sql = "SELECT t1.nome, t1.dt_nasc, t1.cpf, t1.login, t1.cargo_id, t1.data_cad, t1.data_updt FROM funcionario t1 WHERE t1.id = $id";
 
                     if ($result = $conn->query($sql)) {   // Consulta ao BD ok
                         if ($result->num_rows == 1) {          // Retorna 1 registro que será atualizado  
                             $row = $result->fetch_assoc();
     
                             $nome = $row['nome'];
-                            $marca = $row['marca'];
-                            $valor = $row['valor'];
-                            $data  = $row['data_cad'];
-                            $genero = $row['genero'];
-                            $categoria = $row['categoria_id'];
+                            $data  = $row['dt_nasc'];
+                            $cpf = $row['cpf'];
+                            $login = $row['login'];
+                            $cargo = $row['cargo_id'];
+
+                            $data_cad = $row['data_cad'];
     
-                            // Obtém as Categorias na Base de Dados para um combo box
-                            $sqlG = "SELECT id, nome FROM categoria";
+                            // Obtém as Especialidades Médicas na Base de Dados para um combo box
+                            $sqlG = "SELECT id, nome FROM cargo WHERE id <> 1";
                             $result = $conn->query($sqlG);
-                            $optionsCategoria = array();
+                            $optionsCargo = array();
     
                             if ($result->num_rows > 0) {
                                 while ($row = $result->fetch_assoc()) {
                                     $selected = "";
-                                    if ($row['id'] == $categoria)
+                                    if ($row['id'] == $cargo)
                                         $selected = "selected";
-                                    array_push($optionsCategoria, "\t\t\t<option . $selected . value='" . $row["id"] . "'>" . $row["nome"] . "</option>\n");
+                                    array_push($optionsCargo, "\t\t\t<option . $selected . value='" . $row["id"] . "'>" . $row["nome"] . "</option>\n");
                                 }
                             } else {
                                 echo "Erro executando SELECT: " . $conn->connect_error;
@@ -80,16 +85,14 @@
 
                     <div class="w3-responsive w3-card-4">
                         <div class="w3-container w3-theme">
-                            <h2>Informe os dados do Produto a ser Atualizado</h2>
+                            <h2>Informe os dados do Funcionário a ser Atualizado</h2>
                         </div>
-                        <form class="w3-container" action="admin-updt-produto-EXE.php" method="post" enctype="multipart/form-data">
+                        <form class="w3-container" action="admin-updt-funcionario-EXE.php" method="post" enctype="multipart/form-data">
                         <table class='w3-table-all'>
                         <tr>
                             <td>
                             <!-- <p> -->
-                                <input class="w3-input w3-border w3-light-grey" name="id" type="hidden" min="1" step="1"
-                                    value="<?php echo $id; ?>" 
-                                    title="Código do produto." required>
+                                <input class="w3-input w3-border w3-light-grey" name="id" type="hidden" value="<?php echo $id; ?>" required>
                                 <!-- </p> -->
                             <p>
                                 <label class="w3-text-IE"><b>Nome</b>*</label>
@@ -97,41 +100,33 @@
                                     value="<?php echo $nome; ?>"
                                     title="Nome entre 5 e 100 letras." required></p>
                             <p>
-                                <label class="w3-text-IE"><b>Marca</b>*</label>
-                                <input class="w3-input w3-border w3-light-grey" name="Marca" type="text" pattern="[a-zA-Z\u00C0-\u00FF ]{3,100}$"
-                                    value="<?php echo $marca; ?>"
-                                    title="Marca entre 3 e 100 letras." required></p>
+                                <label class="w3-text-IE"><b>Login</b>*</label>
+                                <input class="w3-input w3-border w3-light-grey" name="Login" type="text" 
+                                    pattern="[a-zA-Z]{2,20}\.[a-zA-Z]{2,20}" placeholder="nome.sobrenome" title="nome.sobrenome"
+                                    value="<?php echo $login; ?>" required></p>
                             <p>
-                                <label class="w3-text-IE"><b>Valor</b>*</label>
-                                <input class="w3-input w3-border w3-light-grey" name="Valor" type="number" min="0" step="0.01"
-                                    value="<?php echo $valor; ?>"
-                                    title="Valor em reais do produto." required></p>
+                                <label class="w3-text-IE"><b>CPF</b>*</label>
+                                <input class="w3-input w3-border w3-light-grey"
+                                    name="CPF" id="CPF" type="text" title="CPF do funcionario (123.456.789-10)." placeholder="123.456.789-10" 
+                                    value="<?php echo $cpf; ?>" disabled style="cursor: no-drop; background-color: lightgray !important;" required></p>
+                            <p>
+                                <label class="w3-text-IE"><b>Data de Nascimento</b></label>
+                                <input class="w3-input w3-border w3-light-grey" name="Data" type="date"
+                                    value="<?php echo $data; ?>" placeholder="dd/mm/aaaa" title="dd/mm/aaaa" max="<?= date('Y-m-d'); ?>" required></p>
                             <p>
                                 <label class="w3-text-IE"><b>Data de Cadastro</b></label>
-                                <input class="w3-input w3-border w3-light-grey" name="Data" type="date"
-                                    value="<?php echo $data; ?>" disabled style="cursor: no-drop; background-color: lightgray !important;"
+                                <input class="w3-input w3-border w3-light-grey" name="DataCad" type="date"
+                                    value="<?php echo $data_cad; ?>" disabled style="cursor: no-drop; background-color: lightgray !important;"
                                     placeholder="dd/mm/aaaa" title="dd/mm/aaaa" max="<?= date('Y-m-d'); ?>" required></p>
                             <p>
-                            <p>
-                                <label class="w3-text-IE"><b>Categoria</b>*</label>
-                                <select name="Categoria" id="Categoria" class="w3-input w3-border w3-light-grey" required>
+                                <label class="w3-text-IE"><b>Cargo</b>*</label>
+                                <select name="Cargo" id="Cargo" class="w3-input w3-border w3-light-grey" required>
                                 <?php
-                                    foreach($optionsCategoria as $key => $value){
+                                    foreach($optionsCargo as $key => $value){
                                         echo $value;
                                     }
                                 ?>
                                 </select>
-                            </p>
-                            <p>
-                                <label class="w3-text-IE"><b>Gênero</b>*</label><br>
-                                <input class="w3-radio" type="radio" name="Genero" value="Masculino" <?php if($genero === 'Masculino') echo 'checked'; ?> required>
-                                <label class="w3-validate">Masculino</label>
-
-                                <input class="w3-radio" type="radio" name="Genero" value="Feminino" <?php if($genero === 'Feminino') echo 'checked'; ?> required>
-                                <label class="w3-validate">Feminino</label>
-
-                                <input class="w3-radio" type="radio" name="Genero" value="Unisex" <?php if($genero === 'Unisex') echo 'checked'; ?> required>
-                                <label class="w3-validate">Unisex</label>
                             </p>
 
                             </td>
@@ -139,8 +134,8 @@
                         <tr>
                             <td colspan="2" style="text-align:center">
                             <p>
-                            <input type="submit" value="Salvar" class="btn btn-success" >
-                            <input type="button" value="Cancelar" class="btn btn-secondary" onclick="window.location.href='admin-lst-produto.php'">
+                            <input type="submit" value="Salvar" class="w3-btn w3-theme" >
+                            <input type="button" value="Cancelar" class="w3-btn w3-theme" onclick="window.location.href='admin-lst-funcionario.php'">
                             </p>
                             </td>
                         </tr>
@@ -150,7 +145,7 @@
                     <?php
                     } else { ?>
                         <div class="w3-container w3-theme">
-							<h2>Produto inexistente</h2>
+							<h2>Funcionário inexistente</h2>
 						    </div>
 						<br>
                         <?php

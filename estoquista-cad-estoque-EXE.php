@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
-    <?php require "login/verifica-login-admin.php" ?>
+      <?php require "login/verifica-login-estoquista.php" ?>
 
-	  <title>Adminimstração</title>
+	  <title>Estoque</title>
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
 
       <?php require "geral/links.php" ?>
@@ -11,7 +11,7 @@
 	  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	  <link rel="stylesheet" href="css/customize.css">
 	</head>
-<body id="admin">
+<body id="estoque">
 <!-- Inclui MENU.PHP  -->
     <?php require 'geral/navbar.php';?>
     <?php require 'bd/connection.php'; ?>
@@ -29,13 +29,17 @@
             echo "<p class='w3-small' > ";
             echo "Acesso em: ";
             echo $data;
-            echo "</p> "
+            echo "</p> ";
             ?>
 
             <!-- Acesso ao BD-->
             <?php
-                $nome = $_POST['Nome'];
-                $data_cad  = $_POST['Data'];
+                $tamanho = $_POST['Tamanho'];
+                $cor    = $_POST['Cor'];
+                $data_cad = $_POST['DataCad'];
+
+                $quantidade = $_POST['Quantidade'];
+                $produto = $_POST['Produto'];
 
                 // Cria conexão
                 $conn = new mysqli($servername, $username, $password, $database);
@@ -45,13 +49,12 @@
                     die("<strong> Falha de conexão: </strong>" . $conn->connect_error);
                 }
 
-                // Faz Insert na Base de Dados
-                $sql = "INSERT INTO categoria (nome, data_cad) VALUES ('$nome', '$data_cad')";
+                $sql = "INSERT INTO estoque (cor, tamanho, quantidade, produto_id, data_cad) VALUES ('$cor', '$tamanho', $quantidade, $produto, '$data_cad')";
 
                 ?>
                 <div class='w3-responsive w3-card-4'>
                 <div class="w3-container w3-theme">
-                    <h2>Inclusão de Nova Categoria</h2>
+                    <h2>Inclusão de novo Item do Estoque</h2>
                 </div>
                 <?php
                 if ($result = $conn->query($sql)) {
@@ -66,9 +69,11 @@
 
             ?>
         </div>
+
         <div class="col-lg-1 col-sm-2 col-12">
-            <button type="button" class="btn btn-primary mb-3" onclick="window.location.href='admin-lst-categoria.php'" style="width: 100%">Voltar</button>
+            <button type="button" class="btn btn-secondary mb-3 w-100" onclick="window.location.href='estoquista-lst-estoque.php'">Voltar</button>
         </div>
+        
     </div>
 
     <?php require "geral/footer.php" ?>

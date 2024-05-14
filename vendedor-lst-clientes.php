@@ -21,21 +21,67 @@
 
     <?php
         if (isset($_POST['tipoModal'])) {
-            $msg = '';
-            if ($_POST['tipoModal'] == 1) { //RECEBEU DADOS DO MODAL DE CADASTRO
+            $conn = new mysqli($servername, $username, $password, $database);
+            if ($conn->connect_error) {
+                die("<strong> Falha de conexão: </strong>" . $conn->connect_error);
+            }
 
+            $msg = '';
+            $icon = '';
+
+            if ($_POST['tipoModal'] == 1) { //RECEBEU DADOS DO MODAL DE CADASTRO
+                $nome = $_POST['nome'];
+                $dtNasc = $_POST['dtNasc'];
+                $cpf = $_POST['cpf'];
+                $celular = $_POST['celular'];
+                $email = $_POST['email'];
+                $data_cad = $_POST['dtCad'];
+                
+                $sql = "SELECT id FROM cliente WHERE cpf = '$cpf'";
+                //verifica se deu erro no SELECT
+                if ($result = $conn->query($sql)) {
+
+                    if ($result -> num_rows > 0) {
+                        $msg = 'Erro cadastrando o cliente. CPF já existente!';
+                        $icon = 'error';
+
+                        $_SESSION['nomeModal'] = $nome;
+                        $_SESSION['dtNasc'] = $dtNasc;
+                        $_SESSION['cpf'] = $cpf;
+                        $_SESSION['celular'] = $celular;
+                        $_SESSION['email'] = $email;
+                        $_SESSION['dtCad'] = $data_cad;
+                    } else {
+                        $sql2 = "INSERT INTO cliente (nome, dt_nasc, email, celular, CPF, data_cad) VALUES ('$nome','$dtNasc', '$email', '$celular', '$cpf', '$data_cad')";
+
+                        //verifica se deu erro no insert do cliente
+                        if ($result2 = $conn->query($sql2)) {
+                            $msg = 'Cliente cadastrado com sucesso!';
+                            $icon = 'success';
+
+                            unset($_SESSION['nomeModal']);
+                            unset($_SESSION['dtNasc']);
+                            unset($_SESSION['cpf']);
+                            unset($_SESSION['celular']);
+                            unset($_SESSION['email']);
+                            unset($_SESSION['dtCad']);
+                        } else {
+                            //echo $conn->connect_error;
+                            $msg = 'Erro executando INSERT do cliente';
+                            $icon = 'error';
+                        }
+                    }
+
+                } else {
+                    //echo $conn-> error;
+                    $msg = 'Erro selecionando o ID do cliente';
+                    $icon = 'error';
+                }
             } else { //RECEBEU DADOS DO MODAL DE UPDATE
 
             }
-            ?>
-            <script>
-                Swal.fire({
-                    title: "Oops",
-                    text: <?php echo $_POST['tipoModal']?>,
-                    icon: "info"
-                })
-            </script>
-            <?php
+
+            $conn->close();
         }
     ?>
 
@@ -58,43 +104,60 @@
                             <div class="col-md-6 col-12">
                                 <label for="nome" class="form-label">Nome</label>
                                 <input type="text" class="form-control" id="nome" pattern="[a-zA-Z\u00C0-\u00FF ]{3,100}$" required placeholder="Ana"
+                                value="<?php echo isset($_SESSION['nomeModal']) ? $_SESSION['nomeModal'] : ''; ?>"
                                 data-bs-toggle="tooltip" data-bs-title="Nome com 3 a 100 letras" data-bs-custom-class="custom-tooltip"
                                 name="nome">
                                 <div class="invalid-feedback">
                                     Por favor preencha o nome de 3 a 100 letras.
                                 </div>
                             </div>
-                            <?php $maxDate = date('Y-m-d', strtotime('-1 years')); ?>
                             <div class="col-md-6 col-12">
+                                <label for="cpf" class="form-label">CPF</label>
+                                <input type="text" class="form-control" id="cpf" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" required placeholder="xxx.xxx.xxx-xx"
+                                value="<?php echo isset($_SESSION['cpf']) ? $_SESSION['cpf'] : ''; ?>"
+                                data-bs-toggle="tooltip" data-bs-title="CPF do cliente com pontuação" data-bs-custom-class="custom-tooltip"
+                                name="cpf">
+                                <div class="invalid-feedback">
+                                    Por favor preencha o CPF com pontuação.
+                                </div>
+                            </div>
+
+                            <?php $maxDate = date('Y-m-d', strtotime('-1 years')); ?>
+                            <div class="col-sm-6 col-12">
                                 <label for="dtNasc" class="form-label">Data de Nascimento</label>
                                 <input type="date" class="form-control" max="<?= $maxDate; ?>" id="dtNasc" required
+                                value="<?php echo isset($_SESSION['dtNasc']) ? $_SESSION['dtNasc'] : ''; ?>"
                                 data-bs-toggle="tooltip" data-bs-title="Data de nascimento do cliente" data-bs-custom-class="custom-tooltip"
                                 name="dtNasc">
                                 <div class="invalid-feedback">
                                     Por favor preencha a data.
                                 </div>
                             </div>
-                            <div class="col-md-6 col-12">
-                                <label for="cpf" class="form-label">CPF</label>
-                                <input type="text" class="form-control" id="cpf" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" required placeholder="xxx.xxx.xxx-xx"
-                                data-bs-toggle="tooltip" data-bs-title="CPF do cliente com pontuação" data-bs-custom-class="custom-tooltip"
-                                name="cpf">
+                            <div class="col-sm-6 col-12">
+                                <label for="dtCad" class="form-label">Data de Cadastro</label>
+                                <input type="date" class="form-control" max="<?= date('Y-m-d'); ?>" 
+                                value="<?php echo isset($_SESSION['dtCad']) ? $_SESSION['dtCad'] : date('Y-m-d'); ?>" id="dtCad" required
+                                data-bs-toggle="tooltip" data-bs-title="Data de cadastro do cliente" data-bs-custom-class="custom-tooltip"
+                                name="dtCad">
                                 <div class="invalid-feedback">
-                                    Por favor preencha o CPF.
+                                    Por favor preencha a data.
                                 </div>
                             </div>
+                            
                             <div class="col-md-6 col-12">
                                 <label for="celular" class="form-label">Celular</label>
                                 <input type="text" class="form-control" id="celular" required placeholder="(41)98765-4321"
+                                value="<?php echo isset($_SESSION['celular']) ? $_SESSION['celular'] : ''; ?>"
                                 data-bs-toggle="tooltip" data-bs-title="Celular do cliente com DDD e 9 digitos" data-bs-custom-class="custom-tooltip"
                                 name="celular">
                                 <div class="invalid-feedback">
-                                    Por favor preencha o Celular.
+                                    Por favor preencha o Celular com DDD.
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-md-6 col-12">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="text" class="form-control" id="email" required placeholder="exemplo@gmail.com"
+                                value="<?php echo isset($_SESSION['email']) ? $_SESSION['email'] : ''; ?>"
                                 data-bs-toggle="tooltip" data-bs-title="Email do cliente" data-bs-custom-class="custom-tooltip"
                                 name="email">
                                 <div class="invalid-feedback">
@@ -265,5 +328,26 @@
         }
         // evita o resend de formulario quando atualiza a pagina
     </script>
+
+    <?php
+        if (isset($_POST['tipoModal'])) {
+    ?>
+        <script>
+            Swal.fire({
+                text: '<?php echo $msg ?>',
+                icon: '<?php echo $icon ?>',
+                allowOutsideClick: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    if ('<?php echo $icon ?>' == 'error') {
+                        $('#modalCadastro').modal('toggle');
+                    }
+                }
+            });
+        </script>
+    <?php
+        }
+    ?>
+    
 </body>
 </html>

@@ -58,8 +58,9 @@
                             $quantidade = $row['quantidade'];
 
                             $produto = $row['produto_id'];
+                            $data = $row['data_cad'];
     
-                            // Obtém as Especialidades Médicas na Base de Dados para um combo box
+                            // Obtém os Produtos na Base de Dados para um combo box
                             $sqlG = "SELECT id, nome FROM produto";
                             $result = $conn->query($sqlG);
                             $optionsProdutos = array();

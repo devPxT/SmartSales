@@ -9,7 +9,7 @@
     
     <?php require "geral/links.php" ?>
 </head>
-<body id="vendas">
+<body id="cadastro">
 
     <style>
         .card-body {

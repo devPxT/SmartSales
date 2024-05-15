@@ -11,14 +11,13 @@
 
 </head>
 <body id="vendas">
-<!-- navbar padrão (já tem o session_start() dentro dela) -->
+<!-- navbar padrão -->
 <?php require "geral/navbar.php" ?>
-<!-- navbar padrão (já tem o session_start() dentro dela) -->
+<!-- navbar padrão -->
 
 <!-- conecta ao BD -->
 <?php require 'bd/connection.php'; ?>
 <!-- conecta ao BD -->
-
     <?php
         if (isset($_POST['tipoModal'])) {
             $conn = new mysqli($servername, $username, $password, $database);
@@ -29,14 +28,15 @@
             $msg = '';
             $icon = '';
 
-            if ($_POST['tipoModal'] == 1) { //RECEBEU DADOS DO MODAL DE CADASTRO
+            if ($_POST['tipoModal'] == 1) { //recebeu dados do modal de CADASTRO -> INSERT
                 $nome = $_POST['nome'];
                 $dtNasc = $_POST['dtNasc'];
                 $cpf = $_POST['cpf'];
                 $celular = $_POST['celular'];
                 $email = $_POST['email'];
                 $data_cad = $_POST['dtCad'];
-                
+
+                //SQL que verifica se tem um cliente com esse CPF ANTES DO INSERT
                 $sql = "SELECT id FROM cliente WHERE cpf = '$cpf'";
                 //verifica se deu erro no SELECT
                 if ($result = $conn->query($sql)) {
@@ -45,56 +45,93 @@
                         $msg = 'Erro cadastrando o cliente. CPF já existente!';
                         $icon = 'error';
 
-                        $_SESSION['nomeModal'] = $nome;
-                        $_SESSION['dtNasc'] = $dtNasc;
-                        $_SESSION['cpf'] = $cpf;
-                        $_SESSION['celular'] = $celular;
-                        $_SESSION['email'] = $email;
-                        $_SESSION['dtCad'] = $data_cad;
+                        $_SESSION['nomeCLIENTE'] = $nome;
+                        $_SESSION['dtNascCLIENTE'] = $dtNasc;
+                        $_SESSION['cpfCLIENTE'] = $cpf;
+                        $_SESSION['celularCLIENTE'] = $celular;
+                        $_SESSION['emailCLIENTE'] = $email;
+                        $_SESSION['dtCadCLIENTE'] = $data_cad;
                     } else {
-                        $sql2 = "INSERT INTO cliente (nome, dt_nasc, email, celular, CPF, data_cad) VALUES ('$nome','$dtNasc', '$email', '$celular', '$cpf', '$data_cad')";
 
-                        //verifica se deu erro no insert do cliente
+                        //SQL que verifica se tem um cliente com esse EMAIL ANTES DO INSERT
+                        $sql2 = "SELECT id FROM cliente WHERE email = '$email'";
+                        //verifica se deu erro no SELECT
                         if ($result2 = $conn->query($sql2)) {
-                            $msg = 'Cliente cadastrado com sucesso!';
-                            $icon = 'success';
+                            //deu CERTO no SELECT
+                            if ($result2 -> num_rows > 0) {
+                                $msg = 'Erro cadastrando o cliente. EMAIL já existente!';
+                                $icon = 'error';
 
-                            unset($_SESSION['nomeModal']);
-                            unset($_SESSION['dtNasc']);
-                            unset($_SESSION['cpf']);
-                            unset($_SESSION['celular']);
-                            unset($_SESSION['email']);
-                            unset($_SESSION['dtCad']);
+                                $_SESSION['nomeCLIENTE'] = $nome;
+                                $_SESSION['dtNascCLIENTE'] = $dtNasc;
+                                $_SESSION['cpfCLIENTE'] = $cpf;
+                                $_SESSION['celularCLIENTE'] = $celular;
+                                $_SESSION['emailCLIENTE'] = $email;
+                                $_SESSION['dtCadCLIENTE'] = $data_cad;
+                            } else {
+                                $sql3 = "INSERT INTO cliente (nome, dt_nasc, email, celular, CPF, data_cad) VALUES ('$nome','$dtNasc', '$email', '$celular', '$cpf', '$data_cad')";
+                                //verifica se deu erro no INSERT
+                                if ($result3 = $conn->query($sql3)) {
+                                    $msg = 'Cliente cadastrado com sucesso!'; // INSERT com sucesso 
+                                    $icon = 'success';
+
+                                    unset($_SESSION['nomeCLIENTE']);
+                                    unset($_SESSION['dtNascCLIENTE']);
+                                    unset($_SESSION['cpfCLIENTE']);
+                                    unset($_SESSION['celularCLIENTE']);
+                                    unset($_SESSION['emailCLIENTE']);
+                                    unset($_SESSION['dtCadCLIENTE']);
+                                } else {
+                                    //echo $conn->connect_error;
+                                    $msg = 'Erro executando INSERT do cliente'; // INSERT com erro
+                                    $icon = 'error';
+                                }
+                            }
+
                         } else {
-                            //echo $conn->connect_error;
-                            $msg = 'Erro executando INSERT do cliente';
+                            //deu ERRDO no SELECT
+                            $msg = 'Erro selecionando o EMAIL do cliente';
                             $icon = 'error';
                         }
                     }
-
                 } else {
                     //echo $conn-> error;
                     $msg = 'Erro selecionando o ID do cliente';
                     $icon = 'error';
                 }
-            } else { //RECEBEU DADOS DO MODAL DE UPDATE
 
+            } else if ($_POST['tipoModal'] == 2) { //recebeu dados do modadel de UPDATE -> UPDATE
+
+
+            } else { //recebeu dados do CLICK do DELETE -> DELETE
+                $id = $_POST['ID'];
+
+                 //SQL de DELETE no banco de dados
+                 $sql = "DELETE FROM cliente WHERE id = $id";
+
+                 if ($result = mysqli_query($conn, $sql)) {
+                    $msg = 'Registro excluído com sucesso!'; // DELETE com sucesso 
+                    $icon = 'success';
+
+                 } else {
+                    $msg = 'Erro deletendo o cliente';
+                    $icon = 'error';
+                 }
             }
-
             $conn->close();
         }
     ?>
 
     <!-- Inicio Modal Cadastro (TIPO 1)-->
     <div class="modal fade" id="modalCadastro" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalCadastro" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-fullscreen-sm-down">
             <div class="modal-content">
                 <!-- FORM COM O ACTION PARA A MESMA PAGINA PARA INSERIR NO BANCO DE DADOS O CADASTRO -->
                 <form id="formCadastro" class="needs-validation" novalidate method="post" action="vendedor-lst-clientes.php">
                 <!-- FORM COM O ACTION PARA A MESMA PAGINA PARA INSERIR NO BANCO DE DADOS O CADASTRO -->
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="modalCadastro">Cadastro de Cliente</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close cancel-modal" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="row g-2">
@@ -104,7 +141,7 @@
                             <div class="col-md-6 col-12">
                                 <label for="nome" class="form-label">Nome</label>
                                 <input type="text" class="form-control" id="nome" pattern="[a-zA-Z\u00C0-\u00FF ]{3,100}$" required placeholder="Ana"
-                                value="<?php echo isset($_SESSION['nomeModal']) ? $_SESSION['nomeModal'] : ''; ?>"
+                                value="<?php echo isset($_SESSION['nomeCLIENTE']) ? $_SESSION['nomeCLIENTE'] : ''; ?>"
                                 data-bs-toggle="tooltip" data-bs-title="Nome com 3 a 100 letras" data-bs-custom-class="custom-tooltip"
                                 name="nome">
                                 <div class="invalid-feedback">
@@ -114,7 +151,7 @@
                             <div class="col-md-6 col-12">
                                 <label for="cpf" class="form-label">CPF</label>
                                 <input type="text" class="form-control" id="cpf" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" required placeholder="xxx.xxx.xxx-xx"
-                                value="<?php echo isset($_SESSION['cpf']) ? $_SESSION['cpf'] : ''; ?>"
+                                value="<?php echo isset($_SESSION['cpfCLIENTE']) ? $_SESSION['cpfCLIENTE'] : ''; ?>"
                                 data-bs-toggle="tooltip" data-bs-title="CPF do cliente com pontuação" data-bs-custom-class="custom-tooltip"
                                 name="cpf">
                                 <div class="invalid-feedback">
@@ -126,7 +163,7 @@
                             <div class="col-sm-6 col-12">
                                 <label for="dtNasc" class="form-label">Data de Nascimento</label>
                                 <input type="date" class="form-control" max="<?= $maxDate; ?>" id="dtNasc" required
-                                value="<?php echo isset($_SESSION['dtNasc']) ? $_SESSION['dtNasc'] : ''; ?>"
+                                value="<?php echo isset($_SESSION['dtNascCLIENTE']) ? $_SESSION['dtNascCLIENTE'] : ''; ?>"
                                 data-bs-toggle="tooltip" data-bs-title="Data de nascimento do cliente" data-bs-custom-class="custom-tooltip"
                                 name="dtNasc">
                                 <div class="invalid-feedback">
@@ -136,7 +173,7 @@
                             <div class="col-sm-6 col-12">
                                 <label for="dtCad" class="form-label">Data de Cadastro</label>
                                 <input type="date" class="form-control" max="<?= date('Y-m-d'); ?>" 
-                                value="<?php echo isset($_SESSION['dtCad']) ? $_SESSION['dtCad'] : date('Y-m-d'); ?>" id="dtCad" required
+                                value="<?php echo isset($_SESSION['dtCadCLIENTE']) ? $_SESSION['dtCadCLIENTE'] : date('Y-m-d'); ?>" id="dtCad" required
                                 data-bs-toggle="tooltip" data-bs-title="Data de cadastro do cliente" data-bs-custom-class="custom-tooltip"
                                 name="dtCad">
                                 <div class="invalid-feedback">
@@ -147,7 +184,7 @@
                             <div class="col-md-6 col-12">
                                 <label for="celular" class="form-label">Celular</label>
                                 <input type="text" class="form-control" id="celular" required placeholder="(41)98765-4321"
-                                value="<?php echo isset($_SESSION['celular']) ? $_SESSION['celular'] : ''; ?>"
+                                value="<?php echo isset($_SESSION['celularCLIENTE']) ? $_SESSION['celularCLIENTE'] : ''; ?>"
                                 data-bs-toggle="tooltip" data-bs-title="Celular do cliente com DDD e 9 digitos" data-bs-custom-class="custom-tooltip"
                                 name="celular">
                                 <div class="invalid-feedback">
@@ -157,7 +194,7 @@
                             <div class="col-md-6 col-12">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="text" class="form-control" id="email" required placeholder="exemplo@gmail.com"
-                                value="<?php echo isset($_SESSION['email']) ? $_SESSION['email'] : ''; ?>"
+                                value="<?php echo isset($_SESSION['emailCLIENTE']) ? $_SESSION['emailCLIENTE'] : ''; ?>"
                                 data-bs-toggle="tooltip" data-bs-title="Email do cliente" data-bs-custom-class="custom-tooltip"
                                 name="email">
                                 <div class="invalid-feedback">
@@ -167,7 +204,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-secondary cancel-modal" data-bs-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-primary">Cadastrar</button>
                     </div>
                 </form>
@@ -179,7 +216,7 @@
 
     <div class="container-fluid mt-3 home">
 
-        <div class="container-fluid">
+        <div class="container-fluid">   
             <div class="title-text">
                 CLIENTES
             </div>
@@ -194,8 +231,8 @@
                     </div>
                     <div class="col-lg-6 col-sm-7 col-12">
                             <label for="inputPesquisa" class="visually-hidden">Pesquisar</label>
-                            <input type="text" name="nomeCliente" class="form-control mb-3" id="inputPesquisa" placeholder="Nome do Cliente..."
-                                value="<?php echo isset($_POST['nomeCliente']) ? $_POST['nomeCliente'] : ''; ?>">
+                            <input type="text" name="pesquisa" class="form-control mb-3" id="inputPesquisa" placeholder="Nome do Cliente..."
+                                value="<?php echo isset($_POST['pesquisa']) ? $_POST['pesquisa'] : ''; ?>">
                     </div>
                     <div class="col-lg-2 col-sm-3 col-12">
                         <button type="submit" class="btn btn-success mb-3 w-100">Pesquisar</button>
@@ -216,13 +253,13 @@
                 if ($conn->connect_error) {
                     die("<strong> Falha de conexão: </strong>" . $conn->connect_error);
                 }
-                if (isset($_POST['nomeCliente'])) {
-                    $nomeCliente = $_POST['nomeCliente'];
+                if (isset($_POST['pesquisa'])) {
+                    $nomeCliente = $_POST['pesquisa'];
                 }
                 // Faz Select na Base de Dados
                 $sql = "SELECT id, nome, email, celular, CPF, dt_nasc, data_cad, data_updt FROM cliente";
                 // If Isset para verificar se recebeu o nomeCliente para concatenar o WHERE e fazer a pesquisa
-                if (isset($nomeCliente)) {
+                if (isset($_POST['pesquisa'])) {
                     $sql = $sql . " WHERE nome LIKE '$nomeCliente%'";
                 }
             ?>
@@ -278,6 +315,10 @@
                                 $nova_data_updt = $dia_updt . '/' . $mes_updt . '/' . $ano_updt;
                             }
                             echo "<tr>";
+                            echo " <form method='post' action='vendedor-lst-clientes.php'>"; //FORM em cada linha para EXCLUIR funcionar
+                            echo "  <input name='tipoModal' type='hidden' value='3'>"; //INPUT name = tipoModal 3 para ser o MODAL de DELETE na lógica no começo da página
+                            echo "  <input name='ID' type='hidden' value='$cod'>"; //INPUT ID = $cod para o DELETE deletar pelo ID desse CAMPO
+                            echo " </form>";
                             echo "  <th scope'row'>";
                             echo $cod;
                             echo "  </th><td>";
@@ -295,7 +336,8 @@
                             echo "  </td>";
             ?>                      
                                 <td>
-                                    <button type="button" class="btn btn-outline-danger" title="Excluir" >
+                                    <button type="button" class="btn btn-outline-danger" title="Excluir" 
+                                    onclick="deletar(this)">
                                         <a class="bi bi-trash" onclick="dev(event)"></a>
                                     </button>
                                     <button type="button" class="btn btn-outline-primary" title="Editar" >
@@ -327,6 +369,25 @@
             window.history.replaceState( null, null, window.location.href );
         }
         // evita o resend de formulario quando atualiza a pagina
+        // $('.btn-outline-danger').on('click', function() {
+        //     $(this).closest('form').submit();
+        // })
+        function deletar(element) {
+            Swal.fire({
+                title: "Excluir este registro?",
+                text: "Você não será capaz de refazer isso!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#dc3545",
+                cancelButtonColor: "#6c757d",
+                confirmButtonText: "Sim, deletar!",
+                cancelButtonText: "Cancelar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $(element).closest('tr').children('form').submit();
+                }
+            });
+        }
     </script>
 
     <?php
@@ -336,12 +397,10 @@
             Swal.fire({
                 text: '<?php echo $msg ?>',
                 icon: '<?php echo $icon ?>',
-                allowOutsideClick: false
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    if ('<?php echo $icon ?>' == 'error') {
-                        $('#modalCadastro').modal('toggle');
-                    }
+                confirmButtonColor: "#ffc107"
+            }).then(() => {
+                if ('<?php echo $icon ?>' == 'error') {
+                    $('#modalCadastro').modal('toggle');
                 }
             });
         </script>

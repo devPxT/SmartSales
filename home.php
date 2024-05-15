@@ -21,7 +21,8 @@
                 Swal.fire({
                     icon: "error",
                     title: "Erro",
-                    text: "<?php echo $msg; ?>"
+                    text: "<?php echo $msg; ?>",
+                    confirmButtonColor: "#ffc107"
                     <?php 
                         unset($_SESSION['mensagem']);
                     ?>

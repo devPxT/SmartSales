@@ -29,12 +29,12 @@
             $icon = '';
 
             if ($_POST['tipoModal'] == 1) { //recebeu dados do modal de CADASTRO -> INSERT
-                $nome = $_POST['nome'];
-                $dtNasc = $_POST['dtNasc'];
-                $cpf = $_POST['cpf'];
-                $celular = $_POST['celular'];
-                $email = $_POST['email'];
-                $data_cad = $_POST['dtCad'];
+                $nome = $_POST['CADnome'];
+                $dtNasc = $_POST['CADdtNasc'];
+                $cpf = $_POST['CADcpf'];
+                $celular = $_POST['CADcelular'];
+                $email = $_POST['CADemail'];
+                $data_cad = $_POST['CADdtCad'];
 
                 //SQL que verifica se tem um cliente com esse CPF ANTES DO INSERT
                 $sql = "SELECT id FROM cliente WHERE cpf = '$cpf'";
@@ -42,7 +42,7 @@
                 if ($result = $conn->query($sql)) {
 
                     if ($result -> num_rows > 0) {
-                        $msg = 'Erro cadastrando o cliente. CPF já existente!';
+                        $msg = 'Erro cadastrando o cliente. *CPF* já existente!';
                         $icon = 'error';
 
                         $_SESSION['nomeCLIENTE'] = $nome;
@@ -59,7 +59,7 @@
                         if ($result2 = $conn->query($sql2)) {
                             //deu CERTO no SELECT
                             if ($result2 -> num_rows > 0) {
-                                $msg = 'Erro cadastrando o cliente. EMAIL já existente!';
+                                $msg = 'Erro cadastrando o cliente. *EMAIL* já existente!';
                                 $icon = 'error';
 
                                 $_SESSION['nomeCLIENTE'] = $nome;
@@ -139,64 +139,64 @@
                             <input name="tipoModal" type="hidden" value="1">
                             <!-- input para DIFERENCIAR o modal de CADASTRO do modal de UPDATE pois vai para a mesma página -->
                             <div class="col-md-6 col-12">
-                                <label for="nome" class="form-label">Nome</label>
-                                <input type="text" class="form-control" id="nome" pattern="[a-zA-Z\u00C0-\u00FF ]{3,100}$" required placeholder="Ana"
+                                <label for="CADnome" class="form-label">Nome</label>
+                                <input type="text" class="form-control" pattern="[a-zA-Z\u00C0-\u00FF ]{3,100}$" required placeholder="Nome Exemplo"
                                 value="<?php echo isset($_SESSION['nomeCLIENTE']) ? $_SESSION['nomeCLIENTE'] : ''; ?>"
                                 data-bs-toggle="tooltip" data-bs-title="Nome com 3 a 100 letras" data-bs-custom-class="custom-tooltip"
-                                name="nome">
+                                name="CADnome" id="CADnome">
                                 <div class="invalid-feedback">
                                     Por favor preencha o nome de 3 a 100 letras.
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
-                                <label for="cpf" class="form-label">CPF</label>
-                                <input type="text" class="form-control" id="cpf" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" required placeholder="xxx.xxx.xxx-xx"
+                                <label for="CADcpf" class="form-label">CPF</label>
+                                <input type="text" class="form-control" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" required placeholder="xxx.xxx.xxx-xx"
                                 value="<?php echo isset($_SESSION['cpfCLIENTE']) ? $_SESSION['cpfCLIENTE'] : ''; ?>"
                                 data-bs-toggle="tooltip" data-bs-title="CPF do cliente com pontuação" data-bs-custom-class="custom-tooltip"
-                                name="cpf">
+                                name="CADcpf" id="CADcpf">
                                 <div class="invalid-feedback">
-                                    Por favor preencha o CPF com pontuação.
+                                    CPF inválido. Por favor, preencha um CPF válido.
                                 </div>
                             </div>
 
                             <?php $maxDate = date('Y-m-d', strtotime('-1 years')); ?>
                             <div class="col-sm-6 col-12">
-                                <label for="dtNasc" class="form-label">Data de Nascimento</label>
-                                <input type="date" class="form-control" max="<?= $maxDate; ?>" id="dtNasc" required
+                                <label for="CADdtNasc" class="form-label">Data de Nascimento</label>
+                                <input type="date" class="form-control" max="<?= $maxDate; ?>" required
                                 value="<?php echo isset($_SESSION['dtNascCLIENTE']) ? $_SESSION['dtNascCLIENTE'] : ''; ?>"
                                 data-bs-toggle="tooltip" data-bs-title="Data de nascimento do cliente" data-bs-custom-class="custom-tooltip"
-                                name="dtNasc">
+                                name="CADdtNasc" id="CADdtNasc">
                                 <div class="invalid-feedback">
                                     Por favor preencha a data.
                                 </div>
                             </div>
                             <div class="col-sm-6 col-12">
-                                <label for="dtCad" class="form-label">Data de Cadastro</label>
+                                <label for="CADdtCad" class="form-label">Data de Cadastro</label>
                                 <input type="date" class="form-control" max="<?= date('Y-m-d'); ?>" 
-                                value="<?php echo isset($_SESSION['dtCadCLIENTE']) ? $_SESSION['dtCadCLIENTE'] : date('Y-m-d'); ?>" id="dtCad" required
+                                value="<?php echo isset($_SESSION['dtCadCLIENTE']) ? $_SESSION['dtCadCLIENTE'] : date('Y-m-d'); ?>" required
                                 data-bs-toggle="tooltip" data-bs-title="Data de cadastro do cliente" data-bs-custom-class="custom-tooltip"
-                                name="dtCad">
+                                name="CADdtCad" id="CADdtCad">
                                 <div class="invalid-feedback">
                                     Por favor preencha a data.
                                 </div>
                             </div>
                             
                             <div class="col-md-6 col-12">
-                                <label for="celular" class="form-label">Celular</label>
-                                <input type="text" class="form-control" id="celular" required placeholder="(41)98765-4321"
+                                <label for="CADcelular" class="form-label">Celular</label>
+                                <input type="text" class="form-control" required placeholder="(XX)xxxxx-xxxx" pattern="^\(\d{2}\)\d{5}-\d{4}$"
                                 value="<?php echo isset($_SESSION['celularCLIENTE']) ? $_SESSION['celularCLIENTE'] : ''; ?>"
-                                data-bs-toggle="tooltip" data-bs-title="Celular do cliente com DDD e 9 digitos" data-bs-custom-class="custom-tooltip"
-                                name="celular">
+                                data-bs-toggle="tooltip" data-bs-title="Celular do cliente com 11 dígitos" data-bs-custom-class="custom-tooltip"
+                                name="CADcelular" id="CADcelular">
                                 <div class="invalid-feedback">
-                                    Por favor preencha o Celular com DDD.
+                                    Por favor preencha o Celular com 11 dígitos e parenteses.
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="text" class="form-control" id="email" required placeholder="exemplo@gmail.com"
+                                <label for="CADemail" class="form-label">Email</label>
+                                <input type="text" class="form-control" required placeholder="exemplo@gmail.com"
                                 value="<?php echo isset($_SESSION['emailCLIENTE']) ? $_SESSION['emailCLIENTE'] : ''; ?>"
                                 data-bs-toggle="tooltip" data-bs-title="Email do cliente" data-bs-custom-class="custom-tooltip"
-                                name="email">
+                                name="CADemail" id="CADemail">
                                 <div class="invalid-feedback">
                                     Por favor preencha o Email.
                                 </div>
@@ -212,6 +212,100 @@
         </div>
     </div>
     <!-- Fim Modal Cadastro -->
+
+    <!-- Inicio Modal Update (TIPO 2)-->
+    <div class="modal fade" id="modalUpdate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalUpdate" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <!-- FORM COM O ACTION PARA A MESMA PAGINA PARA INSERIR NO BANCO DE DADOS O CADASTRO -->
+                <form id="formUpdate" class="needs-validation" novalidate method="post" action="vendedor-lst-clientes.php">
+                <!-- FORM COM O ACTION PARA A MESMA PAGINA PARA INSERIR NO BANCO DE DADOS O CADASTRO -->
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalCadastro">Atualização de Cliente</h1>
+                        <button type="button" class="btn-close cancel-modal" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row g-2">
+                            <!-- input para DIFERENCIAR o modal de CADASTRO do modal de UPDATE pois vai para a mesma página -->
+                            <input name="tipoModal" type="hidden" value="2">
+                            <!-- input para DIFERENCIAR o modal de CADASTRO do modal de UPDATE pois vai para a mesma página -->
+
+                            <input name="ID" type="hidden" value="" id="ID">
+
+                            <div class="col-md-6 col-12">
+                                <label for="nome" class="form-label">Nome</label>
+                                <input type="text" class="form-control" id="nome" pattern="[a-zA-Z\u00C0-\u00FF ]{3,100}$" required placeholder="Ana"
+                                value="<?php echo isset($_SESSION['nomeCLIENTEupdt']) ? $_SESSION['nomeCLIENTEupdt'] : ''; ?>"
+                                data-bs-toggle="tooltip" data-bs-title="Nome com 3 a 100 letras" data-bs-custom-class="custom-tooltip"
+                                name="nome">
+                                <div class="invalid-feedback">
+                                    Por favor preencha o nome de 3 a 100 letras.
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <label for="cpf" class="form-label">CPF</label>
+                                <input type="text" class="form-control" id="cpf" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" required placeholder="xxx.xxx.xxx-xx"
+                                value="<?php echo isset($_SESSION['cpfCLIENTEupdt']) ? $_SESSION['cpfCLIENTEupdt'] : ''; ?>"
+                                data-bs-toggle="tooltip" data-bs-title="CPF do cliente com pontuação" data-bs-custom-class="custom-tooltip"
+                                name="cpf">
+                                <div class="invalid-feedback">
+                                    Por favor preencha o CPF com pontuação.
+                                </div>
+                            </div>
+
+                            <?php $maxDate = date('Y-m-d', strtotime('-1 years')); ?>
+                            <div class="col-sm-6 col-12">
+                                <label for="dtNasc" class="form-label">Data de Nascimento</label>
+                                <input type="date" class="form-control" max="<?= $maxDate; ?>" id="dtNasc" required
+                                value="<?php echo isset($_SESSION['dtNascCLIENTEupdt']) ? $_SESSION['dtNascCLIENTEudpt'] : ''; ?>"
+                                data-bs-toggle="tooltip" data-bs-title="Data de nascimento do cliente" data-bs-custom-class="custom-tooltip"
+                                name="dtNasc">
+                                <div class="invalid-feedback">
+                                    Por favor preencha a data.
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-12">
+                                <label for="dtCad" class="form-label">Data de Cadastro</label>
+                                <input type="date" class="form-control" max="<?= date('Y-m-d'); ?>" 
+                                value="<?php echo isset($_SESSION['dtCadCLIENTEupdt']) ? $_SESSION['dtCadCLIENTEupdt'] : date('Y-m-d'); ?>" id="dtCad" required
+                                data-bs-toggle="tooltip" data-bs-title="Data de cadastro do cliente" data-bs-custom-class="custom-tooltip"
+                                name="dtCad">
+                                <div class="invalid-feedback">
+                                    Por favor preencha a data.
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 col-12">
+                                <label for="celular" class="form-label">Celular</label>
+                                <input type="text" class="form-control" id="celular" required placeholder="(41)98765-4321"
+                                value="<?php echo isset($_SESSION['celularCLIENTEupdt']) ? $_SESSION['celularCLIENTEupdt'] : ''; ?>"
+                                data-bs-toggle="tooltip" data-bs-title="Celular do cliente com 11 dígitos" data-bs-custom-class="custom-tooltip"
+                                name="celular">
+                                <div class="invalid-feedback">
+                                    Por favor preencha o Celular com 11 dígitos.
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="text" class="form-control" id="email" required placeholder="exemplo@gmail.com"
+                                value="<?php echo isset($_SESSION['emailCLIENTEupdt']) ? $_SESSION['emailCLIENTEupdt'] : ''; ?>"
+                                data-bs-toggle="tooltip" data-bs-title="Email do cliente" data-bs-custom-class="custom-tooltip"
+                                name="email">
+                                <div class="invalid-feedback">
+                                    Por favor preencha o Email.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary cancel-modal" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Atualizar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Fim Modal Update -->
 
 
     <div class="container-fluid mt-3 home">
@@ -338,10 +432,11 @@
                                 <td>
                                     <button type="button" class="btn btn-outline-danger" title="Excluir" 
                                     onclick="deletar(this)">
-                                        <a class="bi bi-trash" onclick="dev(event)"></a>
+                                        <a class="bi bi-trash"></a>
                                     </button>
-                                    <button type="button" class="btn btn-outline-primary" title="Editar" >
-                                        <a class="bi bi-pencil-square" onclick="dev(event)" ></a>
+                                    <button type="button" class="btn btn-outline-primary" title="Editar"
+                                    onclick="editar(this, <?php echo $cod ?>)">
+                                        <a class="bi bi-pencil-square"></a>
                                     </button>
                                 </td>
                             </tr>
@@ -361,7 +456,7 @@
 
     <?php require "geral/footer.php" ?>
 
-    <script src="js/validate-forms.js"></script>
+    
 
     <script>
         // evita o resend de formulario quando atualiza a pagina
@@ -369,24 +464,29 @@
             window.history.replaceState( null, null, window.location.href );
         }
         // evita o resend de formulario quando atualiza a pagina
-        // $('.btn-outline-danger').on('click', function() {
-        //     $(this).closest('form').submit();
-        // })
-        function deletar(element) {
-            Swal.fire({
-                title: "Excluir este registro?",
-                text: "Você não será capaz de refazer isso!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#dc3545",
-                cancelButtonColor: "#6c757d",
-                confirmButtonText: "Sim, deletar!",
-                cancelButtonText: "Cancelar"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $(element).closest('tr').children('form').submit();
-                }
-            });
+
+        function editar(element, ID) {
+            var row = $(element).closest('tr');
+            var id = row.find('th').text().trim();
+            var nome = row.find('td').eq(0).text().trim();
+            var dtNasc = row.find('td').eq(1).text().trim();
+            var cpf = row.find('td').eq(3).text().trim();
+            var celular = row.find('td').eq(4).text().trim();
+            var email = row.find('td').eq(5).text().trim();
+
+            // fomarta dtNasc para o formato do banco
+            var dtNascParts = dtNasc.split('/');
+            var dtNascFormatted = dtNascParts[2] + '-' + dtNascParts[1] + '-' + dtNascParts[0];
+            // fomarta dtNasc para o formato do banco
+
+            $('#ID').val(id);
+            $('#nome').val(nome);
+            $('#dtNasc').val(dtNascFormatted);
+            $('#cpf').val(cpf);
+            $('#celular').val(celular);
+            $('#email').val(email);
+
+            $('#modalUpdate').modal('toggle');
         }
     </script>
 
@@ -394,19 +494,45 @@
         if (isset($_POST['tipoModal'])) {
     ?>
         <script>
-            Swal.fire({
-                text: '<?php echo $msg ?>',
-                icon: '<?php echo $icon ?>',
-                confirmButtonColor: "#ffc107"
-            }).then(() => {
-                if ('<?php echo $icon ?>' == 'error') {
-                    $('#modalCadastro').modal('toggle');
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 2500,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
                 }
-            });
+            })
         </script>
     <?php
+            if ($_POST['tipoModal'] == 3) {
+    ?>
+            <script>
+                Toast.fire({
+                    icon: '<?php echo $icon ?>',
+                    title: '<?php echo $msg ?>'
+                });
+            </script>
+    <?php
+            } else {
+    ?>
+            <script>
+                Toast.fire({
+                    icon: '<?php echo $icon ?>',
+                    title: '<?php echo $msg ?>'
+                }).then(() => {
+                    if ('<?php echo $icon ?>' == 'error') {
+                        $('#modalCadastro').modal('toggle');
+                    }
+                });
+            </script>
+    <?php
+            }
         }
     ?>
     
+    <script src="js/validate-forms.js"></script>
 </body>
 </html>

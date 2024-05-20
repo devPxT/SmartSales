@@ -111,7 +111,9 @@ VALUES ('João da Silva', '2005-06-07', '156.780.380-60', 'joao.silva', md5('Adm
 
 -- Inserção de cliente teste
 INSERT INTO cliente (nome, email, celular, cpf, dt_nasc, data_cad) 
-VALUES ('Cliente Teste', 'teste@gmail.com', '(41) 98765-4321', '636.597.050-12', '2000-01-01', now());
+VALUES ('Cliente Teste', 'teste@gmail.com', '(41) 98765-4321', '636.597.050-12', '2000-01-01', now()),
+		('Olivia Teste', 'olivia@gmail.com', '(41) 98765-4321', '634.699.810-27', '2004-01-01', now()),
+        ('João Teste', 'joao@gmail.com', '(41) 98765-4321', '491.115.240-06', '2002-01-01', now());
 
 -- Inserção de produto teste
 INSERT INTO produto (id, nome, marca, valor, genero, data_cad, categoria_id)

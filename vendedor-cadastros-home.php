@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php require "login/verifica-login-vendedor.php" ?>
+    <?php require "login/verifica-login.php" ?>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,6 +41,14 @@
                     <i class="bi bi-tags" style="font-size: 300px; margin: auto;"></i>
                     <div class="card-body">
                         <p class="card-text">MÉTODOS DE PAGAMENTO</p>
+                    </div>
+                </div>
+            </a>
+            <a class="col" href="estoquista-lst-fornecedor.php">
+                <div class="card">
+                    <i class="bi bi-person-add" style="font-size: 300px; margin: auto;"></i>
+                    <div class="card-body">
+                        <p class="card-text">FORNECEDORES</p>
                     </div>
                 </div>
             </a>

@@ -80,6 +80,14 @@ CREATE TABLE metodopagamento (
     data_updt DATE
 );
 
+-- Criação da tabela de fornecedores
+CREATE TABLE fornecedor (
+    id int AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    data_cad DATE,
+    data_updt DATE
+);
+
 -- Criação da tabela de compra
 CREATE TABLE compra (
     id int AUTO_INCREMENT PRIMARY KEY,
@@ -129,3 +137,8 @@ VALUES ('Cliente Teste', 'teste@gmail.com', '(41)98765-4321', '636.597.050-12', 
 -- Inserção de produto teste
 INSERT INTO produto (id, nome, marca, valor, genero, data_cad, categoria_id)
 VALUES (125, 'Air Jordan One', 'Nike', 1050.00, 'Unisex', now(), 1);
+
+-- Inserção de fornecedores de exemplo
+INSERT INTO fornecedor (nome, data_cad) VALUES
+('Fitmoda', now()),
+('Kaisan', now());

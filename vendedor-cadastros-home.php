@@ -27,7 +27,7 @@
     <?php require "geral/navbar.php" ?>
 
     <div class="container-fluid mt-3 home">
-        <div class="row row-cols-1 row-cols-lg-2 g-4 me-md-5 ms-md-5">
+        <div class="row row-cols-1 row-cols-lg-3 g-4 me-md-5 ms-md-5">
             <a class="col" href="vendedor-lst-clientes.php">
                 <div class="card">
                     <i class="bi bi-person-add" style="font-size: 300px; margin: auto"></i>
@@ -46,7 +46,7 @@
             </a>
             <a class="col" href="estoquista-lst-fornecedor.php">
                 <div class="card">
-                    <i class="bi bi-person-add" style="font-size: 300px; margin: auto;"></i>
+                    <i class="bi bi-truck" style="font-size: 300px; margin: auto;"></i>
                     <div class="card-body">
                         <p class="card-text">FORNECEDORES</p>
                     </div>

@@ -10,7 +10,7 @@
     <?php require "geral/links.php" ?>
 
 </head>
-<body id="vendas">
+<body id="cadastro">
 <!-- navbar padrão -->
 <?php require "geral/navbar.php" ?>
 <!-- navbar padrão -->
@@ -27,6 +27,7 @@
 
             $msg = '';
             $icon = '';
+            $title = '';
 
             if ($_POST['tipoModal'] == 1) { //recebeu dados do modal de CADASTRO -> INSERT
                 $nome = $_POST['CADnome'];
@@ -42,7 +43,8 @@
                 if ($result = $conn->query($sql)) {
 
                     if ($result -> num_rows > 0) {
-                        $msg = 'Erro cadastrando o cliente. *CPF* já existente!';
+                        $title = 'Erro cadastrando cliente!';
+                        $msg = '*CPF* já existente!';
                         $icon = 'error';
 
                         $_SESSION['nomeCLIENTE'] = $nome;
@@ -59,7 +61,8 @@
                         if ($result2 = $conn->query($sql2)) {
                             //deu CERTO no SELECT
                             if ($result2 -> num_rows > 0) {
-                                $msg = 'Erro cadastrando o cliente. *EMAIL* já existente!';
+                                $title = 'Erro cadastrando cliente!';
+                                $msg = '*EMAIL* já existente!';
                                 $icon = 'error';
 
                                 $_SESSION['nomeCLIENTE'] = $nome;
@@ -83,6 +86,7 @@
                                     unset($_SESSION['dtCadCLIENTE']);
                                 } else {
                                     //echo $conn->connect_error;
+                                    $title = 'Erro';
                                     $msg = 'Erro executando INSERT do cliente'; // INSERT com erro
                                     $icon = 'error';
                                 }
@@ -90,12 +94,14 @@
 
                         } else {
                             //deu ERRDO no SELECT
+                            $title = 'Erro';
                             $msg = 'Erro selecionando o EMAIL do cliente';
                             $icon = 'error';
                         }
                     }
                 } else {
                     //echo $conn-> error;
+                    $title = 'Erro';
                     $msg = 'Erro selecionando o ID do cliente';
                     $icon = 'error';
                 }
@@ -443,6 +449,12 @@
             <?php
                         }
                         echo "</tbody>";
+                    } else {
+                        echo "<tbody>";
+                        echo "<tr>";
+                        echo "<th scope'row' colspan='8'>Sem nenhum registro no momento.</th>";
+                        echo "</tr>";
+                        echo "</tbody>";
                     }
                     echo "  </table>";
                     echo "</div>";
@@ -519,14 +531,21 @@
             } else {
     ?>
             <script>
-                Toast.fire({
-                    icon: '<?php echo $icon ?>',
-                    title: '<?php echo $msg ?>'
-                }).then(() => {
-                    if ('<?php echo $icon ?>' == 'error') {
+                if ('<?php echo $icon ?>' == 'error') {
+                    Swal.fire({
+                        icon: '<?php echo $icon ?>',
+                        title: '<?php echo $title ?>',
+                        text: '<?php echo $msg?>',
+                        confirmButtonColor: "#ffc107"
+                    }).then(() => {
                         $('#modalCadastro').modal('toggle');
-                    }
-                });
+                    })
+                } else {
+                    Toast.fire({
+                        icon: '<?php echo $icon ?>',
+                        title: '<?php echo $msg ?>'
+                    });
+                }
             </script>
     <?php
             }

@@ -49,19 +49,43 @@
                     die("<strong> Falha de conexão: </strong>" . $conn->connect_error);
                 }
 
-                $sql = "INSERT INTO estoque (cor, tamanho, quantidade, produto_id, data_cad) VALUES ('$cor', '$tamanho', $quantidade, $produto, '$data_cad')";
-
                 ?>
                 <div class='w3-responsive w3-card-4'>
                 <div class="w3-container w3-theme">
                     <h2>Inclusão de novo Item do Estoque</h2>
                 </div>
+                
                 <?php
+                
+                $sql = "SELECT id, quantidade FROM estoque WHERE cor = '$cor' AND tamanho = '$tamanho' AND produto_id = '$produto'";
                 if ($result = $conn->query($sql)) {
-                    echo "<p>&nbsp;Registro cadastrado com sucesso! </p>";
-                    echo "</div>";
+                    if ($result->num_rows > 0) {
+                        $row = $result->fetch_assoc();
+                        $id = $row['id'];
+                        $quantidadeExistente = $row['quantidade'];
+
+                        $novaQuantidade = $quantidadeExistente + $quantidade;
+
+                        $sql2 = "UPDATE estoque SET quantidade = $novaQuantidade WHERE id = $id";
+                        if ($result = $conn->query($sql2)) {
+                            echo "<p>&nbsp;Registro cadastrado com sucesso! </p>";
+                            echo "</div>";
+                        } else {
+                            echo "<p>&nbsp;Erro executando INSERT: " .  $conn->connect_error . "</p>";
+                            echo "</div>";
+                        }
+                    } else {
+                        $sql3 = "INSERT INTO estoque (cor, tamanho, quantidade, produto_id, data_cad) VALUES ('$cor', '$tamanho', $quantidade, $produto, '$data_cad')";
+                        if ($result = $conn->query($sql3)) {
+                            echo "<p>&nbsp;Registro cadastrado com sucesso! </p>";
+                            echo "</div>";
+                        } else {
+                            echo "<p>&nbsp;Erro executando INSERT: " .  $conn->connect_error . "</p>";
+                            echo "</div>";
+                        }
+                    }
                 } else {
-                    echo "<p>&nbsp;Erro executando INSERT: " .  $conn->connect_error . "</p>";
+                    echo "<p>&nbsp;Erro executando SELECT: " .  $conn->connect_error . "</p>";
                     echo "</div>";
                 }
                 echo "</div>";

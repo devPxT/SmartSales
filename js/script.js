@@ -180,38 +180,62 @@ $(document).ready(function() {
   const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
 
   const form = document.getElementById('formCadastro');
-
+  if (form) {
+    form.addEventListener('submit', function (event) {
+      const cpfInput = form.querySelector('input[name="CADcpf"]');
   
-  form.addEventListener('submit', function (event) {
-    const cpfInput = form.querySelector('input[name="CADcpf"]');
+      if (cpfInput) {
+        if (!CPFValidateForm(cpfInput.value)) {
+          event.preventDefault();
+          event.stopPropagation();
+          cpfInput.classList.remove('is-valid');
+          cpfInput.classList.add('is-invalid');
+          cpfInput.nextElementSibling.textContent = 'CPF inválido. Por favor, preencha um CPF válido.';
+          cpfInput.setCustomValidity('Invalid');
+        } else {
+            cpfInput.classList.remove('is-invalid');
+            cpfInput.classList.add('is-valid');
+            cpfInput.setCustomValidity('');
+        }
 
-    if (!CPFValidateForm(cpfInput.value)) {
-        event.preventDefault();
-        event.stopPropagation();
-        cpfInput.classList.remove('is-valid');
-        cpfInput.classList.add('is-invalid');
-        cpfInput.nextElementSibling.textContent = 'CPF inválido. Por favor, preencha um CPF válido.';
-        cpfInput.setCustomValidity('Invalid');
-    } else {
-        cpfInput.classList.remove('is-invalid');
-        cpfInput.classList.add('is-valid');
-        cpfInput.setCustomValidity('');
-    }
-
-    $(cpfInput).on('change', function() {
-      var cpfValue = form.querySelector('input[name="CADcpf"]').value
-      if (!CPFValidateForm(cpfValue)) {
-        cpfInput.classList.remove('is-valid');
-        cpfInput.classList.add('is-invalid');
-        cpfInput.nextElementSibling.textContent = 'CPF inválido. Por favor, preencha um CPF válido.';
-        cpfInput.setCustomValidity('Invalid');
-      } else {
-          cpfInput.classList.remove('is-invalid');
-          cpfInput.classList.add('is-valid');
-          cpfInput.setCustomValidity('');
+        $(cpfInput).on('change', function() {
+          var cpfValue = form.querySelector('input[name="CADcpf"]').value
+          if (!CPFValidateForm(cpfValue)) {
+            cpfInput.classList.remove('is-valid');
+            cpfInput.classList.add('is-invalid');
+            cpfInput.nextElementSibling.textContent = 'CPF inválido. Por favor, preencha um CPF válido.';
+            cpfInput.setCustomValidity('Invalid');
+          } else {
+              cpfInput.classList.remove('is-invalid');
+              cpfInput.classList.add('is-valid');
+              cpfInput.setCustomValidity('');
+          }
+        });
       }
-    });
+  
+      form.classList.add('was-validated');
+    }, false);
+  }
 
-    form.classList.add('was-validated');
-  }, false);
+  //ESTOQUE
+  function updateTamanhoOptions() {
+      const tipoTamanho = $('input[name="tipoTamanho"]:checked').val();
+      const tamanhoSelect = $('#Tamanho');
+      tamanhoSelect.empty();
+
+      if (tipoTamanho === 'roupas') {
+          const roupasTamanhos = ['PP', 'P', 'M', 'G', 'GG', 'XGG'];
+          roupasTamanhos.forEach(function(tamanho) {
+              tamanhoSelect.append(new Option(tamanho, tamanho));
+          });
+      } else if (tipoTamanho === 'calcados') {
+          for (let i = 34; i <= 45; i++) {
+              tamanhoSelect.append(new Option(i, i));
+          }
+      }
+  }
+  // Initialize with the default selection
+  updateTamanhoOptions();
+  // Update the options when the radio button is changed
+  $('input[name="tipoTamanho"]').change(updateTamanhoOptions);
 });

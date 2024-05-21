@@ -92,8 +92,17 @@
                                 <!-- </p> -->
                             <p>
                                 <label class="w3-text-IE"><b>Tamanho</b>*</label>
-                                <input class="w3-input w3-border w3-light-grey" name="Tamanho" type="text" pattern="([a-zA-Z\u00C0-\u00FF ]{1,3}|[0-9]{1,2})$"
-                                    title="Tamanho entre 1 e 3 letras OU entre 1 e 2 numeros." value="<?php echo $tamanho; ?>" required></p>
+                                <select id="Tamanho" name="Tamanho" class="w3-input w3-border w3-light-grey" required>
+                                    <!-- Options will be populated by jQuery -->
+                                </select>
+                            </p>
+
+                            <p>
+                                <input type="radio" id="roupas" name="tipoTamanho" value="roupas" checked>
+                                <label for="roupas">Roupas</label>
+                                <input type="radio" id="calcados" name="tipoTamanho" value="calcados">
+                                <label for="calcados">Calçados</label>
+                            </p>
 
                             <p>
                                 <label class="w3-text-IE"><b>Cor</b>*</label>

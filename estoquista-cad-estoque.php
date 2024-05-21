@@ -56,7 +56,7 @@
                         }
                     }
                     else{
-                        echo "<p style='text-align:center'>Erro executando UPDATE: " . $conn-> error . "</p>";
+                        echo "<p style='text-align:center'>Erro executando SELECT: " . $conn-> error . "</p>";
                     }
                     $conn->close();
                     ?>
@@ -70,9 +70,33 @@
                         <tr>
                             <td>
                             <p>
+                                <label class="w3-text-IE"><b>Produto</b>*</label>
+                                <select name="Produto" id="Produto" class="w3-input w3-border w3-light-grey" required>
+                                    <option value="">Selecione um Produto...</option>
+                                <?php
+                                    foreach($optionsProduto as $key => $value){
+                                        echo $value;
+                                    }
+                                ?>
+                                </select>
+                            </p>
+                            <!-- <p>
                                 <label class="w3-text-IE"><b>Tamanho</b>*</label>
                                 <input class="w3-input w3-border w3-light-grey" name="Tamanho" type="text" pattern="([a-zA-Z\u00C0-\u00FF ]{1,3}|[0-9]{1,2})$"
-                                    title="Tamanho entre 1 e 3 letras OU entre 1 e 2 numeros." required></p>
+                                    title="Tamanho entre 1 e 3 letras OU entre 1 e 2 numeros." required></p> -->
+                            <p>
+                                <label class="w3-text-IE"><b>Tamanho</b>*</label>
+                                <select id="Tamanho" name="Tamanho" class="w3-input w3-border w3-light-grey" required>
+                                    <!-- Options will be populated by jQuery -->
+                                </select>
+                            </p>
+
+                            <p>
+                                <input type="radio" id="roupas" name="tipoTamanho" value="roupas" checked>
+                                <label for="roupas">Roupas</label>
+                                <input type="radio" id="calcados" name="tipoTamanho" value="calcados">
+                                <label for="calcados">Calçados</label>
+                            </p>
 
                             <p>
                                 <label class="w3-text-IE"><b>Cor</b>*</label>
@@ -81,23 +105,13 @@
                                     
                             <p>
                                 <label class="w3-text-IE"><b>Quantidade</b>*</label>
-                                <input class="w3-input w3-border w3-light-grey" name="Quantidade" type="number" min="1" required></p>
+                                <input class="w3-input w3-border w3-light-grey" name="Quantidade" type="number" min="0" required>
+                            </p>
                             
                             <p>
                                 <label class="w3-text-IE"><b>Data de Cadastro</b>*</label>
                                 <input class="w3-input w3-border w3-light-grey" name="DataCad" type="date"
-                                    placeholder="dd/mm/aaaa" title="dd/mm/aaaa" max="<?= date('Y-m-d'); ?>" required></p>
-
-                            <p>
-                                <label class="w3-text-IE"><b>Produto</b>*</label>
-                                <select name="Produto" id="Produto" class="w3-input w3-border w3-light-grey" required>
-                                    <option value=""></option>
-                                <?php
-                                    foreach($optionsProduto as $key => $value){
-                                        echo $value;
-                                    }
-                                ?>
-                                </select>
+                                    placeholder="dd/mm/aaaa" title="dd/mm/aaaa" value="<?= date('Y-m-d'); ?>" max="<?= date('Y-m-d'); ?>" required>
                             </p>
 
                             </td>

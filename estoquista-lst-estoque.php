@@ -132,6 +132,12 @@
                     <?php
                             }
                             echo "</tbody>";
+                        } else {
+                            echo "<tbody>";
+                            echo "<tr>";
+                            echo "<th scope'row' colspan='8'>Sem nenhum registro no momento.</th>";
+                            echo "</tr>";
+                            echo "</tbody>";
                         }
                         echo "  </table>";
                         echo "</div>";

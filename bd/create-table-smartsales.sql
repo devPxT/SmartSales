@@ -71,25 +71,29 @@ CREATE TABLE funcionario (
     FOREIGN KEY (cargo_id) REFERENCES cargo(id) ON DELETE RESTRICT
 );
 
--- Criação da tabela de compra
-CREATE TABLE compra (
-    id int PRIMARY KEY,
-    valor FLOAT NOT NULL,
-    data DATE NOT NULL,
-    cliente_id int NOT NULL,
-    funcionario_id int NOT NULL,
-    FOREIGN KEY (cliente_id) REFERENCES cliente(id) ON DELETE CASCADE,
-    FOREIGN KEY (funcionario_id) REFERENCES funcionario(id) ON DELETE CASCADE
+-- Criação da tabela de metodo de pagamentos
+CREATE TABLE metodopagamento (
+    id int AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    descricao VARCHAR(1000),
+    data_cad DATE,
+    data_updt DATE
 );
 
--- Criação da tabela carrinho
-CREATE TABLE carrinho (
-	id int AUTO_INCREMENT PRIMARY KEY,
-    estoque_id int,
-    compra_id int,
-    quantidade int,
-    FOREIGN KEY (estoque_id) REFERENCES estoque(id) ON DELETE RESTRICT,
-    FOREIGN KEY (compra_id) REFERENCES compra(id) ON DELETE RESTRICT
+-- Criação da tabela de compra
+CREATE TABLE compra (
+    id int AUTO_INCREMENT PRIMARY KEY,
+    quantidade int NOT NULL,
+    data_cad DATE,
+    data_updt DATE,
+    cliente_id int NOT NULL,
+    funcionario_id int NOT NULL,
+    estoque_id int NOT NULL,
+    metodopagamento_id int NOT NULL,
+    FOREIGN KEY (cliente_id) REFERENCES cliente(id) ON DELETE CASCADE,
+    FOREIGN KEY (funcionario_id) REFERENCES funcionario(id) ON DELETE CASCADE,
+    FOREIGN KEY (estoque_id) REFERENCES estoque(id) ON DELETE CASCADE,
+    FOREIGN KEY (metodopagamento_id) REFERENCES metodopagamento(id) ON DELETE CASCADE
 );
 
 -- Inserção de categorias de exemplo
@@ -104,6 +108,13 @@ INSERT INTO cargo (nome, descricao, data_cad) VALUES
 ('Administrador', 'Administrador do sistema', now()),
 ('Vendedor', 'Responsável pelas vendas da loja', now()),
 ('Almoxarife', 'Responsável pelo estoque da loja', now());
+
+-- Inserção de metodo de pagamento de exemplo
+INSERT INTO metodopagamento (nome, descricao, data_cad) VALUES
+('Pix', 'Transfêrencia por pix na hora da compra', now()),
+('Crédito', 'Cartão de crédito usado na hora da compra', now()),
+('Débito', 'Cartão de débito usado na hora da compra', now()),
+('Dinheiro', 'Dinhero em nota/moeda usado na hora da compra', now());
 
 -- Inserção da única conta de administrador
 INSERT INTO funcionario (nome, dt_nasc, cpf, login, senha, cargo_id, data_cad) 

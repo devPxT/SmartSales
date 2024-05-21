@@ -155,7 +155,7 @@
                         } else {
                             echo "<tbody>";
                             echo "<tr>";
-                            echo "<th scope'row' colspan='8'>Nenhum registro.</th>";
+                            echo "<th scope'row' colspan='10'>Nenhum registro.</th>";
                             echo "</tr>";
                             echo "</tbody>";
                         }

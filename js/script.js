@@ -217,6 +217,44 @@ $(document).ready(function() {
     }, false);
   }
 
+  const formUpdate = document.getElementById('formUpdate');
+  if (formUpdate) {
+    formUpdate.addEventListener('submit', function (event) {
+      const cpfInput = formUpdate.querySelector('input[name="UPDTcpf"]');
+  
+      if (cpfInput) {
+        if (!CPFValidateForm(cpfInput.value)) {
+          event.preventDefault();
+          event.stopPropagation();
+          cpfInput.classList.remove('is-valid');
+          cpfInput.classList.add('is-invalid');
+          cpfInput.nextElementSibling.textContent = 'CPF inválido. Por favor, preencha um CPF válido.';
+          cpfInput.setCustomValidity('Invalid');
+        } else {
+            cpfInput.classList.remove('is-invalid');
+            cpfInput.classList.add('is-valid');
+            cpfInput.setCustomValidity('');
+        }
+
+        $(cpfInput).on('change', function() {
+          var cpfValue = formUpdate.querySelector('input[name="UPDTcpf"]').value
+          if (!CPFValidateForm(cpfValue)) {
+            cpfInput.classList.remove('is-valid');
+            cpfInput.classList.add('is-invalid');
+            cpfInput.nextElementSibling.textContent = 'CPF inválido. Por favor, preencha um CPF válido.';
+            cpfInput.setCustomValidity('Invalid');
+          } else {
+              cpfInput.classList.remove('is-invalid');
+              cpfInput.classList.add('is-valid');
+              cpfInput.setCustomValidity('');
+          }
+        });
+      }
+  
+      formUpdate.classList.add('was-validated');
+    }, false);
+  }
+
   //ESTOQUE
   function updateTamanhoOptions() {
       const tipoTamanho = $('input[name="tipoTamanho"]:checked').val();

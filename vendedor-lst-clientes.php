@@ -107,7 +107,214 @@
                 }
 
             } else if ($_POST['tipoModal'] == 2) { //recebeu dados do modadel de UPDATE -> UPDATE
+                $id = $_POST['ID'];
+                    
+                $nome = $_POST['UPDTnome'];
+                $dtNasc = $_POST['UPDTdtNasc'];
+                $cpf = $_POST['UPDTcpf'];
+                $celular = $_POST['UPDTcelular'];
+                $email = $_POST['UPDTemail'];
+                $data_cad = $_POST['UPDTdtCad'];
 
+                $sql = "SELECT cpf, email FROM cliente WHERE id = $id";
+                if ($result = $conn->query($sql)) {
+                    $row = $result->fetch_assoc();
+
+                    $cpfAntigo = $row['cpf'];
+                    $emailAntigo = $row['email'];
+
+                    if ($cpf == $cpfAntigo && $email == $emailAntigo) {
+                        $sql2 = "UPDATE cliente SET nome = '$nome', dt_nasc = '$dtNasc', email = '$email', celular = '$celular', CPF = '$cpf', data_cad = '$data_cad' WHERE id = $id";
+                        //verifica se deu erro no UPDATE
+                        if ($result2 = $conn->query($sql2)) {
+                            $msg = 'Cliente atualizado com sucesso!'; // UPDATE com sucesso 
+                            $icon = 'success';
+
+                            unset($_SESSION['idCLIENTEupdt']);
+
+                            unset($_SESSION['nomeCLIENTEupdt']);
+                            unset($_SESSION['dtNascCLIENTEupdt']);
+                            unset($_SESSION['cpfCLIENTEupdt']);
+                            unset($_SESSION['celularCLIENTEupdt']);
+                            unset($_SESSION['emailCLIENTEupdt']);
+                            unset($_SESSION['dtCadCLIENTEupdt']);
+                        } else {
+                            //echo $conn->connect_error;
+                            $title = 'Erro';
+                            $msg = 'Erro executando UPDATE do cliente'; // UPDATE com erro
+                            $icon = 'error';
+                        }
+                    } else if ($cpf == $cpfAntigo) {
+                        $sql2 = "SELECT id FROM cliente WHERE email = '$email'";
+                        //verifica se deu erro no SELECT
+                        if ($result2 = $conn->query($sql2)) {
+                            //deu CERTO no SELECT
+                            if ($result2 -> num_rows > 0) {
+                                $title = 'Erro atualizando cliente!';
+                                $msg = '*EMAIL* já existente!';
+                                $icon = 'error';
+
+                                $_SESSION['idCLIENTEupdt'] = $id;
+
+                                $_SESSION['nomeCLIENTEupdt'] = $nome;
+                                $_SESSION['dtNascCLIENTEupdt'] = $dtNasc;
+                                $_SESSION['cpfCLIENTEupdt'] = $cpf;
+                                $_SESSION['celularCLIENTEupdt'] = $celular;
+                                $_SESSION['emailCLIENTEupdt'] = $email;
+                                $_SESSION['dtCadCLIENTEupdt'] = $data_cad;
+                            } else {
+                                $sql3 = "UPDATE cliente SET nome = '$nome', dt_nasc = '$dtNasc', email = '$email', celular = '$celular', CPF = '$cpf', data_cad = '$data_cad' WHERE id = $id";
+                                //verifica se deu erro no UPDATE
+                                if ($result3 = $conn->query($sql3)) {
+                                    $msg = 'Cliente atualizado com sucesso!'; // UPDATE com sucesso 
+                                    $icon = 'success';
+
+                                    unset($_SESSION['idCLIENTEupdt']);
+
+                                    unset($_SESSION['nomeCLIENTEupdt']);
+                                    unset($_SESSION['dtNascCLIENTEupdt']);
+                                    unset($_SESSION['cpfCLIENTEupdt']);
+                                    unset($_SESSION['celularCLIENTEupdt']);
+                                    unset($_SESSION['emailCLIENTEupdt']);
+                                    unset($_SESSION['dtCadCLIENTEupdt']);
+                                } else {
+                                    //echo $conn->connect_error;
+                                    $title = 'Erro';
+                                    $msg = 'Erro executando UPDATE do cliente'; // UPDATE com erro
+                                    $icon = 'error';
+                                }
+                            }
+
+                        } else {
+                            //deu ERRDO no SELECT
+                            $title = 'Erro';
+                            $msg = 'Erro selecionando o EMAIL do cliente';
+                            $icon = 'error';
+                        }
+                    } else if ($email == $emailAntigo) {
+                        $sql2 = "SELECT id FROM cliente WHERE cpf = '$cpf'";
+                        //verifica se deu erro no SELECT
+                        if ($result2 = $conn->query($sql2)) {
+                            //deu CERTO no SELECT
+                            if ($result2 -> num_rows > 0) {
+                                $title = 'Erro atualizando cliente!';
+                                $msg = '*CPF* já existente!';
+                                $icon = 'error';
+
+                                $_SESSION['idCLIENTEupdt'] = $id;
+
+                                $_SESSION['nomeCLIENTEupdt'] = $nome;
+                                $_SESSION['dtNascCLIENTEupdt'] = $dtNasc;
+                                $_SESSION['cpfCLIENTEupdt'] = $cpf;
+                                $_SESSION['celularCLIENTEupdt'] = $celular;
+                                $_SESSION['emailCLIENTEupdt'] = $email;
+                                $_SESSION['dtCadCLIENTEupdt'] = $data_cad;
+                            } else {
+                                $sql3 = "UPDATE cliente SET nome = '$nome', dt_nasc = '$dtNasc', email = '$email', celular = '$celular', CPF = '$cpf', data_cad = '$data_cad' WHERE id = $id";
+                                //verifica se deu erro no UPDATE
+                                if ($result3 = $conn->query($sql3)) {
+                                    $msg = 'Cliente atualizado com sucesso!'; // UPDATE com sucesso 
+                                    $icon = 'success';
+
+                                    unset($_SESSION['idCLIENTEupdt']);
+
+                                    unset($_SESSION['nomeCLIENTEupdt']);
+                                    unset($_SESSION['dtNascCLIENTEupdt']);
+                                    unset($_SESSION['cpfCLIENTEupdt']);
+                                    unset($_SESSION['celularCLIENTEupdt']);
+                                    unset($_SESSION['emailCLIENTEupdt']);
+                                    unset($_SESSION['dtCadCLIENTEupdt']);
+                                } else {
+                                    //echo $conn->connect_error;
+                                    $title = 'Erro';
+                                    $msg = 'Erro executando UPDATE do cliente'; // UPDATE com erro
+                                    $icon = 'error';
+                                }
+                            }
+
+                        } else {
+                            //deu ERRDO no SELECT
+                            $title = 'Erro';
+                            $msg = 'Erro selecionando o EMAIL do cliente';
+                            $icon = 'error';
+                        }
+                    } else {
+                        //SQL que verifica se tem um cliente com esse CPF ANTES DO INSERT
+                        $sql2 = "SELECT id FROM cliente WHERE cpf = '$cpf'";
+                        //verifica se deu erro no SELECT
+                        if ($result2 = $conn->query($sql2)) {
+
+                            if ($result -> num_rows > 0) {
+                                $title = 'Erro atualizando cliente!';
+                                $msg = '*CPF* já existente!';
+                                $icon = 'error';
+
+                                $_SESSION['idCLIENTEupdt'] = $id;
+
+                                $_SESSION['nomeCLIENTEupdt'] = $nome;
+                                $_SESSION['dtNascCLIENTEupdt'] = $dtNasc;
+                                $_SESSION['cpfCLIENTEupdt'] = $cpf;
+                                $_SESSION['celularCLIENTEupdt'] = $celular;
+                                $_SESSION['emailCLIENTEupdt'] = $email;
+                                $_SESSION['dtCadCLIENTEupdt'] = $data_cad;
+                            } else {
+
+                                //SQL que verifica se tem um cliente com esse EMAIL ANTES DO INSERT
+                                $sql3 = "SELECT id FROM cliente WHERE email = '$email'";
+                                //verifica se deu erro no SELECT
+                                if ($result3 = $conn->query($sql3)) {
+                                    //deu CERTO no SELECT
+                                    if ($result3 -> num_rows > 0) {
+                                        $title = 'Erro atualizando cliente!';
+                                        $msg = '*EMAIL* já existente!';
+                                        $icon = 'error';
+
+                                        $_SESSION['idCLIENTEupdt'] = $id;
+
+                                        $_SESSION['nomeCLIENTEupdt'] = $nome;
+                                        $_SESSION['dtNascCLIENTEupdt'] = $dtNasc;
+                                        $_SESSION['cpfCLIENTEupdt'] = $cpf;
+                                        $_SESSION['celularCLIENTEupdt'] = $celular;
+                                        $_SESSION['emailCLIENTEupdt'] = $email;
+                                        $_SESSION['dtCadCLIENTEupdt'] = $data_cad;
+                                    } else {
+                                        $sql4 = "UPDATE cliente SET nome = '$nome', dt_nasc = '$dtNasc', email = '$email', celular = '$celular', CPF = '$cpf', data_cad = '$data_cad' WHERE id = $id";
+                                        //verifica se deu erro no UPDATE
+                                        if ($result4 = $conn->query($sql4)) {
+                                            $msg = 'Cliente atualizado com sucesso!'; // UPDATE com sucesso 
+                                            $icon = 'success';
+
+                                            unset($_SESSION['idCLIENTEupdt']);
+                                            
+                                            unset($_SESSION['nomeCLIENTEupdt']);
+                                            unset($_SESSION['dtNascCLIENTEupdt']);
+                                            unset($_SESSION['cpfCLIENTEupdt']);
+                                            unset($_SESSION['celularCLIENTEupdt']);
+                                            unset($_SESSION['emailCLIENTEupdt']);
+                                            unset($_SESSION['dtCadCLIENTEupdt']);
+                                        } else {
+                                            //echo $conn->connect_error;
+                                            $title = 'Erro';
+                                            $msg = 'Erro executando UPDATE do cliente'; // UPDATE com erro
+                                            $icon = 'error';
+                                        }
+                                    }
+
+                                } else {
+                                    //deu ERRDO no SELECT
+                                    $title = 'Erro';
+                                    $msg = 'Erro selecionando o EMAIL do cliente';
+                                    $icon = 'error';
+                                }
+                            }
+                        } else {
+                            //echo $conn-> error;
+                            $title = 'Erro';
+                            $msg = 'Erro selecionando o ID do cliente';
+                            $icon = 'error';
+                        }
+                    }
+                }
 
             } else { //recebeu dados do CLICK do DELETE -> DELETE
                 $id = $_POST['ID'];
@@ -235,15 +442,14 @@
                             <!-- input para DIFERENCIAR o modal de CADASTRO do modal de UPDATE pois vai para a mesma página -->
                             <input name="tipoModal" type="hidden" value="2">
                             <!-- input para DIFERENCIAR o modal de CADASTRO do modal de UPDATE pois vai para a mesma página -->
-
-                            <input name="ID" type="hidden" value="" id="ID">
+                            <input name="ID" type="hidden" value="<?php echo isset($_SESSION['idCLIENTEupdt']) ? $_SESSION['idCLIENTEupdt'] : ''; ?>" id="ID">
 
                             <div class="col-md-6 col-12">
                                 <label for="nome" class="form-label">Nome</label>
                                 <input type="text" class="form-control" id="nome" pattern="[a-zA-Z\u00C0-\u00FF ]{3,100}$" required placeholder="Ana"
                                 value="<?php echo isset($_SESSION['nomeCLIENTEupdt']) ? $_SESSION['nomeCLIENTEupdt'] : ''; ?>"
                                 data-bs-toggle="tooltip" data-bs-title="Nome com 3 a 100 letras" data-bs-custom-class="custom-tooltip"
-                                name="nome">
+                                name="UPDTnome">
                                 <div class="invalid-feedback">
                                     Por favor preencha o nome de 3 a 100 letras.
                                 </div>
@@ -253,7 +459,7 @@
                                 <input type="text" class="form-control" id="cpf" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" required placeholder="xxx.xxx.xxx-xx"
                                 value="<?php echo isset($_SESSION['cpfCLIENTEupdt']) ? $_SESSION['cpfCLIENTEupdt'] : ''; ?>"
                                 data-bs-toggle="tooltip" data-bs-title="CPF do cliente com pontuação" data-bs-custom-class="custom-tooltip"
-                                name="cpf">
+                                name="UPDTcpf">
                                 <div class="invalid-feedback">
                                     Por favor preencha o CPF com pontuação.
                                 </div>
@@ -263,9 +469,9 @@
                             <div class="col-sm-6 col-12">
                                 <label for="dtNasc" class="form-label">Data de Nascimento</label>
                                 <input type="date" class="form-control" max="<?= $maxDate; ?>" id="dtNasc" required
-                                value="<?php echo isset($_SESSION['dtNascCLIENTEupdt']) ? $_SESSION['dtNascCLIENTEudpt'] : ''; ?>"
+                                value="<?php echo isset($_SESSION['dtNascCLIENTEupdt']) ? $_SESSION['dtNascCLIENTEupdt'] : ''; ?>"
                                 data-bs-toggle="tooltip" data-bs-title="Data de nascimento do cliente" data-bs-custom-class="custom-tooltip"
-                                name="dtNasc">
+                                name="UPDTdtNasc">
                                 <div class="invalid-feedback">
                                     Por favor preencha a data.
                                 </div>
@@ -275,7 +481,7 @@
                                 <input type="date" class="form-control" max="<?= date('Y-m-d'); ?>" 
                                 value="<?php echo isset($_SESSION['dtCadCLIENTEupdt']) ? $_SESSION['dtCadCLIENTEupdt'] : date('Y-m-d'); ?>" id="dtCad" required
                                 data-bs-toggle="tooltip" data-bs-title="Data de cadastro do cliente" data-bs-custom-class="custom-tooltip"
-                                name="dtCad">
+                                name="UPDTdtCad">
                                 <div class="invalid-feedback">
                                     Por favor preencha a data.
                                 </div>
@@ -286,7 +492,7 @@
                                 <input type="text" class="form-control" id="celular" required placeholder="(41)98765-4321"
                                 value="<?php echo isset($_SESSION['celularCLIENTEupdt']) ? $_SESSION['celularCLIENTEupdt'] : ''; ?>"
                                 data-bs-toggle="tooltip" data-bs-title="Celular do cliente com 11 dígitos" data-bs-custom-class="custom-tooltip"
-                                name="celular">
+                                name="UPDTcelular">
                                 <div class="invalid-feedback">
                                     Por favor preencha o Celular com 11 dígitos.
                                 </div>
@@ -296,7 +502,7 @@
                                 <input type="text" class="form-control" id="email" required placeholder="exemplo@gmail.com"
                                 value="<?php echo isset($_SESSION['emailCLIENTEupdt']) ? $_SESSION['emailCLIENTEupdt'] : ''; ?>"
                                 data-bs-toggle="tooltip" data-bs-title="Email do cliente" data-bs-custom-class="custom-tooltip"
-                                name="email">
+                                name="UPDTemail">
                                 <div class="invalid-feedback">
                                     Por favor preencha o Email.
                                 </div>
@@ -528,6 +734,26 @@
                 });
             </script>
     <?php
+            } else if ($_POST['tipoModal'] == 2) {
+    ?>
+            <script>
+                if ('<?php echo $icon ?>' == 'error') {
+                    Swal.fire({
+                        icon: '<?php echo $icon ?>',
+                        title: '<?php echo $title ?>',
+                        text: '<?php echo $msg?>',
+                        confirmButtonColor: "#ffc107"
+                    }).then(() => {
+                        $('#modalUpdate').modal('toggle');
+                    })
+                } else {
+                    Toast.fire({
+                        icon: '<?php echo $icon ?>',
+                        title: '<?php echo $msg ?>'
+                    });
+                }
+            </script>
+    <?php        
             } else {
     ?>
             <script>

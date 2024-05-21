@@ -127,7 +127,8 @@
                 $sql = "DELETE FROM compra WHERE id = $id";
 
                 if ($result = mysqli_query($conn, $sql)) {
-                    $sql2 = "UPDATE estoque SET quantidade = $qtd WHERE id = $estoque_id";
+                    $sql2 = "UPDATE estoque SET quantidade = quantidade + $qtd WHERE id = $estoque_id";
+                    //verificar UPDATE
 
                     if ($result = $conn->query($sql2)) {
                         $msg = 'Registro excluído com sucesso!'; // DELETE com sucesso 

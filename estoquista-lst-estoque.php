@@ -33,8 +33,8 @@
                         </div>
                         <div class="col-lg-6 col-sm-7 col-9">
                             <label for="inputPesquisa" class="visually-hidden">Pesquisar</label>
-                            <input type="text" name="nomeProduto" class="form-control mb-3" id="inputPesquisa" placeholder="Nome do Produto..."
-                                value="<?php echo isset($_POST['nomeProduto']) ? $_POST['nomeProduto'] : ''; ?>">
+                            <input type="text" name="busca" class="form-control mb-3" id="inputPesquisa" placeholder="Busca..."
+                                value="<?php echo isset($_POST['busca']) ? $_POST['busca'] : ''; ?>">
                         </div>
                         <div class="col-lg-2 col-sm-3 col-12">
                             <button type="submit" class="btn btn-success mb-3 w-100">Pesquisar</button>
@@ -55,13 +55,13 @@
                     if ($conn->connect_error) {
                         die("<strong> Falha de conexão: </strong>" . $conn->connect_error);
                     }
-                    if (isset($_POST['nomeProduto'])) {
-                        $nomeProduto = $_POST['nomeProduto'];
+                    if (isset($_POST['busca'])) {
+                        $busca = $_POST['busca'];
                     }
                     // Faz Select na Base de Dados
                     $sql = "SELECT t1.id, t1.cor, t1.tamanho, t1.quantidade, t1.data_cad, t1.data_updt, t2.nome FROM estoque t1 JOIN produto t2 ON t1.produto_id = t2.id";
-                    if (isset($nomeProduto)) {
-                        $sql = $sql . " WHERE t2.nome LIKE '$nomeProduto%'";
+                    if (isset($busca)) {
+                        $sql = $sql . " WHERE t2.nome LIKE '%$busca%' OR t1.cor LIKE '%$busca%' OR t1.tamanho LIKE '%$busca%'";
                     }
 
                     ?>
@@ -135,7 +135,7 @@
                         } else {
                             echo "<tbody>";
                             echo "<tr>";
-                            echo "<th scope'row' colspan='8'>Sem nenhum registro no momento.</th>";
+                            echo "<th scope'row' colspan='8'>Nenhum registro.</th>";
                             echo "</tr>";
                             echo "</tbody>";
                         }
@@ -151,6 +151,14 @@
         </div>
 
     <?php require "geral/footer.php" ?>
+
+    <script>
+        // evita o resend de formulario quando atualiza a pagina
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+        // evita o resend de formulario quando atualiza a pagina
+    </script>
 
 </body>
 </html>

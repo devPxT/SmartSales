@@ -385,8 +385,8 @@
                     </div>
                     <div class="col-lg-6 col-sm-7 col-12">
                             <label for="inputPesquisa" class="visually-hidden">Pesquisar</label>
-                            <input type="text" name="pesquisa" class="form-control mb-3" id="inputPesquisa" placeholder="Buscar..."
-                                value="<?php echo isset($_POST['pesquisa']) ? $_POST['pesquisa'] : ''; ?>">
+                            <input type="text" name="busca" class="form-control mb-3" id="inputPesquisa" placeholder="Busca..."
+                                value="<?php echo isset($_POST['busca']) ? $_POST['busca'] : ''; ?>">
                     </div>
                     <div class="col-lg-2 col-sm-3 col-12">
                         <button type="submit" class="btn btn-success mb-3 w-100">Pesquisar</button>
@@ -407,8 +407,8 @@
                 if ($conn->connect_error) {
                     die("<strong> Falha de conexão: </strong>" . $conn->connect_error);
                 }
-                if (isset($_POST['pesquisa'])) {
-                    $nomeProduto = $_POST['pesquisa'];
+                if (isset($_POST['busca'])) {
+                    $nomeProduto = $_POST['busca'];
                 }
                 // Faz Select na Base de Dados
                 $sql = "SELECT t1.id, t2.nome as produto, t3.tamanho, t3.cor, 
@@ -424,7 +424,7 @@
                         JOIN cliente t5 ON t1.cliente_id = t5.id
                         JOIN metodopagamento t6 ON t1.metodopagamento_id = t6.id";
                 // If Isset para verificar se recebeu o nomeProduto para concatenar o WHERE e fazer a pesquisa
-                if (isset($_POST['pesquisa'])) {
+                if (isset($_POST['busca'])) {
                     $sql = $sql . " WHERE t2.nome LIKE '$nomeProduto%'";
                 }
             ?>
@@ -525,7 +525,7 @@
                     } else {
                         echo "<tbody>";
                         echo "<tr>";
-                        echo "<th scope'row' colspan='13'>Sem nenhum registro no momento.</th>";
+                        echo "<th scope'row' colspan='13'>Nenhum registro.</th>";
                         echo "</tr>";
                         echo "</tbody>";
                     }

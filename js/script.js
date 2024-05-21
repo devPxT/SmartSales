@@ -2,8 +2,9 @@ function dev(event) {
     event.preventDefault();
     Swal.fire({
       title: "Oops",
-      text: "Em desenvolvimento",
-      icon: "info"
+      text: "Em desenvolvimento!",
+      icon: "info",
+      confirmButtonColor: "#ffc107"
     });
 }
 

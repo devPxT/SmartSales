@@ -64,7 +64,7 @@
                     </div>
                 </div>
             </a>
-            <a class="col-lg-4 col-md-5 col-sm-6 col-xs-12 button-container mb-4" href="#">
+            <a class="col-lg-4 col-md-5 col-sm-6 col-xs-12 button-container mb-4" href="#" onclick="dev(event)">
                 <div class="card" style="width: 18rem;">
                     <i class="bi bi-bar-chart" style="font-size: 150px; margin: auto;"></i>
                     <div class="card-body">
@@ -80,7 +80,7 @@
                     </div>
                 </div>
             </a>
-            <a class="col-lg-4 col-md-5 col-sm-6 col-xs-12 button-container mb-4" href="#">
+            <a class="col-lg-4 col-md-5 col-sm-6 col-xs-12 button-container mb-4" href="#" onclick="dev(event)">
                 <div class="card" style="width: 18rem;">
                     <i class="bi bi-person" style="font-size: 150px; margin: auto;"></i>
                     <div class="card-body">

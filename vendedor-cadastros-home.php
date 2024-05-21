@@ -36,7 +36,7 @@
                     </div>
                 </div>
             </a>
-            <a class="col" href="#" onclick="dev(event)">
+            <a class="col" href="vendedor-lst-metodopagamento.php">
                 <div class="card">
                     <i class="bi bi-tags" style="font-size: 300px; margin: auto;"></i>
                     <div class="card-body">

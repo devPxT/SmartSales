@@ -20,7 +20,8 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="vendedor-lst-clientes.php">Clientes</a></li>
-                            <li><a class="dropdown-item" href="#" onclick="dev(event);">Métodos de Pagamento</a></li>
+                            <li><a class="dropdown-item" href="vendedor-lst-metodopagamento.php">Métodos de Pagamento</a></li>
+                            <li><a class="dropdown-item" href="estoquista-lst-fornecedor.php">Fornecedor</a></li>
                         </ul>
                     </li>
                     <!-- <li class="nav-item dropdown">

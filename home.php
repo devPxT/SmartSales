@@ -56,7 +56,7 @@
                     </div>
                 </div>
             </a>
-            <a class="col-lg-4 col-md-5 col-sm-6 col-xs-12 button-container mb-4" href="estoquista-lst-estoque.php">
+            <a class="col-lg-4 col-md-5 col-sm-6 col-xs-12 button-container mb-4" href="estoquista-cadastros-home.php">
                 <div class="card" style="width: 18rem;">
                     <i class="bi bi-box" style="font-size: 150px; margin: auto;"></i>
                     <div class="card-body">

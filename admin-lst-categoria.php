@@ -60,7 +60,7 @@
                     $nomeCategoria = $_POST['nomeCategoria'];
                 }
                 // Faz Select na Base de Dados
-                $sql = "SELECT t1.id, t1.nome, t1.data_cad, t1.data_updt FROM categoria t1";
+                $sql = "SELECT t1.id, t1.nome, t1.tipo_categoria, t1.data_cad, t1.data_updt FROM categoria t1";
                 // If Isset para verificar se recebeu o NomeCategoria para concatenar o WHERE e fazer a pesquisa
                 if (isset($nomeCategoria)) {
                     $sql = $sql . " WHERE t1.nome LIKE '$nomeCategoria%'";
@@ -73,6 +73,7 @@
                             <tr>
                                 <th scope='col'>Código</th>
                                 <th scope='col'>Categoria</th>
+                                <th scope='col'>Tipo de Categoria</th>
                                 <th scope='col'>Data de Cadastro</th>
                                 <th scope='col'>Data de Atualização</th>
                                 <th scope='col'> </th>
@@ -105,6 +106,8 @@
                             echo $cod;
                             echo "  </th><td>";
                             echo $row["nome"];
+                            echo "  </td><td>";
+                            echo $row["tipo_categoria"];
                             echo "  </td><td>";
                             echo $nova_data_cad;
                             echo "  </td><td>";

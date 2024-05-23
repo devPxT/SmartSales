@@ -47,13 +47,14 @@
 
                     $id = $_GET['id'];
 
-                    $sql = "SELECT t1.id, t1.nome, t1.data_cad FROM categoria t1 WHERE id = $id";
+                    $sql = "SELECT t1.id, t1.nome, t1.tipo_categoria, t1.data_cad FROM categoria t1 WHERE id = $id";
 
                     if ($result = $conn->query($sql)) {   // Consulta ao BD ok
                         if ($result->num_rows == 1) {          // Retorna 1 registro que será atualizado  
                             $row = $result->fetch_assoc();
     
                             $nome = $row['nome'];
+                            $tipo_categoria = $row['tipo_categoria'];
                             $data = $row['data_cad'];
                     ?>
 
@@ -73,6 +74,19 @@
                                 <input class="w3-input w3-border w3-light-grey" name="Nome" type="text" pattern="[a-zA-Z\u00C0-\u00FF ]{5,100}$"
                                     value="<?php echo $nome; ?>"
                                     title="Nome entre 5 e 100 letras." required></p>
+
+                            <p>
+                                <label class="w3-text-IE"><b>Tipo de Categoria</b>*</label>
+                                <select name="TipoCategoria" id="TipoCategoria" class="w3-input w3-border w3-light-grey" value="<?php echo $tipo_categoria; ?>" required>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <?php
+                                        foreach($optionsProduto as $key => $value){
+                                            echo $value;
+                                        }
+                                    ?>
+                                </select>
+                            </p>
 
                             <p>
                                 <label class="w3-text-IE"><b>Data de Cadastro</b></label>

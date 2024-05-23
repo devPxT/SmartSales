@@ -38,6 +38,7 @@
                 $id = $_POST['id'];
 
                 $nome    = $_POST['Nome'];
+                $tipo_categoria    = $_POST['TipoCategoria'];
                 
                 // Cria conexão
                 $conn = new mysqli($servername, $username, $password, $database);
@@ -55,7 +56,7 @@
 
                 <?php
 
-                $sql = "UPDATE categoria SET nome = '$nome', data_updt = now() WHERE id = $id";
+                $sql = "UPDATE categoria SET nome = '$nome', tipo_categoria = '$tipo_categoria', data_updt = now() WHERE id = $id";
     
                 echo "<div class='w3-responsive w3-card-4'>";
                 if ($result = $conn->query($sql)) {

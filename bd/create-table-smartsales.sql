@@ -7,9 +7,16 @@ USE SMARTSALES;
 CREATE TABLE categoria (
     id int AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
+    tipo_categoria int NOT NULL,
     data_cad DATE,
     data_updt DATE
 );
+
+CREATE TABLE categoria (
+	id int AUTO_INCREMENT PRIMARY KEY,
+    tipo_categoria int NOT NULL
+);
+
 
 -- Criação da tabela de produtos
 CREATE TABLE produto (
@@ -105,11 +112,11 @@ CREATE TABLE compra (
 );
 
 -- Inserção de categorias de exemplo
-INSERT INTO categoria (nome, data_cad) VALUES
-('Calçados', now()),
-('Camiseta', now()),
-('Calça', now()),
-('Moletom', now());
+INSERT INTO categoria (nome, tipo_categoria, data_cad) VALUES
+('Calçados', 2, now()),
+('Camiseta', 1, now()),
+('Calça', 1, now()),
+('Moletom', 1,now());
 
 -- Inserção de cargos de exemplo
 INSERT INTO cargo (nome, descricao, data_cad) VALUES

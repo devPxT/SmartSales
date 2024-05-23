@@ -47,13 +47,14 @@
 
                     $id = $_GET['id'];
 
-                    $sql = "SELECT t1.id, t1.nome, t1.data_cad, t1.data_updt FROM categoria t1 WHERE t1.id = $id";
+                    $sql = "SELECT t1.id, t1.nome, t1.tipo_categoria, t1.data_cad, t1.data_updt FROM categoria t1 WHERE t1.id = $id";
 
                     if ($result = $conn->query($sql)) {   // Consulta ao BD ok
                         if ($result->num_rows == 1) {          // Retorna 1 registro que será atualizado  
                             $row = $result->fetch_assoc();
     
                             $nome = $row['nome'];
+                            $tipo_categoria = $row['tipo_categoria'];
 
                             $dataN = explode('-', $row["data_cad"]);
                             $anoN = $dataN[0];
@@ -87,6 +88,8 @@
                                 <!-- </p> -->
                             <p>
                                 <label class="w3-text-IE"><b>Nome: </b> <?php echo $nome; ?> </label></p>
+                            <p>
+                                <label class="w3-text-IE"><b>Tipo de Categoria: </b> <?php echo $tipo_categoria; ?> </label></p>
                             <p>
                                 <label class="w3-text-IE"><b>Data de Cadastro: </b><?php echo $data_cad; ?></label></p>
                             <p>

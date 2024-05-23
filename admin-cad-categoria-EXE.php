@@ -35,6 +35,7 @@
             <!-- Acesso ao BD-->
             <?php
                 $nome = $_POST['Nome'];
+                $tipo_categoria  = $_POST['TipoCategoria'];
                 $data_cad  = $_POST['Data'];
 
                 // Cria conexão
@@ -46,7 +47,7 @@
                 }
 
                 // Faz Insert na Base de Dados
-                $sql = "INSERT INTO categoria (nome, data_cad) VALUES ('$nome', '$data_cad')";
+                $sql = "INSERT INTO categoria (nome, tipo_categoria, data_cad) VALUES ('$nome', '$tipo_categoria', '$data_cad')";
 
                 ?>
                 <div class='w3-responsive w3-card-4'>

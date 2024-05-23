@@ -43,6 +43,31 @@
                     echo "</p> "
                     ?>
                     <!-- Acesso ao BD-->
+                    <?php
+                    
+                    // Cria conexão
+                    $conn = new mysqli($servername, $username, $password, $database);
+
+                    // Verifica conexão 
+                    if ($conn->connect_error) {
+                        die("<strong> Falha de conexão: </strong>" . $conn->connect_error);
+                    }
+
+                    // Faz Select na Base de Dados
+                    $sqlG = "SELECT id, tipo_categoria FROM categoria WHERE id <> 1";
+                    
+                    $optionsTipoCategoria = array();
+                    
+                    if ($result = $conn->query($sqlG)) {
+                        while ($row        = $result->fetch_assoc()) {
+                        array_push($optionsTipoCategoria, "\t\t\t<option value='". $row["id"]."'>".$row["tipo_categoria"]."</option>\n");
+                        }
+                    }
+                    else{
+                        echo "<p style='text-align:center'>Erro executando UPDATE: " . $conn-> error . "</p>";
+                    }
+                    $conn->close();
+                    ?>
 
                     <div class="w3-responsive w3-card-4">
                         <div class="w3-container w3-theme">
@@ -57,6 +82,18 @@
                                     <label class="w3-text-IE"><b>Nome</b>*</label>
                                     <input class="w3-input w3-border w3-light-grey" name="Nome" type="text" pattern="[a-zA-Z\u00C0-\u00FF ]{5,100}$"
                                         title="Nome entre 5 e 100 letras." required></p>
+
+                                <p>
+                                    <label class="w3-text-IE"><b>Tipo de Categoria</b>*</label>
+                                    <select name="TipoCategoria" id="TipoCategoria" class="w3-input w3-border w3-light-grey" required>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <?php
+                                        foreach($optionsProduto as $key => $value){
+                                            echo $value;
+                                        }
+                                    ?>
+                                    </select>
 
                                 <p>
                                 <label class="w3-text-IE"><b>Data de Cadastro</b>*</label>

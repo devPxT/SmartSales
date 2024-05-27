@@ -12,12 +12,6 @@ CREATE TABLE categoria (
     data_updt DATE
 );
 
-CREATE TABLE categoria (
-	id int AUTO_INCREMENT PRIMARY KEY,
-    tipo_categoria int NOT NULL
-);
-
-
 -- Criação da tabela de produtos
 CREATE TABLE produto (
     id int PRIMARY KEY,

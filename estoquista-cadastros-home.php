@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php require "login/verifica-login.php" ?>
+    <?php require "login/verifica-login-estoquista.php" ?>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +9,7 @@
     
     <?php require "geral/links.php" ?>
 </head>
-<body id="cadastro">
+<body id="estoque">
 
     <style>
         .card-body {
@@ -36,7 +36,7 @@
                     </div>
                 </div>
             </a>
-            <a class="col" href="estoquista-lst-estoque.php">
+            <a class="col" href="" onclick="dev(event)">
                 <div class="card">
                     <i class="bi bi-truck" style="font-size: 300px; margin: auto;"></i>
                     <div class="card-body">
